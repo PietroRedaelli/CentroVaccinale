@@ -15,7 +15,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
 
     private static final long serialVersionUID = 1L;
 
-    protected Server() throws RemoteException {
+    public Server() throws RemoteException {
         super();
     }
 
@@ -24,58 +24,46 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         //Usando una query ricerchiamo dentro la tabella CentroVaccinale il nome del centro
         return new ArrayList<CentroVaccinale>();
     }
-
     @Override
     public ArrayList<CentroVaccinale> cercaCentroVaccinale(String comune, String tipologia) throws RemoteException {
         //Usando una query ricerchiamo dentro la tabella CentroVaccinale il nome del centro
         return new ArrayList<CentroVaccinale>();
     }
-
     @Override
     public CentroVaccinale visualizzaInfoCentroVaccinale(CentroVaccinale centroVaccinaleSelezionato) throws RemoteException {
         //usando una query restituiamo le informazioni su un centro vaccianle. La classe centrovaccinale sarà in remoto
         return new CentroVaccinale();
     }
-
     @Override
     public String registraCittadino(Cittadino cittadino) throws RemoteException {
         //ritorna vero se è andato a buon fine, falso se esiste un cittadino registrato
         return "null";
     }
-
     @Override
     public String inserisciEventiAvversi(EventoAvverso eventoAvverso) throws RemoteException {
         //con una query un cittadino inserisce un evento avverso
         return "null";
     }
-
     @Override
     public String registraCentroVaccinale(CentroVaccinale centroVaccinale) throws RemoteException {
         //registrazzione del centro vaccinale e si ritorna una stringa di conferma o di errore
         return "null";
     }
-
     @Override
     public String registraVaccinato(Vaccinato vaccinato) throws RemoteException {
         //registrazzione di una persona vaccinata e si ritorna una stringa di conferma o di errore
+
         return "null";
     }
 
     public static void main(String[] args) {
+        Server server;
         try {
-            new Server().exec();
-        } catch (RemoteException e) {
-            System.err.println("Chiusura server: Errore nel creazione del RemoteObject\n"+e.getMessage());
-            System.exit(0);
-        }
-    }
-
-    private void exec() {
-        try {
+            server = new Server();
             Registry registro = LocateRegistry.createRegistry(1099);
-            registro.rebind("CentroVaccinale", this);
+            registro.rebind("CentroVaccinale", server);
         } catch (RemoteException e) {
-            System.err.println("Errore nella creazione del registro: \n" + e.getMessage());
+            System.err.println("Errore nella creazione del registro: \n"+e.getMessage());
             System.exit(0);
         }
         System.out.println("Server ready");
