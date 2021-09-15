@@ -1,6 +1,6 @@
 package ClientCittadino;
 
-import Server.ServerInterface;
+import ServerPackage.ServerInterface;
 
 import java.io.Serializable;
 import java.rmi.registry.LocateRegistry;

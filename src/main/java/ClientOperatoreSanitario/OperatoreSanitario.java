@@ -1,6 +1,6 @@
 package ClientOperatoreSanitario;
 
-import Server.ServerInterface;
+import ServerPackage.ServerInterface;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
