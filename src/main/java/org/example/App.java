@@ -1,7 +1,9 @@
 package org.example;
 
+import ServerPackage.CentroVaccinale;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -14,16 +16,20 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static Stage stage1;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+        stage1 = stage;
+        scene = new Scene(loadFXML("operatoreSceltaReg"));
+        stage1.setScene(scene);
+        stage1.setTitle("CentroVaccinale");
+        stage1.show();
     }
 
     static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        stage1.setScene(new Scene(loadFXML(fxml)));
+        stage1.centerOnScreen();
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
