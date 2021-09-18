@@ -50,7 +50,7 @@ public class OperatoreRegCentro implements Initializable {
     //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo centro che verranno poi inviati al database e salvati
     public void conferma(){
 
-        if (check()) {
+        if (controlloCampi()) {
 
             String nomeCentro = TFNomeCentro.getText();
             String comune = TFComune.getText();
@@ -61,14 +61,14 @@ public class OperatoreRegCentro implements Initializable {
             String cap = TFCap.getText();
             String tipologia = CBTipo.getValue();
 
-            //System.out.println(nomeCentro+qualificatore+nomeInd+nCivico+comune+sigla+cap+tipologia);
 
             CentroVaccinale centro = new CentroVaccinale(nomeCentro, comune, qualificatore, nomeInd, nCivico, sigla, cap, tipologia);
+            System.out.println(centro);
         }
     }
 
-    //funzione che permette di controllare tutti i campi per poter salvare correttamente tutti i dati del centro che si vuole inserire
-    private boolean check() {
+    //funzione che permette di controllare tutti i campi per poter salvare correttamente i dati del centro che si vuole inserire
+    private boolean controlloCampi() {
 
         boolean controllo = true;
 
@@ -80,27 +80,27 @@ public class OperatoreRegCentro implements Initializable {
         }
 
         if (TFNomeInd.getText().equals("")) {
-            TFNomeInd.setStyle("-fx-prompt-text-fill: red;");   //-fx-prompt-text-fill: gray;
+            TFNomeInd.setStyle("-fx-prompt-text-fill: red;");
             TFNomeInd.setPromptText("Campo mancante!");
             controllo = false;        }
 
         if (TFNCivico.getText().equals("")) {
-            TFNCivico.setStyle("-fx-prompt-text-fill: red;");   //-fx-prompt-text-fill: gray;
+            TFNCivico.setStyle("-fx-prompt-text-fill: red;");
             TFNCivico.setPromptText("Campo mancante!");
             controllo = false;        }
 
         if (TFComune.getText().equals("")) {
-            TFComune.setStyle("-fx-prompt-text-fill: red;");   //-fx-prompt-text-fill: gray;
+            TFComune.setStyle("-fx-prompt-text-fill: red;");
             TFComune.setPromptText("Campo mancante!");
             controllo = false;        }
 
         if (TFSigla.getText().equals("")) {
-            TFSigla.setStyle("-fx-prompt-text-fill: red;");   //-fx-prompt-text-fill: gray;
+            TFSigla.setStyle("-fx-prompt-text-fill: red;");
             TFSigla.setPromptText("Campo mancante!");
             controllo = false;        }
 
         if (TFNomeInd.getText().equals("")) {
-            TFCap.setStyle("-fx-prompt-text-fill: red;");   //-fx-prompt-text-fill: gray;
+            TFCap.setStyle("-fx-prompt-text-fill: red;");
             TFCap.setPromptText("Campo mancante!");
             controllo = false;
         }
