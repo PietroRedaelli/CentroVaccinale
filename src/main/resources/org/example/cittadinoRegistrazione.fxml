@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField layoutX="731.0" layoutY="132.0" prefHeight="66.0" prefWidth="425.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="629.0" layoutY="316.0" AnchorPane.bottomAnchor="379.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="310.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="629.0" layoutY="392.0" AnchorPane.bottomAnchor="299.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="390.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="629.0" layoutY="231.0" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="230.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="488.0" layoutY="47.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Registrazione cittadino" AnchorPane.bottomAnchor="644.0" AnchorPane.leftAnchor="488.0" AnchorPane.rightAnchor="539.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="122.0" layoutY="166.0" text="Nome" AnchorPane.bottomAnchor="540.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1075.0" AnchorPane.topAnchor="150.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="115.0" layoutY="333.0" text="Codice Fiscale" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1006.0" AnchorPane.topAnchor="310.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="132.0" layoutY="423.0" text="UserID" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1015.0" AnchorPane.topAnchor="390.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="135.0" layoutY="512.0" text="Password" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1046.0" AnchorPane.topAnchor="470.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="114.0" layoutY="240.0" text="Cognome" AnchorPane.bottomAnchor="460.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1043.0" AnchorPane.topAnchor="230.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <PasswordField layoutX="629.0" layoutY="469.0" AnchorPane.bottomAnchor="219.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="470.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </PasswordField>
+      <Button layoutX="559.0" layoutY="591.0" mnemonicParsing="false" text="Registrati" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="559.0" AnchorPane.rightAnchor="609.0" AnchorPane.topAnchor="636.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
