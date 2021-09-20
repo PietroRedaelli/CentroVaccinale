@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class CentroVaccinale implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     String nomeCentro;
     String comune;
     String qualif;
@@ -25,6 +27,24 @@ public class CentroVaccinale implements Serializable {
         this.sigla = sigla;
         this.cap = cap;
         this.tipo = tipo;
+    }
+
+    public CentroVaccinale(String nomeCentro) {
+        this.nomeCentro = nomeCentro;
+    }
+
+    @Override
+    public String toString() {
+        return "CentroVaccinale{" +
+                "nomeCentro='" + nomeCentro + '\'' +
+                ", comune='" + comune + '\'' +
+                ", qualif='" + qualif + '\'' +
+                ", nomeInd='" + nomeInd + '\'' +
+                ", civico='" + civico + '\'' +
+                ", sigla='" + sigla + '\'' +
+                ", cap='" + cap + '\'' +
+                ", tipo='" + tipo + '\'' +
+                '}';
     }
 
     public String getNomeCentro() {
