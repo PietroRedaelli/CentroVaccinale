@@ -16,14 +16,22 @@ import java.util.ResourceBundle;
 public class OperatoreRegVacc implements Initializable {
 
     //Elementi grafici della finestra di salvataggio
-    @FXML private Spinner<String> SPCentro;
-    @FXML private TextField TFNome;
-    @FXML private TextField TFCognome;
-    @FXML private TextField TFFisc;
-    @FXML private DatePicker DPData;
-    @FXML private ComboBox<String> CBVacc;
-    @FXML private ComboBox<String> CBDose;
-    @FXML private TextField TFID;
+    @FXML
+    private Spinner<String> SPCentro;
+    @FXML
+    private TextField TFNome;
+    @FXML
+    private TextField TFCognome;
+    @FXML
+    private TextField TFFisc;
+    @FXML
+    private DatePicker DPData;
+    @FXML
+    private ComboBox<String> CBVacc;
+    @FXML
+    private ComboBox<String> CBDose;
+    @FXML
+    private TextField TFID;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,7 +54,7 @@ public class OperatoreRegVacc implements Initializable {
     }
 
     //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo vaccinato che verranno poi inviati al database e salvati
-    public void conferma(){
+    public void conferma() {
 
         if (controlloCampi()) {
 
@@ -73,33 +81,39 @@ public class OperatoreRegVacc implements Initializable {
         if (TFNome.getText().equals("")) {
             TFNome.setStyle("-fx-prompt-text-fill: red;");
             TFNome.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
         if (TFCognome.getText().equals("")) {
             TFCognome.setStyle("-fx-prompt-text-fill: red;");
             TFCognome.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
         if (SPCentro.getValue() != null) {          //RICORDATI DI CAMBIARE IL !=
             //TFNomeCentro.setStyle("-fx-text-inner-color: #E93737;");      sbagliato perché poi anche le tue scritte diventano rosse
             SPCentro.setStyle("-fx-prompt-text-fill: red;");
             SPCentro.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
         if (TFID.getText().equals("")) {
             TFID.setStyle("-fx-prompt-text-fill: red;");
             TFID.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
         if (TFFisc.getText().equals("")) {
             TFFisc.setStyle("-fx-prompt-text-fill: red;");
             TFFisc.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
         if (DPData.getValue() == null) {
             DPData.setStyle("-fx-prompt-text-fill: red;");
             DPData.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
 
         if (CBVacc.getValue() == null) {
