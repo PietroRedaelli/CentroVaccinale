@@ -13,6 +13,7 @@ public class Vaccinato implements Serializable {
     String codiceFisc;
     String data;
     String vaccino;
+    String dose;
 
     //costruttori
     public Vaccinato() {
@@ -25,22 +26,9 @@ public class Vaccinato implements Serializable {
         this.codiceFisc = codiceFisc;
         this.data = data;
         this.vaccino = vaccino;
+        this.dose = dose;
     }
 
-    //metodi
-
-    @Override
-    public String toString() {
-        return "Vaccinato{" +
-                "nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", nomeCentro='" + nomeCentro + '\'' +
-                ", idVacc='" + idVacc + '\'' +
-                ", codiceFisc='" + codiceFisc + '\'' +
-                ", data='" + data + '\'' +
-                ", vaccino='" + vaccino + '\'' +
-                '}';
-    }
     public String getNome() {
         return nome;
     }
@@ -84,5 +72,25 @@ public class Vaccinato implements Serializable {
         this.vaccino = vaccino;
     }
 
+    public String getDose() {
+        return dose;
+    }
 
+    public void setDose(String dose) {
+        this.dose = dose;
+    }
+
+    @Override
+    public String toString() {
+        return "Vaccinato{" +
+                "nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", nomeCentro='" + nomeCentro + '\'' +
+                ", idVacc='" + idVacc + '\'' +
+                ", codiceFisc='" + codiceFisc + '\'' +
+                ", data='" + data + '\'' +
+                ", vaccino='" + vaccino + '\'' +
+                ", dose='" + dose + '\'' +
+                '}';
+    }
 }
