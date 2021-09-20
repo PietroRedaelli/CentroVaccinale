@@ -12,13 +12,13 @@ public class CentroVaccinale implements Serializable {
     String nomeInd;
     String civico;
     String sigla;
-    String cap;
+    int cap;
     String tipo;
 
     public CentroVaccinale(){
     }
 
-    public CentroVaccinale(String nomeCentro, String comune, String qualif, String nomeInd, String civico, String sigla, String cap, String tipo) {
+    public CentroVaccinale(String nomeCentro, String comune, String qualif, String nomeInd, String civico, String sigla, int cap, String tipo) {
         this.nomeCentro = nomeCentro;
         this.comune = comune;
         this.qualif = qualif;
@@ -95,11 +95,11 @@ public class CentroVaccinale implements Serializable {
         this.sigla = sigla;
     }
 
-    public String getCap() {
+    public int getCap() {
         return cap;
     }
 
-    public void setCap(String cap) {
+    public void setCap(int cap) {
         this.cap = cap;
     }
 

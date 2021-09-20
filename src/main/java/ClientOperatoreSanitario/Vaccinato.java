@@ -18,7 +18,7 @@ public class Vaccinato implements Serializable {
     //costruttori
     public Vaccinato() {
     }
-    public Vaccinato(String nome, String cognome, String nomeCentro, String idVacc, String codiceFisc, String data, String vaccino) {
+    public Vaccinato(String nome, String cognome, String nomeCentro, String idVacc, String codiceFisc, String data, String vaccino, String dose) {
         this.nome = nome;
         this.cognome = cognome;
         this.nomeCentro = nomeCentro;

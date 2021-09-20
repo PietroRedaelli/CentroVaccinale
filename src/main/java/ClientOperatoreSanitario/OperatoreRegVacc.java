@@ -1,5 +1,6 @@
-package org.example;
+package ClientOperatoreSanitario;
 
+import ClientOperatoreSanitario.OperatoreSanitarioAPP;
 import ClientOperatoreSanitario.Vaccinato;
 import ServerPackage.CentroVaccinale;
 import javafx.fxml.FXML;
@@ -50,7 +51,7 @@ public class OperatoreRegVacc implements Initializable {
 
     //funzione che permette di tornare indietro alla pagina di scelta
     public void annulla() throws IOException {
-        App.setRoot("operatoreSceltaReg");
+        OperatoreSanitarioAPP.setRoot("operatoreSceltaReg");
     }
 
     //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo vaccinato che verranno poi inviati al database e salvati
@@ -67,8 +68,9 @@ public class OperatoreRegVacc implements Initializable {
             String dose = CBDose.getValue();
             String id = TFID.getText();
 
-            Vaccinato vaccinato = new Vaccinato(nome, cognome, nomeCentro, id, codFisc, data, vaccino, dose);
-            System.out.println(vaccinato);
+            Vaccinato vaccinato = new Vaccinato(nome, cognome, nomeCentro, id, codFisc, data, vaccino, dose );
+            OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
+            operatoreSanitarioAPP.registraVaccinato(vaccinato);
         }
     }
 

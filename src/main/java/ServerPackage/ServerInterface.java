@@ -19,7 +19,7 @@ public interface ServerInterface extends Remote {
     String inserisciEventiAvversi(EventoAvverso eventoAvverso) throws RemoteException;
 
 
-    void registraCentroVaccinale(OperatoreSanitario os, CentroVaccinale centroVaccinale) throws RemoteException;
+    void registraCentroVaccinale(CentroVaccinale centroVaccinale,OperatoreSanitario os) throws RemoteException;
     String registraVaccinato(Vaccinato vaccinato, OperatoreSanitario os) throws RemoteException;
 
     int getCountC() throws RemoteException;

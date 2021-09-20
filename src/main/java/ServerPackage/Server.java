@@ -57,19 +57,26 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return "null";
     }
     @Override
-    public void registraCentroVaccinale(OperatoreSanitario os, CentroVaccinale centroVaccinale) throws RemoteException {
+    public void registraCentroVaccinale(CentroVaccinale centroVaccinale,OperatoreSanitario os) throws RemoteException {
         //registrazzione del centro vaccinale
-        String SQL = "INSERT INTO centri_vaccinali(nome) VALUES(?)";
+        String SQL = "INSERT INTO centri_vaccinali(nome , comune , qualificatore , nome_indirizzo , numero_civico , sigla , cap , tipologia  ) VALUES(?,?,?,?,?,?,?,?)";
         try {
             System.out.println(os + " registrazioneCentroVaccinale: "+ centroVaccinale);
-            PreparedStatement pstmt = DB.prepareStatement(SQL,Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pstmt = DB.prepareStatement(SQL);
             pstmt.setString(1, centroVaccinale.getNomeCentro());
+            pstmt.setString(2, centroVaccinale.getComune());
+            pstmt.setString(3, centroVaccinale.getQualif());
+            pstmt.setString(4, centroVaccinale.getNomeInd());
+            pstmt.setString(5, centroVaccinale.getCivico());
+            pstmt.setString(6, centroVaccinale.getSigla());
+            pstmt.setInt(7, centroVaccinale.getCap());
+            pstmt.setString(8, centroVaccinale.getTipo());
             pstmt.executeUpdate();
+            System.out.println(os + " registrazioneCentroVaccinale avvenuta con successo");
         } catch (SQLException e) {
-            System.out.println(os + ":\n" + e.getMessage());
+            e.printStackTrace();
+            System.out.println(os + ":" + e.getMessage());
         }
-        System.out.println(os + " registrazioneCentroVaccinale avvenuta con successo");
-
     }
     @Override
     public String registraVaccinato(Vaccinato vaccinato, OperatoreSanitario os) throws RemoteException {
@@ -85,11 +92,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
                 PreparedStatement pstmt = DB.prepareStatement(SQL,Statement.RETURN_GENERATED_KEYS);
                 pstmt.setString(1, vaccinato.getNomeCentro());
                 pstmt.executeUpdate();
+                System.out.println(os + " registrazioneVaccinato avvenuta con successo");
             } catch (SQLException e) {
                 System.out.println(os + ":\n" + e.getMessage());
             }
-            System.out.println(os + " registrazioneVaccinato avvenuta con successo");
-
         }else{
             //non esiste tabella allora:
             //1. creo tabella
@@ -133,7 +139,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     private void queryEliminareTupla(String azzate) {
 
         try {
-            String SQL = "DELETE FROM centri_vaccinali WHERE nome = 'Catanzaro'";
+            String SQL = "DELETE FROM centri_vaccinali WHERE nome = 'fsa'";
             Statement pstmt = DB.createStatement();
             pstmt.executeUpdate(SQL);
         } catch (SQLException e) {
@@ -168,8 +174,16 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
             Statement statement = DB.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from centri_vaccinali");
             while(resultSet.next()){
-                String nome = resultSet.getString("nome");
-                System.out.println( nome );
+                String nomeCentro = resultSet.getString("nome");
+                String comune= resultSet.getString("comune");
+                String qualif = resultSet.getString("qualificatore");
+                String nomeInd = resultSet.getString("nome_indirizzo");
+                String civico = resultSet.getString("numero_civico");
+                String sigla = resultSet.getString("sigla");
+                int cap = resultSet.getInt("cap");
+                String tipo = resultSet.getString("tipologia");
+                CentroVaccinale cv = new CentroVaccinale(nomeCentro,comune,qualif,nomeInd,civico,sigla,cap,tipo);
+                System.out.println( cv );
             }
             resultSet.close();
             statement.close();

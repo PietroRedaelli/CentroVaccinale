@@ -1,5 +1,6 @@
-package org.example;
+package ClientOperatoreSanitario;
 
+import ClientOperatoreSanitario.OperatoreSanitarioAPP;
 import ServerPackage.CentroVaccinale;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,7 +45,7 @@ public class OperatoreRegCentro implements Initializable {
 
     //funzione che permette di tornare indietro alla pagina di scelta
     public void annulla() throws IOException {
-        App.setRoot("operatoreSceltaReg");
+        OperatoreSanitarioAPP.setRoot("operatoreSceltaReg");
     }
 
     //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo centro che verranno poi inviati al database e salvati
@@ -58,12 +59,13 @@ public class OperatoreRegCentro implements Initializable {
             String nomeInd = TFNomeInd.getText();
             String nCivico = TFNCivico.getText();
             String sigla = TFSigla.getText();
-            String cap = TFCap.getText();
+            int cap = Integer.parseInt(TFCap.getText());
             String tipologia = CBTipo.getValue();
 
 
             CentroVaccinale centro = new CentroVaccinale(nomeCentro, comune, qualificatore, nomeInd, nCivico, sigla, cap, tipologia);
-            System.out.println(centro);
+            OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
+            operatoreSanitarioAPP.registraCV(centro);
         }
     }
 
