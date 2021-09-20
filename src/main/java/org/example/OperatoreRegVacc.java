@@ -1,7 +1,6 @@
 package org.example;
 
 import ClientOperatoreSanitario.Vaccinato;
-import ServerPackage.CentroVaccinale;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -42,7 +41,7 @@ public class OperatoreRegVacc implements Initializable {
 
     //funzione che permette di tornare indietro alla pagina di scelta
     public void annulla() throws IOException {
-        App.setRoot("operatoreSceltaReg");
+        AppOperatore.setRoot("operatoreSceltaReg");
     }
 
     //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo vaccinato che verranno poi inviati al database e salvati

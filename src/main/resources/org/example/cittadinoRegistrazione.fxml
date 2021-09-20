@@ -4,24 +4,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.CittadinoRegistrazione">
    <children>
-      <TextField layoutX="731.0" layoutY="132.0" prefHeight="66.0" prefWidth="425.0">
+      <TextField fx:id="nome" layoutX="731.0" layoutY="154.0" prefHeight="31.0" prefWidth="399.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextField layoutX="629.0" layoutY="316.0" AnchorPane.bottomAnchor="379.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="310.0">
+      <TextField fx:id="codicefiscale" layoutX="629.0" layoutY="316.0" AnchorPane.bottomAnchor="379.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="310.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextField layoutX="629.0" layoutY="392.0" AnchorPane.bottomAnchor="299.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="390.0">
+      <TextField fx:id="userid" layoutX="731.0" layoutY="442.0" AnchorPane.bottomAnchor="247.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="442.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextField layoutX="629.0" layoutY="231.0" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="230.0">
+      <TextField fx:id="cognome" layoutX="629.0" layoutY="231.0" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="230.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -41,12 +41,12 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="132.0" layoutY="423.0" text="UserID" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1015.0" AnchorPane.topAnchor="390.0">
+      <Label layoutX="148.0" layoutY="443.0" text="UserID" AnchorPane.bottomAnchor="247.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="1017.0" AnchorPane.topAnchor="443.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="135.0" layoutY="512.0" text="Password" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1046.0" AnchorPane.topAnchor="470.0">
+      <Label layoutX="152.0" layoutY="511.0" text="Password" AnchorPane.bottomAnchor="179.0" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="1044.0" AnchorPane.topAnchor="511.0">
          <font>
             <Font size="20.0" />
          </font>
@@ -56,15 +56,26 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <PasswordField layoutX="629.0" layoutY="469.0" AnchorPane.bottomAnchor="219.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="470.0">
+      <PasswordField fx:id="password" layoutX="732.0" layoutY="510.0" AnchorPane.bottomAnchor="179.0" AnchorPane.leftAnchor="732.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="510.0">
          <font>
             <Font size="15.0" />
          </font>
       </PasswordField>
-      <Button layoutX="559.0" layoutY="591.0" mnemonicParsing="false" text="Registrati" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="559.0" AnchorPane.rightAnchor="609.0" AnchorPane.topAnchor="636.0">
+      <Button fx:id="registratiid" layoutX="875.0" layoutY="637.0" mnemonicParsing="false" onAction="#registrati" text="Registrati" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="875.0" AnchorPane.rightAnchor="293.0" AnchorPane.topAnchor="637.0">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
+      <Button fx:id="annullaid" layoutX="312.0" layoutY="637.0" mnemonicParsing="false" onAction="#annulla" prefHeight="44.0" prefWidth="115.0" text="Annulla">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Label fx:id="emailid" layoutX="152.0" layoutY="369.0" prefHeight="30.0" prefWidth="112.0" text="Email">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="email" layoutX="731.0" layoutY="367.0" prefHeight="30.0" prefWidth="399.0" />
    </children>
 </AnchorPane>

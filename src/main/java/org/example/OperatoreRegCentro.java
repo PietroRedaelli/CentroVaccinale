@@ -44,7 +44,7 @@ public class OperatoreRegCentro implements Initializable {
 
     //funzione che permette di tornare indietro alla pagina di scelta
     public void annulla() throws IOException {
-        App.setRoot("operatoreSceltaReg");
+        AppOperatore.setRoot("operatoreSceltaReg");
     }
 
     //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo centro che verranno poi inviati al database e salvati
