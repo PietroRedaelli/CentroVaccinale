@@ -3,6 +3,7 @@ module org.example {
     requires javafx.fxml;
     requires java.rmi;
     requires java.sql;
+    requires org.controlsfx.controls;
 
     exports ServerPackage;
     exports ClientOperatoreSanitario;

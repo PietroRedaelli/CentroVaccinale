@@ -17,19 +17,18 @@ public class OperatoreSanitarioAPP extends Application {
 
     private static OperatoreSanitario os = new OperatoreSanitario();
     private static ServerInterface si;
-    private static Scene scene;
     private static Stage stage1;
 
 
     public static void main(String[] args){
-        connessione_server();
+        //connessione_server();
         launch();
     }
 
     @Override
     public void start(Stage stage) throws IOException {
         stage1 = stage;
-        scene = new Scene(loadFXML("operatoreSceltaReg"));
+        Scene scene = new Scene(loadFXML("operatoreSceltaReg"));
         stage1.setScene(scene);
         stage1.setTitle("CentroVaccinale");
         stage1.show();

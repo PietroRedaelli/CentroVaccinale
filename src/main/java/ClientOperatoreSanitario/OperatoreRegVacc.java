@@ -2,6 +2,8 @@ package ClientOperatoreSanitario;
 
 import ClientOperatoreSanitario.OperatoreSanitarioAPP;
 import ClientOperatoreSanitario.Vaccinato;
+import Grafics.ConfirmBoxCentro;
+import Grafics.ConfirmBoxVacc;
 import ServerPackage.CentroVaccinale;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class OperatoreRegVacc implements Initializable {
@@ -46,6 +49,9 @@ public class OperatoreRegVacc implements Initializable {
         CBDose.setVisibleRowCount(3);
         CBDose.setEditable(false);
         CBDose.setPromptText("/");
+        
+        //si può inserire direttamente la data odierna?
+        DPData.setValue(LocalDate.now());
 
     }
 
@@ -60,18 +66,34 @@ public class OperatoreRegVacc implements Initializable {
         if (controlloCampi()) {
 
             String nomeCentro = SPCentro.getValue();
-            String nome = TFNome.getText();
-            String cognome = TFCognome.getText();
-            String codFisc = TFFisc.getText();
+            String nome = TFNome.getText().trim();
+            String cognome = TFCognome.getText().trim();
+            String codFisc = TFFisc.getText().trim();
             String data = DPData.getValue().toString();
             String vaccino = CBVacc.getValue();
             String dose = CBDose.getValue();
-            String id = TFID.getText();
+            String id = TFID.getText().trim();
 
             Vaccinato vaccinato = new Vaccinato(nome, cognome, nomeCentro, id, codFisc, data, vaccino, dose );
-            OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
-            operatoreSanitarioAPP.registraVaccinato(vaccinato);
+
+            boolean conferma = ConfirmBoxVacc.start(nomeCentro, nome + " " + cognome,  codFisc, data, vaccino + " " + dose, id);
+
+            if (conferma) {
+                azzeraCampi();
+            }
         }
+    }
+
+    private void azzeraCampi() {
+
+        SPCentro.cancelEdit();
+        TFNome.clear();
+        TFCognome.clear();
+        TFFisc.clear();
+        //DPData.getEditor().clear();
+        CBVacc.valueProperty().set(null);
+        CBDose.valueProperty().set(null);
+        TFID.clear();
     }
 
     //funzione che permette di controllare tutti i campi per poter salvare correttamente i dati del vaccinato che si vuole inserire
