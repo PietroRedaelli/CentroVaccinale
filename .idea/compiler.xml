@@ -10,4 +10,9 @@
       </profile>
     </annotationProcessing>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="CentroVaccinale" options="--add-exports javafx.controls/com.sun.javafx.scene.control.skin=org.example" />
+    </option>
+  </component>
 </project>

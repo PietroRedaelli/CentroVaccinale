@@ -19,7 +19,7 @@ public class ClienteRegEvento implements Initializable {
 
     //elementi del primo pannello
     @FXML private TextField TFUser;
-    @FXML private TextField TFPassword;
+    @FXML private PasswordField PFPassword;
     @FXML private Label LBErrPass;
     @FXML private Label LBErrUser;
 
@@ -50,7 +50,7 @@ public class ClienteRegEvento implements Initializable {
         if (controlloDB()) {
             pane1.setVisible(false);
             TFUser.clear();
-            TFPassword.clear();
+            PFPassword.clear();
             LBErrPass.setVisible(false);
             LBErrUser.setVisible(false);
             pane2.setVisible(true);
@@ -66,7 +66,7 @@ public class ClienteRegEvento implements Initializable {
     //funzione che controlla la correttezza dei dati di login
     private boolean controlloDB() {
         String userid = TFUser.getText().trim();
-        String password = TFPassword.getText().trim();
+        String password = PFPassword.getText().trim();
 
         //ricerca nel DB...
 

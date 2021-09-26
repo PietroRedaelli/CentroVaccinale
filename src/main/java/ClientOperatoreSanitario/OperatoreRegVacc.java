@@ -57,7 +57,7 @@ public class OperatoreRegVacc implements Initializable {
 
     //funzione che permette di tornare indietro alla pagina di scelta
     public void annulla() throws IOException {
-        OperatoreSanitarioAPP.setRoot("operatoreSceltaReg");
+        OperatoreSanitarioAPP.setRoot("operatoreSceltaReg.fxml");
     }
 
     //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo vaccinato che verranno poi inviati al database e salvati

@@ -3,9 +3,11 @@ package ClientOperatoreSanitario;
 import ServerPackage.CentroVaccinale;
 import ServerPackage.ServerInterface;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +20,8 @@ public class OperatoreSanitarioAPP extends Application {
     private static OperatoreSanitario os = new OperatoreSanitario();
     private static ServerInterface si;
     private static Stage stage1;
+    @FXML private Button BTRegCentro;
+    @FXML private Button BTRegVacc;
 
 
     public static void main(String[] args){
@@ -28,7 +32,9 @@ public class OperatoreSanitarioAPP extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage1 = stage;
-        Scene scene = new Scene(loadFXML("operatoreSceltaReg"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("operatoreSceltaReg.fxml"));
+        //Parent root = loader.load();
+        Scene scene = new Scene(loadFXML("operatoreSceltaReg.fxml"));
         stage1.setScene(scene);
         stage1.setTitle("CentroVaccinale");
         stage1.show();
@@ -45,7 +51,7 @@ public class OperatoreSanitarioAPP extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(OperatoreSanitarioAPP.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(OperatoreSanitarioAPP.class.getClassLoader().getResource(fxml));
         return fxmlLoader.load();
     }
 
