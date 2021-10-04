@@ -20,12 +20,10 @@ public class OperatoreSanitarioAPP extends Application {
     private static OperatoreSanitario os = new OperatoreSanitario();
     private static ServerInterface si;
     private static Stage stage1;
-    @FXML private Button BTRegCentro;
-    @FXML private Button BTRegVacc;
 
 
     public static void main(String[] args){
-        //connessione_server();
+        connessione_server();
         launch();
     }
 
@@ -38,10 +36,7 @@ public class OperatoreSanitarioAPP extends Application {
         stage1.setScene(scene);
         stage1.setTitle("CentroVaccinale");
         stage1.show();
-        stage1.setMinHeight(400);
-        stage1.setMinWidth(600);
-        stage1.setMaxHeight(800);
-        stage1.setMaxWidth(1000);
+        stage1.setResizable(false);
         //stage1.setMaximized(true);    per far partire l'app direttamente in fullscreen
     }
 

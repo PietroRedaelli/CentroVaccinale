@@ -1,5 +1,7 @@
 package Grafics;
 
+import ClientOperatoreSanitario.OperatoreSanitarioAPP;
+import ServerPackage.CentroVaccinale;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,12 +13,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-//Classe che genera una finestra che riassume i dati inseriti prima di salvarli nel database
+//Classe che genera una finestra dove vengono riassunti i dati inseriti prima di salvarli definitivamente nel database
 public class ConfirmBoxCentro {
 
     static boolean risposta;
 
-    public static boolean start(String nomeCentro, String indirizzo, String tipologia) {
+    //funzione chiamata per generare la nuova finestra di conferma
+    public static boolean start(String nomeCentro, String indirizzo, String tipologia, CentroVaccinale centroVaccinale) {
         //creazione della pagina
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -45,20 +48,23 @@ public class ConfirmBoxCentro {
         Button bConferma = new Button("Conferma");
         bConferma.setFont(Font.font(18));
 
-        //comportamento dei due bottoni presenti
+        /*premendo il bottone 'annulla' la pagina corrente si chiude e si ritorna alla pagina di registrazione del centro
+        per modificare eventuali dati errati*/
         bAnnulla.setOnAction(e -> {
             risposta = false;
             stage.close();
         });
 
+        /*premendo il bottone 'conferma' la pagina corrente si chiude, il centro viene salvato nel database e si ritorna
+        alla pagina di registrazione in cui tutte le informazioni inserite vengono cancellate per poterne registrare
+        comodamente un altro*/
         bConferma.setOnAction(e -> {
             if (controlloDB()) {
-            risposta = true;
-            //OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
-            //operatoreSanitarioAPP.registraCV(centro);
-            stage.close();
-            }
-            else {
+                risposta = true;
+                OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
+                operatoreSanitarioAPP.registraCV(centroVaccinale);
+                stage.close();
+            } else {
                 conferma.setText("Centro già registrato!");
                 conferma.setStyle("-fx-text-fill: red;");
             }

@@ -1,11 +1,9 @@
 package ServerPackage;
 
-
 import ClientCittadino.Cittadino;
 import ClientCittadino.EventoAvverso;
 import ClientOperatoreSanitario.OperatoreSanitario;
 import ClientOperatoreSanitario.Vaccinato;
-
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -17,9 +15,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
 
     private static final long serialVersionUID = 1L;
 
-    protected String url_DB = "jdbc:postgresql://localhost/Lab.B" ;
+    protected String url_DB = "jdbc:postgresql://localhost:5432/LabB" ;
     protected String user_DB = "postgres";
-    protected String password_DB = "Password" ;
+    protected String password_DB = "F4/=rb91d&w3" ;
 
     protected static Connection DB = null;
 
@@ -59,7 +57,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     @Override
     public void registraCentroVaccinale(CentroVaccinale centroVaccinale,OperatoreSanitario os) throws RemoteException {
         //registrazzione del centro vaccinale
-        String SQL = "INSERT INTO centri_vaccinali(nome , comune , qualificatore , nome_indirizzo , numero_civico , sigla , cap , tipologia  ) VALUES(?,?,?,?,?,?,?,?)";
+        String SQL = "INSERT INTO centri_vaccinali(nome, comune, qualificatore, indirizzo, numero_civico, sigla, cap, tipologia) VALUES(?,?,?,?,?,?,?,?)";
         try {
             System.out.println(os + " registrazioneCentroVaccinale: "+ centroVaccinale);
             PreparedStatement pstmt = DB.prepareStatement(SQL);
@@ -177,7 +175,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
                 String nomeCentro = resultSet.getString("nome");
                 String comune= resultSet.getString("comune");
                 String qualif = resultSet.getString("qualificatore");
-                String nomeInd = resultSet.getString("nome_indirizzo");
+                String nomeInd = resultSet.getString("indirizzo");
                 String civico = resultSet.getString("numero_civico");
                 String sigla = resultSet.getString("sigla");
                 int cap = resultSet.getInt("cap");

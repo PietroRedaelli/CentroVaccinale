@@ -8,15 +8,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//Classe che gestisce la registrazione di un nuovo cenro vaccinale
+//Classe che gestisce la registrazione di un nuovo centro vaccinale
 
 public class OperatoreRegCentro implements Initializable {
-
 
     //Elementi grafici della finestra di salvataggio
     @FXML private ComboBox<String> CBQualific;
@@ -29,10 +29,11 @@ public class OperatoreRegCentro implements Initializable {
     @FXML private TextField TFCap;
 
 
-    //funzione che inizializza i ComboBox presenti nella pagina di registrazione inserendo tutte le opzioni possibili di scelta
+    //funzione che inizializza gli elementi grafici
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
 
+        //inizializzazione ComboBox presenti nella pagina di registrazione del centro
         CBQualific.getItems().addAll("Via", "Viale", "Piazza");
         CBQualific.setVisibleRowCount(3);
         CBQualific.setEditable(false);
@@ -43,7 +44,7 @@ public class OperatoreRegCentro implements Initializable {
         CBTipo.setEditable(false);
         CBTipo.setPromptText("--seleziona--");
 
-        //listener che permette di inserire solamente numeri all'interno dela textfield associato al CAP
+        //listener che permette di inserire solamente numeri all'interno del textfield associato al CAP
         TFCap.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -54,6 +55,26 @@ public class OperatoreRegCentro implements Initializable {
             }
         });
 
+        //Serve per limitare ad un massimo 5 caratteri il CAP
+        TFCap.setTextFormatter(new TextFormatter<String>(change ->
+                change.getControlNewText().length() <= 5 ? change : null));
+
+        //listener che fa diventare ciò che si scrive maiuscolo
+        TFSigla.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                TFSigla.setText(newValue.toUpperCase());
+            }
+        });
+
+        //Serve per limitare ad un massimo 2 caratteri la sigla
+        TFSigla.setTextFormatter(new TextFormatter<String>(change ->
+                change.getControlNewText().length() <= 2 ? change : null));
+
+        //Serve per limitare ad un massimo 4 caratteri il numero civico
+        TFNCivico.setTextFormatter(new TextFormatter<String>(change ->
+                change.getControlNewText().length() <= 4 ? change : null));
     }
 
     //funzione che permette di tornare indietro alla pagina di scelta
@@ -77,31 +98,16 @@ public class OperatoreRegCentro implements Initializable {
 
             CentroVaccinale centro = new CentroVaccinale(nomeCentro, comune, qualificatore, nomeInd, nCivico, sigla, cap, tipologia);
 
-            //con questa serie di operazioni si può aprire la nuova finestra
-            /*
-            Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("clienteRegEvento.fxml"));
-            stage.setScene(new Scene(fxmlLoader.load()));
-            stage.setTitle("Conferma");
-            stage.initModality(Modality.APPLICATION_MODAL);     //la finestra in backgroud non può essere cliccata fin quando la nuova finestra non viene chiusa
-            stage.setResizable(false);
-            stage.show();
-
-            OperatorePostReg operatorePostReg = fxmlLoader.getController();
-            operatorePostReg.inviaDati(nomeCentro, qualificatore + " " + nomeInd + ", " + nCivico + "\n" + cap + " " + comune + " " + sigla, tipologia);
-            operatorePostReg.inviaCentro(centro);*/
-
-            boolean conferma = ConfirmBoxCentro.start(nomeCentro, qualificatore + " " + nomeInd + ", " + nCivico + " " + cap + " " + comune + " " + sigla, tipologia);
+            boolean conferma = ConfirmBoxCentro.start(nomeCentro, qualificatore + " " + nomeInd + ", " + nCivico + " " + cap + " " + comune + " " + sigla, tipologia, centro);
 
             if (conferma) {
                 azzeraCampi();
             }
-
         }
     }
 
+    //funzione che azzera i campi dopo aver registrato correttamente un centro
     public void azzeraCampi() {
-
         TFNomeCentro.clear();
         TFNomeInd.clear();
         TFNCivico.clear();
@@ -112,13 +118,12 @@ public class OperatoreRegCentro implements Initializable {
         CBTipo.valueProperty().set(null);
     }
 
-    //funzione che permette di controllare tutti i campi per poter salvare correttamente i dati del centro che si vuole inserire
+    //funzione che controlla i campi per poter salvare correttamente i dati del centro
     private boolean controlloCampi() {
 
         boolean controllo = true;
 
         if (TFNomeCentro.getText().equals("")) {
-            //TFNomeCentro.setStyle("-fx-text-inner-color: #E93737;");      sbagliato perché poi anche le tue scritte diventano rosse
             TFNomeCentro.setStyle("-fx-prompt-text-fill: red;");
             TFNomeCentro.setPromptText("Campo mancante!");
             controllo = false;
@@ -127,22 +132,26 @@ public class OperatoreRegCentro implements Initializable {
         if (TFNomeInd.getText().equals("")) {
             TFNomeInd.setStyle("-fx-prompt-text-fill: red;");
             TFNomeInd.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
         if (TFNCivico.getText().equals("")) {
             TFNCivico.setStyle("-fx-prompt-text-fill: red;");
             TFNCivico.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
         if (TFComune.getText().equals("")) {
             TFComune.setStyle("-fx-prompt-text-fill: red;");
             TFComune.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
         if (TFSigla.getText().equals("")) {
             TFSigla.setStyle("-fx-prompt-text-fill: red;");
             TFSigla.setPromptText("Campo mancante!");
-            controllo = false;        }
+            controllo = false;
+        }
 
         if (TFCap.getText().equals("")) {
             TFCap.setStyle("-fx-prompt-text-fill: red;");
@@ -151,13 +160,11 @@ public class OperatoreRegCentro implements Initializable {
         }
 
         if (CBQualific.getValue() == null) {
-            //CBQualific.setStyle("-fx-text-fill: derive(-fx-control-inner-background,-80%)");  ne ho provati tanti ma non funzionano
             CBQualific.setPromptText("SELEZIONA");
             controllo = false;
         }
 
         if (CBTipo.getValue() == null) {
-            //CBTipo.setStyle("-fx-prompt-text-fill: red;");
             CBTipo.setPromptText("SELEZIONA");
             controllo = false;
         }
