@@ -19,7 +19,7 @@ public class ConfirmBoxVacc {
     static boolean risposta;
 
     //funzione chiamata per generare la nuova finestra di conferma
-    public static boolean start(String nomeCentro, String vaccinato, String codFisc, String data, String vaccino, String id, Vaccinato vaccinatoDaRegistrare) {
+    public static boolean start(int centroID, String nomeCentro, String vaccinato, String codFisc, String data, String vaccino, String id, Vaccinato vaccinatoDaRegistrare) {
         //creazione della pagina
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);

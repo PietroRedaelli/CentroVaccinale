@@ -1,11 +1,19 @@
 package ClientOperatoreSanitario;
 
 import Grafics.ConfirmBoxVacc;
+import ServerPackage.CentroVaccinale;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -16,7 +24,7 @@ import java.util.ResourceBundle;
 public class OperatoreRegVacc implements Initializable {
 
     //Elementi grafici della finestra di salvataggio
-    @FXML private Spinner<String> SPCentro;
+    @FXML private TextField TFCentro;
     @FXML private TextField TFNome;
     @FXML private TextField TFCognome;
     @FXML private TextField TFFisc;
@@ -25,9 +33,16 @@ public class OperatoreRegVacc implements Initializable {
     @FXML private ComboBox<String> CBDose;
     @FXML private TextField TFID;
 
+    protected static TextField staticLabel;
+    protected static CentroVaccinale centroRV;
+
+
     //funzione che inizializza gli elementi grafici
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        //istruzione fondamentale per poter scrivere in TFCentro il centro seleaionato nella finestra SceltaCentro
+        staticLabel = TFCentro;
 
         //inizializzazione ComboBox presenti nella pagina di registrazione del vaccinato
         CBVacc.getItems().addAll("Pfizer", "AstraZeneca", "Moderna", "J&J");
@@ -77,12 +92,24 @@ public class OperatoreRegVacc implements Initializable {
         OperatoreSanitarioAPP.setRoot("operatoreSceltaReg.fxml");
     }
 
+    //funzione che apre una nuova finestra per la selezione del centro
+    public void selezionaCentro(ActionEvent actionEvent) throws IOException {
+        //apro una nuova finestra
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sceltaCentro.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Selezione Centro");
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
     //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo vaccinato che verranno poi inviati al database e salvati
     public void conferma() {
 
         if (controlloCampi()) {
 
-            String nomeCentro = SPCentro.getValue();
+            String nomeCentro = TFCentro.getText();
             String nome = TFNome.getText().trim();
             String cognome = TFCognome.getText().trim();
             String codFisc = TFFisc.getText().trim();
@@ -93,7 +120,7 @@ public class OperatoreRegVacc implements Initializable {
 
             Vaccinato vaccinato = new Vaccinato(nome, cognome, nomeCentro, id, codFisc, data, vaccino, dose);
 
-            boolean conferma = ConfirmBoxVacc.start(nomeCentro, nome + " " + cognome, codFisc, data, vaccino + " " + dose, id, vaccinato);
+            boolean conferma = ConfirmBoxVacc.start(centroRV.getID(), nomeCentro, nome + " " + cognome, codFisc, data, vaccino + " " + dose, id, vaccinato);
 
             if (conferma) {
                 azzeraCampi();
@@ -103,7 +130,6 @@ public class OperatoreRegVacc implements Initializable {
 
     //funzione che azzera i campi dopo aver registrato correttamente un vaccinato
     private void azzeraCampi() {
-        SPCentro.cancelEdit();
         TFNome.clear();
         TFCognome.clear();
         TFFisc.clear();
@@ -129,10 +155,9 @@ public class OperatoreRegVacc implements Initializable {
             controllo = false;
         }
 
-        if (SPCentro.getValue() != null) {          //RICORDATI DI CAMBIARE IL !=
-            //TFNomeCentro.setStyle("-fx-text-inner-color: #E93737;");      sbagliato perché poi anche le tue scritte diventano rosse
-            SPCentro.setStyle("-fx-prompt-text-fill: red;");
-            SPCentro.setPromptText("Campo mancante!");
+        if (TFCentro.getText().equals("")) {
+            TFCentro.setStyle("-fx-prompt-text-fill: red;");
+            TFCentro.setPromptText("Campo mancante!");
             controllo = false;
         }
 

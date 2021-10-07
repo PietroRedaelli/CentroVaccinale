@@ -6,14 +6,15 @@ public class CentroVaccinale implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String nomeCentro;
-    String comune;
-    String qualif;
-    String nomeInd;
-    String civico;
-    String sigla;
-    int cap;
-    String tipo;
+    private int ID;
+    private String nomeCentro;
+    private String comune;
+    private String qualif;
+    private String nomeInd;
+    private String civico;
+    private String sigla;
+    private int cap;
+    private String tipo;
 
     public CentroVaccinale(){
     }
@@ -29,22 +30,18 @@ public class CentroVaccinale implements Serializable {
         this.tipo = tipo;
     }
 
+    public CentroVaccinale(int ID, String nomeCentro, String comune, String qualif, String nomeInd, String civico, String sigla, int cap, String tipo) {
+        this(nomeCentro, comune, qualif, nomeInd, civico, sigla, cap, tipo);
+        this.ID = ID;
+    }
+
     public CentroVaccinale(String nomeCentro) {
         this.nomeCentro = nomeCentro;
     }
 
     @Override
     public String toString() {
-        return "CentroVaccinale{" +
-                "nomeCentro='" + nomeCentro + '\'' +
-                ", comune='" + comune + '\'' +
-                ", qualif='" + qualif + '\'' +
-                ", nomeInd='" + nomeInd + '\'' +
-                ", civico='" + civico + '\'' +
-                ", sigla='" + sigla + '\'' +
-                ", cap='" + cap + '\'' +
-                ", tipo='" + tipo + '\'' +
-                '}';
+        return nomeCentro + " " + tipo + ", " + qualif + " " + nomeInd + " " + civico + ", " + comune + " " + sigla + " " + cap;
     }
 
     public String getNomeCentro() {
@@ -111,4 +108,7 @@ public class CentroVaccinale implements Serializable {
         this.tipo = tipo;
     }
 
+    public int getID() {return ID;}
+
+    public void setID(int ID) { this.ID = ID; }
 }

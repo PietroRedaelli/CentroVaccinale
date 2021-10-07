@@ -3,17 +3,15 @@ package ClientOperatoreSanitario;
 import ServerPackage.CentroVaccinale;
 import ServerPackage.ServerInterface;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 public class OperatoreSanitarioAPP extends Application {
 
@@ -87,6 +85,30 @@ public class OperatoreSanitarioAPP extends Application {
         System.out.println("Registrato "+vaccinato);
     }
 
+    public ArrayList<CentroVaccinale> cercaCentro(String nome) {
+        System.out.println("ricerca centro vaccinale");
+        ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
+        try {
+            arrayListRicevuto = si.cercaCentroVaccinale(nome);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        System.out.println(arrayListRicevuto.size());
+        System.out.println("Trovato centro: "+nome);
+        return arrayListRicevuto;
+    }
+
+    public ArrayList<CentroVaccinale> cercaCentro(String comune, String tipologia) {
+        System.out.println("ricerca centro vaccinale");
+        ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
+        try {
+            arrayListRicevuto = si.cercaCentroVaccinale(comune, tipologia);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Trovato centro richiesto");
+        return arrayListRicevuto;
+    }
 /*
     int id;
     Notizia notiziaPolitica;

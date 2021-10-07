@@ -32,12 +32,61 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     @Override
     public ArrayList<CentroVaccinale> cercaCentroVaccinale(String nomeCentro) throws RemoteException {
         //Usando una query ricerchiamo dentro la tabella CentroVaccinale il nome del centro
-        return new ArrayList<CentroVaccinale>();
+
+        ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
+
+        try {
+            PreparedStatement statement1 = DB.prepareStatement("select * from centri_vaccinali where nome like ?");
+            statement1.setString(1, "%" + nomeCentro + "%");
+            ResultSet resultSet = statement1.executeQuery();
+            while(resultSet.next()){
+                int ID = resultSet.getInt("id");
+                String centro = resultSet.getString("nome");
+                String comune= resultSet.getString("comune");
+                String qualif = resultSet.getString("qualificatore");
+                String nomeInd = resultSet.getString("indirizzo");
+                String civico = resultSet.getString("numero_civico");
+                String sigla = resultSet.getString("sigla");
+                int cap = resultSet.getInt("cap");
+                String tipo = resultSet.getString("tipologia");
+                CentroVaccinale cv = new CentroVaccinale(ID, centro,comune,qualif,nomeInd,civico,sigla,cap,tipo);
+                arrayListCentri.add(cv);
+            }
+            resultSet.close();
+            statement1.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arrayListCentri;
     }
     @Override
-    public ArrayList<CentroVaccinale> cercaCentroVaccinale(String comune, String tipologia) throws RemoteException {
+    public ArrayList<CentroVaccinale> cercaCentroVaccinale(String comuneInserito, String tipologia) throws RemoteException {
         //Usando una query ricerchiamo dentro la tabella CentroVaccinale il nome del centro
-        return new ArrayList<CentroVaccinale>();
+
+        ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
+
+        try {
+            Statement statement = DB.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from centri_vaccinali where comune = " + comuneInserito + " and tipologia = " + tipologia);
+            while(resultSet.next()){
+                int ID = resultSet.getInt("id");
+                String centro = resultSet.getString("nome");
+                String comune = resultSet.getString("comune");
+                String qualif = resultSet.getString("qualificatore");
+                String nomeInd = resultSet.getString("indirizzo");
+                String civico = resultSet.getString("numero_civico");
+                String sigla = resultSet.getString("sigla");
+                int cap = resultSet.getInt("cap");
+                String tipo = resultSet.getString("tipologia");
+                CentroVaccinale cv = new CentroVaccinale(ID, centro,comune,qualif,nomeInd,civico,sigla,cap,tipo);
+                arrayListCentri.add(cv);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arrayListCentri;
     }
     @Override
     public CentroVaccinale visualizzaInfoCentroVaccinale(CentroVaccinale centroVaccinaleSelezionato) throws RemoteException {
