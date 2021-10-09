@@ -85,6 +85,7 @@ public class OperatoreSanitarioAPP extends Application {
         System.out.println("Registrato "+vaccinato);
     }
 
+    //funzione che chiede al server di cercare il centro richiesto
     public ArrayList<CentroVaccinale> cercaCentro(String nome) {
         System.out.println("ricerca centro vaccinale");
         ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
@@ -98,6 +99,7 @@ public class OperatoreSanitarioAPP extends Application {
         return arrayListRicevuto;
     }
 
+    //funzione che chiede al server di cercare il centro richiesto
     public ArrayList<CentroVaccinale> cercaCentro(String comune, String tipologia) {
         System.out.println("ricerca centro vaccinale");
         ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
@@ -108,6 +110,17 @@ public class OperatoreSanitarioAPP extends Application {
         }
         System.out.println("Trovato centro richiesto");
         return arrayListRicevuto;
+    }
+
+    public boolean controllaEsistenzaCentro(CentroVaccinale cv) {
+        System.out.println("controllo esistenza centro");
+        boolean risultato = false;
+        try {
+            risultato = si.controllaCentro(cv);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return risultato;
     }
 /*
     int id;

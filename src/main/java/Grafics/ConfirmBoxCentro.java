@@ -17,9 +17,13 @@ import javafx.stage.Stage;
 public class ConfirmBoxCentro {
 
     static boolean risposta;
+    private static CentroVaccinale cv;
 
     //funzione chiamata per generare la nuova finestra di conferma
-    public static boolean start(String nomeCentro, String indirizzo, String tipologia, CentroVaccinale centroVaccinale) {
+    public static boolean start(CentroVaccinale centroVaccinale) {
+
+        cv = centroVaccinale;
+
         //creazione della pagina
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -32,15 +36,15 @@ public class ConfirmBoxCentro {
         conferma.setFont(Font.font(18));
 
         Label centro = new Label();
-        centro.setText("Nome:  " + nomeCentro);
+        centro.setText("Nome:  " + centroVaccinale.getNomeCentro());
         centro.setFont(Font.font(18));
 
         Label ind = new Label();
-        ind.setText("Indirizzo:  " + indirizzo);
+        ind.setText("Indirizzo:  " + centroVaccinale.getIndirizzoCentro());
         ind.setFont(Font.font(18));
 
         Label tipo = new Label();
-        tipo.setText("Tipologia:   " + tipologia);
+        tipo.setText("Tipologia:   " + centroVaccinale.getTipo());
         tipo.setFont(Font.font(18));
 
         Button bAnnulla = new Button("Annulla");
@@ -59,7 +63,9 @@ public class ConfirmBoxCentro {
         alla pagina di registrazione in cui tutte le informazioni inserite vengono cancellate per poterne registrare
         comodamente un altro*/
         bConferma.setOnAction(e -> {
-            if (controlloDB()) {
+            //si cerca il contrario perché se la funzione ritorna 'false' allora non esiste un centro uguale a quello inserito,
+            // quindi posso registrare quello che sto inserendo
+            if (!controlloDB()) {
                 risposta = true;
                 OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
                 operatoreSanitarioAPP.registraCV(centroVaccinale);
@@ -91,6 +97,7 @@ public class ConfirmBoxCentro {
 
     //funzione che controlla se il centro che si sta inserendo non sia già stato registrato nel database
     private static boolean controlloDB() {
-        return true;
+        OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
+        return operatoreSanitarioAPP.controllaEsistenzaCentro(cv);
     }
 }

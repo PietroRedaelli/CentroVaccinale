@@ -53,7 +53,7 @@ public class SceltaCentro extends OperatoreRegVacc implements Initializable {
 
         TCId.setCellValueFactory(new PropertyValueFactory<>("ID"));
         TCNome.setCellValueFactory(new PropertyValueFactory<>("nomeCentro"));
-        TCInd.setCellValueFactory(new PropertyValueFactory<>("nomeInd"));
+        TCInd.setCellValueFactory(new PropertyValueFactory<>("indirizzoCentro"));
         TCCivico.setCellValueFactory(new PropertyValueFactory<>("civico"));
         TCComune.setCellValueFactory(new PropertyValueFactory<>("comune"));
         TCSigla.setCellValueFactory(new PropertyValueFactory<>("sigla"));
@@ -78,7 +78,7 @@ public class SceltaCentro extends OperatoreRegVacc implements Initializable {
         stage.close();
     }
 
-    //cerca il centro in base ai dati forniti
+    //Bottone: cerca il centro in base ai dati forniti (o per nome oppure per comune e tipologia)
     public void cercaCentro(ActionEvent actionEvent) {
 
         String comune;

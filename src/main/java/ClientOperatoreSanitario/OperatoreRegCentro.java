@@ -96,9 +96,9 @@ public class OperatoreRegCentro implements Initializable {
             int cap = Integer.parseInt(TFCap.getText().trim());
             String tipologia = CBTipo.getValue();
 
-            CentroVaccinale centro = new CentroVaccinale(nomeCentro, comune, qualificatore, nomeInd, nCivico, sigla, cap, tipologia);
+            CentroVaccinale centro = new CentroVaccinale(nomeCentro, comune, qualificatore + " " + nomeInd, nCivico, sigla, cap, tipologia);
 
-            boolean conferma = ConfirmBoxCentro.start(nomeCentro, qualificatore + " " + nomeInd + ", " + nCivico + " " + cap + " " + comune + " " + sigla, tipologia, centro);
+            boolean conferma = ConfirmBoxCentro.start(centro);
 
             if (conferma) {
                 azzeraCampi();

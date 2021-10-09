@@ -9,8 +9,8 @@ public class CentroVaccinale implements Serializable {
     private int ID;
     private String nomeCentro;
     private String comune;
-    private String qualif;
-    private String nomeInd;
+    //private String qualif;
+    private String indirizzoCentro;
     private String civico;
     private String sigla;
     private int cap;
@@ -19,19 +19,18 @@ public class CentroVaccinale implements Serializable {
     public CentroVaccinale(){
     }
 
-    public CentroVaccinale(String nomeCentro, String comune, String qualif, String nomeInd, String civico, String sigla, int cap, String tipo) {
+    public CentroVaccinale(String nomeCentro, String comune, String indirizzoCentro, String civico, String sigla, int cap, String tipo) {
         this.nomeCentro = nomeCentro;
         this.comune = comune;
-        this.qualif = qualif;
-        this.nomeInd = nomeInd;
+        this.indirizzoCentro = indirizzoCentro;
         this.civico = civico;
         this.sigla = sigla;
         this.cap = cap;
         this.tipo = tipo;
     }
 
-    public CentroVaccinale(int ID, String nomeCentro, String comune, String qualif, String nomeInd, String civico, String sigla, int cap, String tipo) {
-        this(nomeCentro, comune, qualif, nomeInd, civico, sigla, cap, tipo);
+    public CentroVaccinale(int ID, String nomeCentro, String comune, String indirizzoCentro, String civico, String sigla, int cap, String tipo) {
+        this(nomeCentro, comune, indirizzoCentro, civico, sigla, cap, tipo);
         this.ID = ID;
     }
 
@@ -41,7 +40,7 @@ public class CentroVaccinale implements Serializable {
 
     @Override
     public String toString() {
-        return nomeCentro + " " + tipo + ", " + qualif + " " + nomeInd + " " + civico + ", " + comune + " " + sigla + " " + cap;
+        return nomeCentro + " " + tipo + ", " + indirizzoCentro + " " + civico + ", " + comune + " " + sigla + " " + cap;
     }
 
     public String getNomeCentro() {
@@ -60,20 +59,12 @@ public class CentroVaccinale implements Serializable {
         this.comune = comune;
     }
 
-    public String getQualif() {
-        return qualif;
+    public String getIndirizzoCentro() {
+        return indirizzoCentro;
     }
 
-    public void setQualif(String qualif) {
-        this.qualif = qualif;
-    }
-
-    public String getNomeInd() {
-        return nomeInd;
-    }
-
-    public void setNomeInd(String nomeInd) {
-        this.nomeInd = nomeInd;
+    public void setIndirizzoCentro(String indirizzoCentro) {
+        this.indirizzoCentro = indirizzoCentro;
     }
 
     public String getCivico() {
