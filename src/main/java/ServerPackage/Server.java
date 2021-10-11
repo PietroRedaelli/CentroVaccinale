@@ -139,7 +139,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         //registrazzione del centro vaccinale
         String SQL = "INSERT INTO \"CentriVaccinali\"(nome, comune, indirizzo, civico, sigla, cap, tipologia) VALUES(?,?,?,?,?,?,?)";
         try {
-            System.out.println(os + " registrazioneCentroVaccinale: "+ centroVaccinale);
+            System.out.println(os + " registrazione CentroVaccinale: "+ centroVaccinale);
             PreparedStatement pstmt = DB.prepareStatement(SQL);
             pstmt.setString(1, centroVaccinale.getNomeCentro());
             pstmt.setString(2, centroVaccinale.getComune());
@@ -156,31 +156,31 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         }
     }
     @Override
-    public String registraVaccinato(Vaccinato vaccinato, OperatoreSanitario os) throws RemoteException {
+    public void registraVaccinato(Vaccinato vaccinato, OperatoreSanitario os) throws RemoteException {
         //registrazzione di una persona vaccinata e si ritorna una stringa di conferma o di errore
         //in base al centro vaccinale in cui si registra il vaccinato bisogna verificare che la tabella esista
         //se nn esiste la tabella la creo e poi la popolo con il vaccinato
         //altrimenti inserisco il vaccinato nella tabella
-        if(check_tabella_CV(vaccinato)){
-            //esiste tabella allora inserisco il vaccinato
-            String SQL = "INSERT INTO "+vaccinato.getNomeCentro()+"  VALUES(?)";
-            try {
-                System.out.println(os + " registrazioneVaccinato: "+ vaccinato);
-                PreparedStatement pstmt = DB.prepareStatement(SQL,Statement.RETURN_GENERATED_KEYS);
-                pstmt.setString(1, vaccinato.getNomeCentro());
-                pstmt.executeUpdate();
-                System.out.println(os + " registrazioneVaccinato avvenuta con successo");
-            } catch (SQLException e) {
-                System.out.println(os + ":\n" + e.getMessage());
-            }
-        }else{
-            //non esiste tabella allora:
-            //1. creo tabella
-            //2. inserisco tupla
 
+        String SQL = "INSERT INTO \"Vaccinati\"(id, nome, cognome, fiscale, centro, giorno, vaccino, dose) VALUES(?,?,?,?,?,?,?,?)";
+        try {
+            System.out.println(os + " registrazione Vaccinato: " + vaccinato);
+            PreparedStatement pstmt = DB.prepareStatement(SQL);    //, Statement.RETURN_GENERATED_KEYS
+            pstmt.setLong(1,vaccinato.getIdVacc());
+            pstmt.setString(2, vaccinato.getNome());
+            pstmt.setString(3, vaccinato.getCognome());
+            pstmt.setString(4, vaccinato.getCodiceFisc());
+            pstmt.setInt(5, vaccinato.getCentroVacc());
+            pstmt.setString(6, vaccinato.getData());
+            pstmt.setString(7, vaccinato.getVaccino());
+            pstmt.setInt(8, vaccinato.getDose());
+            pstmt.executeUpdate();
+            System.out.println(os + " registrazione Vaccinato avvenuta con successo");
+        } catch (SQLException e) {
+            System.out.println(os + ":\n" + e.getMessage());
         }
+
         System.out.println("metodo registra Vaccinato");
-        return "null";
     }
 
 
@@ -271,7 +271,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     private boolean check_tabella_CV(Vaccinato v) {
         try {
             Statement statement = DB.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from vaccinati_"+ v.getNomeCentro());
+            ResultSet resultSet = statement.executeQuery("select * from vaccinati_"+ v.getCentroVacc());
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
@@ -282,7 +282,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     }
 
     private void createTableVaccinati(Vaccinato v){
-        String queryTable = "CREATE TABLE Vaccinati_"+v.getNomeCentro()+" (" +
+        String queryTable = "CREATE TABLE Vaccinati_"+v.getCentroVacc()+" (" +
                 "    NomeCentro varchar(50) NOT NULL," +
                 "    Nome_Cognome_Vaccinato varchar(50) NOT NULL," +
                 "    CF varchar(20) NOT NULL," +

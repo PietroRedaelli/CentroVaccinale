@@ -85,6 +85,9 @@ public class OperatoreRegVacc implements Initializable {
         //Serve per limitare ad un massimo 16 caratteri l'ID
         TFID.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 16 ? change : null));
+
+        //funzione che genera id univoci
+        //generaIDVaccinazione();
     }
 
     //funzione che permette di tornare indietro alla pagina di scelta
@@ -109,18 +112,17 @@ public class OperatoreRegVacc implements Initializable {
 
         if (controlloCampi()) {
 
-            String nomeCentro = TFCentro.getText();
             String nome = TFNome.getText().trim();
             String cognome = TFCognome.getText().trim();
             String codFisc = TFFisc.getText().trim();
             String data = DPData.getValue().toString();
             String vaccino = CBVacc.getValue();
-            String dose = CBDose.getValue();
-            String id = TFID.getText().trim();
+            int dose = Integer.parseInt(CBDose.getValue());
+            long id = Long.parseLong(TFID.getText());
 
-            Vaccinato vaccinato = new Vaccinato(nome, cognome, nomeCentro, id, codFisc, data, vaccino, dose);
+            Vaccinato vaccinato = new Vaccinato(nome, cognome, centroRV.getID(), id, codFisc, data, vaccino, dose);
 
-            boolean conferma = ConfirmBoxVacc.start(centroRV.getID(), nomeCentro, nome + " " + cognome, codFisc, data, vaccino + " " + dose, id, vaccinato);
+            boolean conferma = ConfirmBoxVacc.start(vaccinato, centroRV.toString());
 
             if (conferma) {
                 azzeraCampi();

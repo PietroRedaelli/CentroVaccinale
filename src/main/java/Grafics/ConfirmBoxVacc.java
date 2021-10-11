@@ -19,7 +19,7 @@ public class ConfirmBoxVacc {
     static boolean risposta;
 
     //funzione chiamata per generare la nuova finestra di conferma
-    public static boolean start(int centroID, String nomeCentro, String vaccinato, String codFisc, String data, String vaccino, String id, Vaccinato vaccinatoDaRegistrare) {
+    public static boolean start(Vaccinato vaccinato, String centroVaccinale) {
         //creazione della pagina
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -32,28 +32,27 @@ public class ConfirmBoxVacc {
         conferma.setFont(Font.font(18));
 
         Label centro = new Label();
-        centro.setText("Centro:  " + nomeCentro);
+        centro.setText(centroVaccinale);
         centro.setFont(Font.font(18));
 
         Label persona = new Label();
-        persona.setText("Vaccinato:  " + vaccinato);
+        persona.setText("Vaccinato:  " + vaccinato.getNome() + " " + vaccinato.getCognome());
         persona.setFont(Font.font(18));
 
         Label codice = new Label();
-        codice.setText("Codice Fiscale:   " + codFisc);
+        codice.setText("Codice Fiscale:   " + vaccinato.getCodiceFisc());
         codice.setFont(Font.font(18));
 
         Label giorno = new Label();
-        giorno.setText("Data:   " + data);
+        giorno.setText("Data:   " + vaccinato.getData());
         giorno.setFont(Font.font(18));
 
-
         Label dose = new Label();
-        dose.setText("Vaccino:   " + vaccino);
+        dose.setText("Vaccino:   " + vaccinato.getVaccino() + ", dose " + vaccinato.getDose());
         dose.setFont(Font.font(18));
 
         Label codiceID = new Label();
-        codiceID.setText("Codice ID:   " + id);
+        codiceID.setText("Codice ID:   " + vaccinato.getIdVacc());
         codiceID.setFont(Font.font(18));
 
         Button bAnnulla = new Button("Annulla");
@@ -75,7 +74,7 @@ public class ConfirmBoxVacc {
             if (controlloDB()) {
                 risposta = true;
                 OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
-                operatoreSanitarioAPP.registraVaccinato(vaccinatoDaRegistrare);
+                operatoreSanitarioAPP.registraVaccinato(vaccinato);
                 stage.close();
             } else {
                 conferma.setText("Vaccinato già registrato!");
