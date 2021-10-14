@@ -13,11 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.concurrent.ThreadLocalRandom;
 
 //Classe che gestisce la registrazione di un nuovo vaccinato
 
@@ -86,8 +87,13 @@ public class OperatoreRegVacc implements Initializable {
         TFID.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 16 ? change : null));
 
-        //funzione che genera id univoci
-        //generaIDVaccinazione();
+        //generazione id vaccinazione
+        TFID.setText(String.valueOf(generaIDVaccinazione()));
+    }
+
+    //funzinoe che genera id univoci
+    private long generaIDVaccinazione() {
+        return new Date().getTime() * 1000L + ThreadLocalRandom.current().nextLong(999L);
     }
 
     //funzione che permette di tornare indietro alla pagina di scelta
@@ -137,7 +143,7 @@ public class OperatoreRegVacc implements Initializable {
         TFFisc.clear();
         CBVacc.valueProperty().set(null);
         CBDose.valueProperty().set(null);
-        TFID.clear();
+        TFID.setText(String.valueOf(generaIDVaccinazione()));
     }
 
     //funzione che permette di controllare tutti i campi per poter salvare correttamente i dati del vaccinato che si vuole inserire

@@ -4,10 +4,8 @@ import ClientCittadino.Cittadino;
 import ClientCittadino.EventoAvverso;
 import ClientOperatoreSanitario.OperatoreSanitario;
 import ClientOperatoreSanitario.Vaccinato;
-
 import java.rmi.*;
 import java.util.ArrayList;
-
 
 public interface ServerInterface extends Remote {
 
@@ -15,6 +13,7 @@ public interface ServerInterface extends Remote {
     ArrayList<CentroVaccinale> cercaCentroVaccinale(String comune, String tipologia) throws RemoteException;
 
     boolean controllaCentro(CentroVaccinale cv) throws RemoteException;
+    boolean controllaVaccinato(Vaccinato vacc) throws RemoteException;
 
     CentroVaccinale visualizzaInfoCentroVaccinale(CentroVaccinale centroVaccinaleSelezionato) throws RemoteException;
     String registraCittadino(Cittadino cittadino) throws RemoteException;

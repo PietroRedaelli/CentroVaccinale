@@ -17,9 +17,13 @@ import javafx.stage.Stage;
 public class ConfirmBoxVacc {
 
     static boolean risposta;
+    private static Vaccinato vacc;
 
     //funzione chiamata per generare la nuova finestra di conferma
     public static boolean start(Vaccinato vaccinato, String centroVaccinale) {
+
+        vacc = vaccinato;
+
         //creazione della pagina
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -71,7 +75,7 @@ public class ConfirmBoxVacc {
         alla pagina di registrazione in cui tutte le informazioni inserite vengono cancellate per poterne registrare
         comodamente un altro*/
         bConferma.setOnAction(e -> {
-            if (controlloDB()) {
+            if (!controlloDB()) {
                 risposta = true;
                 OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
                 operatoreSanitarioAPP.registraVaccinato(vaccinato);
@@ -103,6 +107,7 @@ public class ConfirmBoxVacc {
 
     //funzione che controlla se il vaccinato che si sta inserendo non sia già stato registrato nel database
     private static boolean controlloDB() {
-        return true;
+        OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
+        return operatoreSanitarioAPP.controllaEsistenzaVaccinato(vacc);
     }
 }

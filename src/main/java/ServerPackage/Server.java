@@ -36,8 +36,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
 
         try {
-            PreparedStatement statement = DB.prepareStatement("select * from \"CentriVaccinali\" where nome like ?");
-            statement.setString(1, "%" + nomeCentro + "%");
+            PreparedStatement statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(nome) like ?");
+            statement.setString(1, "%" + nomeCentro.toLowerCase() + "%");
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
                 int ID = resultSet.getInt("id");
@@ -65,8 +65,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
 
         try {
-            PreparedStatement statement = DB.prepareStatement("select * from \"CentriVaccinali\" where comune = ? and tipologia = ?");
-            statement.setString(1, comuneInserito);
+            PreparedStatement statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(comune) = ? and tipologia = ?");
+            statement.setString(1, comuneInserito.toLowerCase());
             statement.setString(2, tipologia);
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
@@ -95,19 +95,49 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         //se il valore è 'true' allora il centro è già stato registrato
         boolean esitoControllo = false;
         try {
-            PreparedStatement statement = DB.prepareStatement("select count(*) from \"CentriVaccinali\" where nome = ? and comune = ? " +
-                    "and indirizzo = ? and civico = ? and sigla = ? and cap = ? and tipologia = ?");
-            statement.setString(1, cv.getNomeCentro());
-            statement.setString(2, cv.getComune());
-            statement.setString(3, cv.getIndirizzoCentro());
-            statement.setString(4, cv.getCivico());
+            PreparedStatement statement = DB.prepareStatement("select count(*) from \"CentriVaccinali\" where lower(nome) = ? " +
+                    "and lower(comune) = ? and lower(indirizzo) = ? and lower(civico) = ? and sigla = ? and cap = ? and tipologia = ?");
+            statement.setString(1, cv.getNomeCentro().toLowerCase());
+            statement.setString(2, cv.getComune().toLowerCase());
+            statement.setString(3, cv.getIndirizzoCentro().toLowerCase());
+            statement.setString(4, cv.getCivico().toLowerCase());
             statement.setString(5, cv.getSigla());
             statement.setInt(6, cv.getCap());
             statement.setString(7, cv.getTipo());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 int numeroTuple = resultSet.getInt(1);
-                if (numeroTuple == 1) {
+                if (numeroTuple >= 1) {
+                    esitoControllo = true;
+                }
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return esitoControllo;
+    }
+
+    @Override
+    public boolean controllaVaccinato(Vaccinato vacc) {
+
+        //se il valore è 'true' allora il vaccinato è già stato registrato
+        boolean esitoControllo = false;
+        try {
+            PreparedStatement statement = DB.prepareStatement("select count(*) from \"Vaccinati\" where lower(nome) = ? " +
+                    "and lower(cognome) = ? and fiscale = ? and centro = ? and giorno = ? and vaccino = ? and dose = ?");
+            statement.setString(1, vacc.getNome().toLowerCase());
+            statement.setString(2, vacc.getCognome().toLowerCase());
+            statement.setString(3, vacc.getCodiceFisc());
+            statement.setInt(4, vacc.getCentroVacc());
+            statement.setString(5, vacc.getData());
+            statement.setString(6, vacc.getVaccino());
+            statement.setInt(7, vacc.getDose());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int numeroTuple = resultSet.getInt(1);
+                if (numeroTuple >= 1) {
                     esitoControllo = true;
                 }
             }

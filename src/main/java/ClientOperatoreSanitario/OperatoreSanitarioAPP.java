@@ -122,6 +122,17 @@ public class OperatoreSanitarioAPP extends Application {
         }
         return risultato;
     }
+
+    public boolean controllaEsistenzaVaccinato(Vaccinato vacc) {
+        System.out.println("controllo esistenza vaccinato");
+        boolean risultato = false;
+        try {
+            risultato = si.controllaVaccinato(vacc);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return risultato;
+    }
 /*
     int id;
     Notizia notiziaPolitica;
