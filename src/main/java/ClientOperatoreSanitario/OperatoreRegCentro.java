@@ -1,6 +1,9 @@
-package org.example;
+package ClientOperatoreSanitario;
 
+import Grafics.ConfirmBoxCentro;
 import ServerPackage.CentroVaccinale;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -40,31 +43,73 @@ public class OperatoreRegCentro implements Initializable {
         CBTipo.setEditable(false);
         CBTipo.setPromptText("--seleziona--");
 
+        //listener che permette di inserire solamente numeri all'interno dela textfield associato al CAP
+        TFCap.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    TFCap.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
     }
 
     //funzione che permette di tornare indietro alla pagina di scelta
     public void annulla() throws IOException {
-        AppOperatore.setRoot("operatoreSceltaReg");
+        OperatoreSanitarioAPP.setRoot("operatoreSceltaReg.fxml");
     }
 
     //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo centro che verranno poi inviati al database e salvati
-    public void conferma(){
+    public void conferma() throws IOException {
 
         if (controlloCampi()) {
 
-            String nomeCentro = TFNomeCentro.getText();
-            String comune = TFComune.getText();
+            String nomeCentro = TFNomeCentro.getText().trim();
+            String comune = TFComune.getText().trim();
             String qualificatore = CBQualific.getValue();
-            String nomeInd = TFNomeInd.getText();
-            String nCivico = TFNCivico.getText();
-            String sigla = TFSigla.getText();
-            String cap = TFCap.getText();
+            String nomeInd = TFNomeInd.getText().trim();
+            String nCivico = TFNCivico.getText().trim();
+            String sigla = TFSigla.getText().trim();
+            int cap = Integer.parseInt(TFCap.getText().trim());
             String tipologia = CBTipo.getValue();
 
-
             CentroVaccinale centro = new CentroVaccinale(nomeCentro, comune, qualificatore, nomeInd, nCivico, sigla, cap, tipologia);
-            System.out.println(centro);
+
+            //con questa serie di operazioni si può aprire la nuova finestra
+            /*
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("cittadinoEventiAvversi.fxml"));
+            stage.setScene(new Scene(fxmlLoader.load()));
+            stage.setTitle("Conferma");
+            stage.initModality(Modality.APPLICATION_MODAL);     //la finestra in backgroud non può essere cliccata fin quando la nuova finestra non viene chiusa
+            stage.setResizable(false);
+            stage.show();
+
+            OperatorePostReg operatorePostReg = fxmlLoader.getController();
+            operatorePostReg.inviaDati(nomeCentro, qualificatore + " " + nomeInd + ", " + nCivico + "\n" + cap + " " + comune + " " + sigla, tipologia);
+            operatorePostReg.inviaCentro(centro);*/
+
+            boolean conferma = ConfirmBoxCentro.start(nomeCentro, qualificatore + " " + nomeInd + ", " + nCivico + " " + cap + " " + comune + " " + sigla, tipologia);
+
+            if (conferma) {
+                azzeraCampi();
+            }
+
         }
+    }
+
+    public void azzeraCampi() {
+
+        TFNomeCentro.clear();
+        TFNomeInd.clear();
+        TFNCivico.clear();
+        TFComune.clear();
+        TFSigla.clear();
+        TFCap.clear();
+        CBQualific.valueProperty().set(null);
+        CBTipo.valueProperty().set(null);
     }
 
     //funzione che permette di controllare tutti i campi per poter salvare correttamente i dati del centro che si vuole inserire
@@ -99,7 +144,7 @@ public class OperatoreRegCentro implements Initializable {
             TFSigla.setPromptText("Campo mancante!");
             controllo = false;        }
 
-        if (TFNomeInd.getText().equals("")) {
+        if (TFCap.getText().equals("")) {
             TFCap.setStyle("-fx-prompt-text-fill: red;");
             TFCap.setPromptText("Campo mancante!");
             controllo = false;
@@ -119,5 +164,4 @@ public class OperatoreRegCentro implements Initializable {
 
         return controllo;
     }
-
 }

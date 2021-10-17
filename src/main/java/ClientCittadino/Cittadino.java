@@ -3,6 +3,7 @@ package ClientCittadino;
 import ServerPackage.ServerInterface;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -84,12 +85,20 @@ public class Cittadino implements Serializable {
     }
 
     public static void main(String[] args){
+        ServerInterface server = null;
         try {
             Registry registro = LocateRegistry.getRegistry(1099);
-            ServerInterface server = (ServerInterface) registro.lookup("CentroVaccinale");
+            server = (ServerInterface) registro.lookup("CentroVaccinale");
         } catch (Exception e) {
             System.err.println("Client: errore di connessione al server \n" + e.getMessage());
             System.exit(0);
+        }
+        try {
+            int num = server.getCountC();
+
+            System.out.println(num);
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="645.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoMainMenu">
+   <children>
+      <Button fx:id="registrazione" layoutX="144.0" layoutY="207.0" mnemonicParsing="false" onAction="#apriScenaRegistrazione" prefHeight="138.0" prefWidth="205.0" text="Registrazione">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="log" layoutX="817.0" layoutY="207.0" mnemonicParsing="false" onAction="#apriScenaLogin" prefHeight="138.0" prefWidth="205.0" text="Login">
+         <font>
+            <Font size="25.0" />
+         </font></Button>
+      <Label fx:id="title" layoutX="541.0" layoutY="62.0" text="Cittadino">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="informazioni" layoutX="489.0" layoutY="457.0" mnemonicParsing="false" onAction="#informazioniShow" prefHeight="54.0" prefWidth="205.0" text="Informazioni">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

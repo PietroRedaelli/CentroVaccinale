@@ -1,12 +1,13 @@
-package org.example;
+package ClientCittadino;
 
 import ClientCittadino.Cittadino;
+import ClientCittadino.CittadinoLogin;
+import ClientOperatoreSanitario.OperatoreSanitarioAPP;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,9 +29,9 @@ public class CittadinoRegistrazione implements Initializable {
 
     }
     public void annulla() throws IOException {
-        AppOperatore.setRoot("cittadinoMainMenu");
+        OperatoreSanitarioAPP.setRoot("cittadinoMainMenu");
     }
-    public void registrati(){
+    public void registrati() throws IOException {
         if(controlloCampi()){
             String nomeUtente = nome.getText();
             String cognomeUtente = cognome.getText();
@@ -41,6 +42,7 @@ public class CittadinoRegistrazione implements Initializable {
             Cittadino cittadino = new Cittadino(nomeUtente, cognomeUtente, codicefiscaleUtente, emailUtente, useridUtente, passwordUtente);
             System.out.println(cittadino);
         }
+        CittadinoLogin.setRoot("cittadinoLogin.fxml");
     }
 
     private boolean controlloCampi() {

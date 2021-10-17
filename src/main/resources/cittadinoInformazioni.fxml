@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="579.0" prefWidth="1017.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoInformazini">
+   <children>
+      <Spinner layoutX="58.0" layoutY="162.0" prefHeight="36.0" prefWidth="359.0" />
+      <Label layoutX="373.0" layoutY="47.0" text="Ricerca Centro Vaccinale">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Spinner layoutX="58.0" layoutY="272.0" prefHeight="36.0" prefWidth="359.0" />
+      <Spinner layoutX="58.0" layoutY="382.0" prefHeight="36.0" prefWidth="359.0" />
+      <TextArea layoutX="590.0" layoutY="161.0" prefHeight="257.0" prefWidth="349.0" />
+      <Button fx:id="indietro" layoutX="448.0" layoutY="486.0" mnemonicParsing="false" onAction="#indietro" text="Indietro">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

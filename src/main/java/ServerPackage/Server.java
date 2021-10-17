@@ -3,6 +3,7 @@ package ServerPackage;
 
 import ClientCittadino.Cittadino;
 import ClientCittadino.EventoAvverso;
+import ClientOperatoreSanitario.OperatoreSanitario;
 import ClientOperatoreSanitario.Vaccinato;
 
 import java.rmi.RemoteException;
@@ -10,10 +11,21 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class Server extends UnicastRemoteObject implements ServerInterface{
 
     private static final long serialVersionUID = 1L;
+
+    protected String url_DB = "jdbc:postgresql://localhost/Lab.B" ;
+    protected String user_DB = "postgres";
+    protected String password_DB = "Password" ;
+
+    protected static Connection DB = null;
+
+
+    int countC = 0;
+    int countOS = 0;
 
     public Server() throws RemoteException {
         super();
@@ -45,29 +57,174 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return "null";
     }
     @Override
-    public String registraCentroVaccinale(CentroVaccinale centroVaccinale) throws RemoteException {
-        //registrazzione del centro vaccinale e si ritorna una stringa di conferma o di errore
-        return "null";
+    public void registraCentroVaccinale(CentroVaccinale centroVaccinale,OperatoreSanitario os) throws RemoteException {
+        //registrazzione del centro vaccinale
+        String SQL = "INSERT INTO centri_vaccinali(nome , comune , qualificatore , nome_indirizzo , numero_civico , sigla , cap , tipologia  ) VALUES(?,?,?,?,?,?,?,?)";
+        try {
+            System.out.println(os + " registrazioneCentroVaccinale: "+ centroVaccinale);
+            PreparedStatement pstmt = DB.prepareStatement(SQL);
+            pstmt.setString(1, centroVaccinale.getNomeCentro());
+            pstmt.setString(2, centroVaccinale.getComune());
+            pstmt.setString(3, centroVaccinale.getQualif());
+            pstmt.setString(4, centroVaccinale.getNomeInd());
+            pstmt.setString(5, centroVaccinale.getCivico());
+            pstmt.setString(6, centroVaccinale.getSigla());
+            pstmt.setInt(7, centroVaccinale.getCap());
+            pstmt.setString(8, centroVaccinale.getTipo());
+            pstmt.executeUpdate();
+            System.out.println(os + " registrazioneCentroVaccinale avvenuta con successo");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(os + ":" + e.getMessage());
+        }
     }
     @Override
-    public String registraVaccinato(Vaccinato vaccinato) throws RemoteException {
+    public String registraVaccinato(Vaccinato vaccinato, OperatoreSanitario os) throws RemoteException {
         //registrazzione di una persona vaccinata e si ritorna una stringa di conferma o di errore
+        //in base al centro vaccinale in cui si registra il vaccinato bisogna verificare che la tabella esista
+        //se nn esiste la tabella la creo e poi la popolo con il vaccinato
+        //altrimenti inserisco il vaccinato nella tabella
+        if(check_tabella_CV(vaccinato)){
+            //esiste tabella allora inserisco il vaccinato
+            String SQL = "INSERT INTO "+vaccinato.getNomeCentro()+"  VALUES(?)";
+            try {
+                System.out.println(os + " registrazioneVaccinato: "+ vaccinato);
+                PreparedStatement pstmt = DB.prepareStatement(SQL,Statement.RETURN_GENERATED_KEYS);
+                pstmt.setString(1, vaccinato.getNomeCentro());
+                pstmt.executeUpdate();
+                System.out.println(os + " registrazioneVaccinato avvenuta con successo");
+            } catch (SQLException e) {
+                System.out.println(os + ":\n" + e.getMessage());
+            }
+        }else{
+            //non esiste tabella allora:
+            //1. creo tabella
+            //2. inserisco tupla
 
+        }
+        System.out.println("metodo registra Vaccinato");
         return "null";
+    }
+
+
+    @Override
+    public int getCountC() throws RemoteException {
+        countC++;
+        System.out.println("Cittadino "+ countC +": connesso");
+        return countC;
+    }
+    @Override
+    public OperatoreSanitario getCountOS(OperatoreSanitario os) throws RemoteException {
+        countOS++;
+        os.setId(countOS);
+        System.out.println(os + ": connesso");
+        return os;
     }
 
     public static void main(String[] args) {
-        Server server;
+        Server server = null;
         try {
             server = new Server();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        server.connessione_server();
+        server.connessione_DB();
+        server.query();
+        //server.queryEliminareTupla("Azzate");
+        //server.query();
+
+    }
+
+    private void queryEliminareTupla(String azzate) {
+
+        try {
+            String SQL = "DELETE FROM centri_vaccinali WHERE nome = 'fsa'";
+            Statement pstmt = DB.createStatement();
+            pstmt.executeUpdate(SQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void connessione_server(){
+        try {
             Registry registro = LocateRegistry.createRegistry(1099);
-            registro.rebind("CentroVaccinale", server);
+            registro.rebind("CentroVaccinale", this);
+            System.out.println("Server ready");
         } catch (RemoteException e) {
             System.err.println("Errore nella creazione del registro: \n"+e.getMessage());
             System.exit(0);
         }
-        System.out.println("Server ready");
     }
+    private void connessione_DB(){
+        try {
+            DB = DriverManager.getConnection(url_DB,user_DB,password_DB);
+            if(DB != null){
+                System.out.println("Connessione avvenuta al DB");
+            }else{
+                System.out.println("Connessione fallita al DB");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private void query() {
+        try {
+            Statement statement = DB.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from centri_vaccinali");
+            while(resultSet.next()){
+                String nomeCentro = resultSet.getString("nome");
+                String comune= resultSet.getString("comune");
+                String qualif = resultSet.getString("qualificatore");
+                String nomeInd = resultSet.getString("nome_indirizzo");
+                String civico = resultSet.getString("numero_civico");
+                String sigla = resultSet.getString("sigla");
+                int cap = resultSet.getInt("cap");
+                String tipo = resultSet.getString("tipologia");
+                CentroVaccinale cv = new CentroVaccinale(nomeCentro,comune,qualif,nomeInd,civico,sigla,cap,tipo);
+                System.out.println( cv );
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean check_tabella_CV(Vaccinato v) {
+        try {
+            Statement statement = DB.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from vaccinati_"+ v.getNomeCentro());
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    private void createTableVaccinati(Vaccinato v){
+        String queryTable = "CREATE TABLE Vaccinati_"+v.getNomeCentro()+" (" +
+                "    NomeCentro varchar(50) NOT NULL," +
+                "    Nome_Cognome_Vaccinato varchar(50) NOT NULL," +
+                "    CF varchar(20) NOT NULL," +
+                "    Data_somministrazione data" +
+                "    PRIMARY KEY (), ()" +
+                "    FOREIGN KEY (NomeCentro) REFERENCES centri_vaccinali(Nome)\n" +
+                ");";
+        try {
+            Statement statement = DB.createStatement();
+            ResultSet resultSet = statement.executeQuery(queryTable);
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 
     /*
     private ArrayList<ClientInterface> politica;

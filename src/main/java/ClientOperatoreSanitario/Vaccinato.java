@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Vaccinato implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long seriaVersionUID = 1L;
 
     String nome;
     String cognome;
@@ -15,6 +15,9 @@ public class Vaccinato implements Serializable {
     String vaccino;
     String dose;
 
+    //costruttori
+    public Vaccinato() {
+    }
     public Vaccinato(String nome, String cognome, String nomeCentro, String idVacc, String codiceFisc, String data, String vaccino, String dose) {
         this.nome = nome;
         this.cognome = cognome;
@@ -29,55 +32,42 @@ public class Vaccinato implements Serializable {
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
-
     public String getCognome() {
         return cognome;
     }
-
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
-
     public String getNomeCentro() {
         return nomeCentro;
     }
-
     public void setNomeCentro(String nomeCentro) {
         this.nomeCentro = nomeCentro;
     }
-
     public String getIdVacc() {
         return idVacc;
     }
-
     public void setIdVacc(String idVacc) {
         this.idVacc = idVacc;
     }
-
     public String getCodiceFisc() {
         return codiceFisc;
     }
-
     public void setCodiceFisc(String codiceFisc) {
         this.codiceFisc = codiceFisc;
     }
-
     public String getData() {
         return data;
     }
-
     public void setData(String data) {
         this.data = data;
     }
-
     public String getVaccino() {
         return vaccino;
     }
-
     public void setVaccino(String vaccino) {
         this.vaccino = vaccino;
     }

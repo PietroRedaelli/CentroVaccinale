@@ -2,6 +2,7 @@ package ServerPackage;
 
 import ClientCittadino.Cittadino;
 import ClientCittadino.EventoAvverso;
+import ClientOperatoreSanitario.OperatoreSanitario;
 import ClientOperatoreSanitario.Vaccinato;
 
 import java.rmi.*;
@@ -18,9 +19,12 @@ public interface ServerInterface extends Remote {
     String inserisciEventiAvversi(EventoAvverso eventoAvverso) throws RemoteException;
 
 
-    String registraCentroVaccinale(CentroVaccinale centroVaccinale) throws RemoteException;
-    String registraVaccinato(Vaccinato vaccinato) throws RemoteException;
+    void registraCentroVaccinale(CentroVaccinale centroVaccinale,OperatoreSanitario os) throws RemoteException;
+    String registraVaccinato(Vaccinato vaccinato, OperatoreSanitario os) throws RemoteException;
 
+    int getCountC() throws RemoteException;
+
+    OperatoreSanitario getCountOS(OperatoreSanitario os) throws RemoteException;
 
     /*
     void richiediNotizia(ClientInterface fr, TipoNotizia tipoNotizia) throws RemoteException;

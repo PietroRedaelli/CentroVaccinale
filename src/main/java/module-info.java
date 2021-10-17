@@ -2,8 +2,12 @@ module org.example {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.rmi;
+    requires java.sql;
+    requires org.controlsfx.controls;
 
-    opens org.example to javafx.fxml;
-    exports org.example;
     exports ServerPackage;
+    exports ClientOperatoreSanitario;
+    opens ClientOperatoreSanitario to javafx.fxml;
+    exports ClientCittadino;
+    opens ClientCittadino to javafx.fxml;
 }
