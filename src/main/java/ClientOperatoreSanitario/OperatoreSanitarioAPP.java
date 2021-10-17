@@ -3,29 +3,25 @@ package ClientOperatoreSanitario;
 import ServerPackage.CentroVaccinale;
 import ServerPackage.ServerInterface;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 public class OperatoreSanitarioAPP extends Application {
 
     private static OperatoreSanitario os = new OperatoreSanitario();
     private static ServerInterface si;
     private static Stage stage1;
-    @FXML private Button BTRegCentro;
-    @FXML private Button BTRegVacc;
 
 
     public static void main(String[] args){
-        //connessione_server();
+        connessione_server();
         launch();
     }
 
@@ -38,10 +34,7 @@ public class OperatoreSanitarioAPP extends Application {
         stage1.setScene(scene);
         stage1.setTitle("CentroVaccinale");
         stage1.show();
-        stage1.setMinHeight(400);
-        stage1.setMinWidth(600);
-        stage1.setMaxHeight(800);
-        stage1.setMaxWidth(1000);
+        stage1.setResizable(false);
         //stage1.setMaximized(true);    per far partire l'app direttamente in fullscreen
     }
 
@@ -92,6 +85,54 @@ public class OperatoreSanitarioAPP extends Application {
         System.out.println("Registrato "+vaccinato);
     }
 
+    //funzione che chiede al server di cercare il centro richiesto
+    public ArrayList<CentroVaccinale> cercaCentro(String nome) {
+        System.out.println("ricerca centro vaccinale");
+        ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
+        try {
+            arrayListRicevuto = si.cercaCentroVaccinale(nome);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        System.out.println(arrayListRicevuto.size());
+        System.out.println("Trovato centro: "+nome);
+        return arrayListRicevuto;
+    }
+
+    //funzione che chiede al server di cercare il centro richiesto
+    public ArrayList<CentroVaccinale> cercaCentro(String comune, String tipologia) {
+        System.out.println("ricerca centro vaccinale");
+        ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
+        try {
+            arrayListRicevuto = si.cercaCentroVaccinale(comune, tipologia);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Trovato centro richiesto");
+        return arrayListRicevuto;
+    }
+
+    public boolean controllaEsistenzaCentro(CentroVaccinale cv) {
+        System.out.println("controllo esistenza centro");
+        boolean risultato = false;
+        try {
+            risultato = si.controllaCentro(cv);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return risultato;
+    }
+
+    public boolean controllaEsistenzaVaccinato(Vaccinato vacc) {
+        System.out.println("controllo esistenza vaccinato");
+        boolean risultato = false;
+        try {
+            risultato = si.controllaVaccinato(vacc);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return risultato;
+    }
 /*
     int id;
     Notizia notiziaPolitica;

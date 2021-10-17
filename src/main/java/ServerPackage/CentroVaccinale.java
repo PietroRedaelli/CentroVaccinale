@@ -6,45 +6,37 @@ public class CentroVaccinale implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String nomeCentro;
-    String comune;
-    String qualif;
-    String nomeInd;
-    String civico;
-    String sigla;
-    int cap;
-    String tipo;
+    private int ID;
+    private String nomeCentro;
+    private String comune;
+    //private String qualif;
+    private String indirizzoCentro;
+    private String civico;
+    private String sigla;
+    private int cap;
+    private String tipo;
 
     public CentroVaccinale(){
     }
 
-    public CentroVaccinale(String nomeCentro, String comune, String qualif, String nomeInd, String civico, String sigla, int cap, String tipo) {
+    public CentroVaccinale(String nomeCentro, String comune, String indirizzoCentro, String civico, String sigla, int cap, String tipo) {
         this.nomeCentro = nomeCentro;
         this.comune = comune;
-        this.qualif = qualif;
-        this.nomeInd = nomeInd;
+        this.indirizzoCentro = indirizzoCentro;
         this.civico = civico;
         this.sigla = sigla;
         this.cap = cap;
         this.tipo = tipo;
     }
 
-    public CentroVaccinale(String nomeCentro) {
-        this.nomeCentro = nomeCentro;
+    public CentroVaccinale(int ID, String nomeCentro, String comune, String indirizzoCentro, String civico, String sigla, int cap, String tipo) {
+        this(nomeCentro, comune, indirizzoCentro, civico, sigla, cap, tipo);
+        this.ID = ID;
     }
 
     @Override
     public String toString() {
-        return "CentroVaccinale{" +
-                "nomeCentro='" + nomeCentro + '\'' +
-                ", comune='" + comune + '\'' +
-                ", qualif='" + qualif + '\'' +
-                ", nomeInd='" + nomeInd + '\'' +
-                ", civico='" + civico + '\'' +
-                ", sigla='" + sigla + '\'' +
-                ", cap='" + cap + '\'' +
-                ", tipo='" + tipo + '\'' +
-                '}';
+        return nomeCentro + " " + tipo + ", " + indirizzoCentro + " " + civico + ", " + comune + " " + sigla + " " + cap;
     }
 
     public String getNomeCentro() {
@@ -63,20 +55,12 @@ public class CentroVaccinale implements Serializable {
         this.comune = comune;
     }
 
-    public String getQualif() {
-        return qualif;
+    public String getIndirizzoCentro() {
+        return indirizzoCentro;
     }
 
-    public void setQualif(String qualif) {
-        this.qualif = qualif;
-    }
-
-    public String getNomeInd() {
-        return nomeInd;
-    }
-
-    public void setNomeInd(String nomeInd) {
-        this.nomeInd = nomeInd;
+    public void setIndirizzoCentro(String indirizzoCentro) {
+        this.indirizzoCentro = indirizzoCentro;
     }
 
     public String getCivico() {
@@ -111,4 +95,7 @@ public class CentroVaccinale implements Serializable {
         this.tipo = tipo;
     }
 
+    public int getID() {return ID;}
+
+    public void setID(int ID) { this.ID = ID; }
 }

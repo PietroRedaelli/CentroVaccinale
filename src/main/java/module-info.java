@@ -8,6 +8,4 @@ module org.example {
     exports ServerPackage;
     exports ClientOperatoreSanitario;
     opens ClientOperatoreSanitario to javafx.fxml;
-    exports ClientCittadino;
-    opens ClientCittadino to javafx.fxml;
 }
