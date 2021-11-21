@@ -29,14 +29,11 @@ public class OperatoreSanitarioAPP extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage1 = stage;
-        //FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("operatoreSceltaReg.fxml"));
-        //Parent root = loader.load();
         Scene scene = new Scene(loadFXML("operatoreSceltaReg.fxml"));
         stage1.setScene(scene);
         stage1.setTitle("CentroVaccinale");
         stage1.show();
         stage1.setResizable(false);
-        //stage1.setMaximized(true);    per far partire l'app direttamente in fullscreen
     }
 
     public static void setRoot(String fxml) throws IOException {
@@ -88,7 +85,7 @@ public class OperatoreSanitarioAPP extends Application {
     public void registraCittadino(Cittadino cittadino) {
         System.out.println("registrazione Vaccinato");
         try {
-            si.registraCittadino(cittadino,os);
+            si.registraCittadino(cittadino);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

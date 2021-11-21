@@ -14,17 +14,6 @@ public class CittadinoMainMenu {
     @FXML Button log;
     @FXML Button registrazione;
     @FXML Button informazioni;
-    private static Stage stage1;
-
-    public static void setRoot(String fxml) throws IOException {
-        stage1.setScene(new Scene(loadFXML(fxml)));
-        stage1.centerOnScreen();
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(CittadinoMainMenu.class.getClassLoader().getResource(fxml));
-        return fxmlLoader.load();
-    }
 
     public void apriScenaLogin(ActionEvent actionEvent) throws IOException {
         AppCittadino.setRoot("cittadinoRegEvento.fxml");
@@ -34,6 +23,6 @@ public class CittadinoMainMenu {
         AppCittadino.setRoot("cittadinoRegistrazione.fxml");
     }
     public void informazioniShow(ActionEvent actionEvent) throws IOException {
-        AppCittadino.setRoot("cittadinoInformazioni.fxml");
+        AppCittadino.setRoot("sceltaCentro.fxml");
     }
 }

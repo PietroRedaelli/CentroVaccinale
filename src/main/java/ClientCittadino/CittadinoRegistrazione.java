@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//PIETRO: registrazione nel DB
+
 public class CittadinoRegistrazione implements Initializable {
 
     @FXML private TextField nome;

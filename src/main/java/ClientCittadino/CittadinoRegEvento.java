@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//LUCA: salvataggio dell'evento avverso
 
 public class CittadinoRegEvento implements Initializable {
 

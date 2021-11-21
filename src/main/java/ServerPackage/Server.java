@@ -11,6 +11,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.sql.*;
 
+//PIETRO E LUCA: ANDATE A RIGA 183
+
 public class Server extends UnicastRemoteObject implements ServerInterface{
 
     private static final long serialVersionUID = 1L;
@@ -180,16 +182,15 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
+    //PIETRO E' TUO
     @Override
     public CentroVaccinale visualizzaInfoCentroVaccinale(CentroVaccinale centroVaccinaleSelezionato) throws RemoteException {
+
         //usando una query restituiamo le informazioni su un centro vaccianle. La classe centrovaccinale sarà in remoto
         return new CentroVaccinale();
     }
-    @Override
-    public String registraCittadino(Cittadino cittadino, OperatoreSanitario operatoreSanitario) throws RemoteException {
-        //ritorna vero se è andato a buon fine, falso se esiste un cittadino registrato
-        return "null";
-    }
+
+    //LUCA E' TUO
     @Override
     public String inserisciEventiAvversi(EventoAvverso eventoAvverso) throws RemoteException {
         //con una query un cittadino inserisce un evento avverso
