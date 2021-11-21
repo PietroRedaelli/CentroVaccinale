@@ -19,6 +19,7 @@ public class Cittadino implements Serializable {
     String passowrd;
     String idVacc=null;
 
+    public Cittadino(){}
     public Cittadino(String nome, String cognome, String codiceFiscale, String email, String userid, String passowrd) {
         this.nome = nome;
         this.cognome = cognome;

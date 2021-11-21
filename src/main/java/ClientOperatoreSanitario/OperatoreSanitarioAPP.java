@@ -83,7 +83,7 @@ public class OperatoreSanitarioAPP extends Application {
         System.out.println("Registrato "+vaccinato);
     }
     public void registraCittadino(Cittadino cittadino) {
-        System.out.println("registrazione Vaccinato");
+        System.out.println("registrazione cittadino");
         try {
             si.registraCittadino(cittadino);
         } catch (RemoteException e) {

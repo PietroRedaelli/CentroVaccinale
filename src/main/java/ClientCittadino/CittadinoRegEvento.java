@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//LUCA: salvataggio dell'evento avverso
+//LUCA: salvataggio dell'evento avverso e implementa qui il metodo visualizzaInfoCentroVaccinale nella classe server
+//a riga 215
 
 public class CittadinoRegEvento implements Initializable {
 

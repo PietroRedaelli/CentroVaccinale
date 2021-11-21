@@ -11,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.sql.*;
 
-//PIETRO E LUCA: ANDATE A RIGA 183
+//PIETRO E LUCA: ANDATE A RIGA 220
 
 public class Server extends UnicastRemoteObject implements ServerInterface{
 
@@ -182,12 +182,69 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
+    @Override
+    public boolean controllaCittadino(Cittadino cittadino) {
+
+        //se il valore è 'true' allora il cittadino è già stato registrato
+        boolean esitoControllo = false;
+        try {
+            PreparedStatement statement = DB.prepareStatement("select count(*) from \"Cittadini\" where lower(nome) = ? " +
+                    "and lower(cognome) = ? and codiceFiscale = ? and email = ? and userid = ?");
+            statement.setString(1, cittadino.getNome().toLowerCase());
+            statement.setString(2, cittadino.getCognome().toLowerCase());
+            statement.setString(3, cittadino.getCodiceFiscale());
+            statement.setString(4, cittadino.getEmail());
+            statement.setString(5, cittadino.getUserid());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int numeroTuple = resultSet.getInt(1);
+                if (numeroTuple >= 1) {
+                    esitoControllo = true;
+                }
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return esitoControllo;
+    }
+
     //PIETRO E' TUO
     @Override
     public CentroVaccinale visualizzaInfoCentroVaccinale(CentroVaccinale centroVaccinaleSelezionato) throws RemoteException {
 
         //usando una query restituiamo le informazioni su un centro vaccianle. La classe centrovaccinale sarà in remoto
-        return new CentroVaccinale();
+
+        CentroVaccinale centroVaccinale= null;
+        PreparedStatement statement = null;
+        try {
+            if(centroVaccinaleSelezionato.getNomeCentro() != null) {
+                statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(nome) like ?");
+                statement.setString(1, "%" + centroVaccinaleSelezionato.getNomeCentro().toLowerCase() + "%");
+            } else{
+                statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(comune) = ? and tipologia = ?");
+                statement.setString(1, centroVaccinaleSelezionato.getComune().toLowerCase());
+                statement.setString(2, centroVaccinaleSelezionato.getTipo());
+            }
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int ID = resultSet.getInt("id");
+                String centro = resultSet.getString("nome");
+                String comune = resultSet.getString("comune");
+                String nomeInd = resultSet.getString("indirizzo");
+                String civico = resultSet.getString("civico");
+                String sigla = resultSet.getString("sigla");
+                int cap = resultSet.getInt("cap");
+                String tipo = resultSet.getString("tipologia");
+                centroVaccinale = new CentroVaccinale(ID, centro, comune, nomeInd, civico, sigla, cap, tipo);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return centroVaccinale;
     }
 
     //LUCA E' TUO
@@ -196,11 +253,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         //con una query un cittadino inserisce un evento avverso
         return "null";
     }
+
     @Override
     public void registraCentroVaccinale(CentroVaccinale centroVaccinale,OperatoreSanitario os) throws RemoteException {
         //registrazzione del centro vaccinale
         String SQL = "INSERT INTO \"CentriVaccinali\"(nome, comune, indirizzo, civico, sigla, cap, tipologia) VALUES(?,?,?,?,?,?,?)";
-        try {
+         try {
             System.out.println(os + " registrazione CentroVaccinale: "+ centroVaccinale);
             PreparedStatement pstmt = DB.prepareStatement(SQL);
             pstmt.setString(1, centroVaccinale.getNomeCentro());

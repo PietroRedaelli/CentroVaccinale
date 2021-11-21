@@ -15,6 +15,7 @@ public interface ServerInterface extends Remote {
 
     boolean controllaCentro(CentroVaccinale cv) throws RemoteException;
     boolean controllaVaccinato(Vaccinato vacc) throws RemoteException;
+    boolean controllaCittadino(Cittadino cittadino) throws RemoteException;
 
     CentroVaccinale visualizzaInfoCentroVaccinale(CentroVaccinale centroVaccinaleSelezionato) throws RemoteException;
     String inserisciEventiAvversi(EventoAvverso eventoAvverso) throws RemoteException;
