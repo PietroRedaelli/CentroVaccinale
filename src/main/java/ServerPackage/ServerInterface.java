@@ -28,11 +28,5 @@ public interface ServerInterface extends Remote {
     int getCountC() throws RemoteException;
 
     OperatoreSanitario getCountOS(OperatoreSanitario os) throws RemoteException;
-
-    /*
-    void richiediNotizia(ClientInterface fr, TipoNotizia tipoNotizia) throws RemoteException;
-    void disdici(ClientInterface fr, TipoNotizia tipoNotizia) throws RemoteException;
-    int getCount() throws RemoteException;
-    void decrementoCount(String fr) throws RemoteException;*/
 }
 

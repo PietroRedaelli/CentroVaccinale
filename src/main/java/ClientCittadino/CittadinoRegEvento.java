@@ -1,5 +1,6 @@
 package ClientCittadino;
 
+import ClientCittadino.AppCittadino;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,11 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.Rating;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class CittadinoEventiAvversi implements Initializable {
+public class CittadinoRegEvento implements Initializable {
 
     //pannelli
     @FXML private AnchorPane pane1;
@@ -80,8 +83,8 @@ public class CittadinoEventiAvversi implements Initializable {
     }
 
     //il tasto BTAnnulla1 torna indietro alla pagina di scelta delle varie operazioni che l'utente (Cittadino) può svolgere
-    public void annulla1(ActionEvent actionEvent) {
-
+    public void annulla1(ActionEvent actionEvent) throws IOException {
+        AppCittadino.setRoot("cittadinoMainMenu.fxml");
     }
 
     //il tasto BTAnnulla2 torna indietro al pannello 1

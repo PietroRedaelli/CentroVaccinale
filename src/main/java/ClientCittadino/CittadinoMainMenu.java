@@ -27,16 +27,13 @@ public class CittadinoMainMenu {
     }
 
     public void apriScenaLogin(ActionEvent actionEvent) throws IOException {
-        CittadinoMainMenu.setRoot("cittadinoLogin");
-        Scene scene = new Scene(new FXMLLoader(CittadinoLogin.class.getResource("operatoreRegCentro.fxml")).load());
+        AppCittadino.setRoot("cittadinoRegEvento.fxml");
     }
 
     public void apriScenaRegistrazione(ActionEvent actionEvent) throws IOException{
-        CittadinoMainMenu.setRoot("cittadinoRegistrazione");
-        Scene scene = new Scene(new FXMLLoader(CittadinoRegistrazione.class.getResource("operatoreRegCentro.fxml")).load());
+        AppCittadino.setRoot("cittadinoRegistrazione.fxml");
     }
     public void informazioniShow(ActionEvent actionEvent) throws IOException {
-        CittadinoMainMenu.setRoot("cittadinoRegistrazione");
-        Scene scene = new Scene(new FXMLLoader(CittadinoInformazini.class.getResource("operatoreRegCentro.fxml")).load());
+        AppCittadino.setRoot("cittadinoInformazioni.fxml");
     }
 }

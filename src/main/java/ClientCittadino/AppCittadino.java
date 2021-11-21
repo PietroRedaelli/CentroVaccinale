@@ -1,5 +1,6 @@
-package ClientOperatoreSanitario;
+package ClientCittadino;
 
+import ClientOperatoreSanitario.OperatoreSanitarioAPP;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,14 +15,10 @@ public class AppCittadino  extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage1 = stage;
-        scene = new Scene(loadFXML("cittadinoMainMenu"));
+        scene = new Scene(loadFXML("cittadinoMainMenu.fxml"));
         stage1.setScene(scene);
         stage1.setTitle("Menu");
         stage1.show();
-        stage1.setMinHeight(400);
-        stage1.setMinWidth(600);
-        stage1.setMaxHeight(800);
-        stage1.setMaxWidth(1000);
     }
     static void setRoot(String fxml) throws IOException {
         stage1.setScene(new Scene(loadFXML(fxml)));
@@ -29,7 +26,7 @@ public class AppCittadino  extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(OperatoreSanitarioAPP.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(OperatoreSanitarioAPP.class.getClassLoader().getResource(fxml));
         return fxmlLoader.load();
     }
 

@@ -17,7 +17,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
 
     protected String url_DB = "jdbc:postgresql://localhost:5432/LabB" ;
     protected String user_DB = "postgres";
-    protected String password_DB = "F4/=rb91d&w3" ;
+    protected String password_DB = "Password" ;
 
     protected static Connection DB = null;
 

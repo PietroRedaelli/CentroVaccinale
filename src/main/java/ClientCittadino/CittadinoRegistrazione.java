@@ -1,8 +1,5 @@
 package ClientCittadino;
 
-import ClientCittadino.Cittadino;
-import ClientCittadino.CittadinoLogin;
-import ClientOperatoreSanitario.OperatoreSanitarioAPP;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -29,7 +26,7 @@ public class CittadinoRegistrazione implements Initializable {
 
     }
     public void annulla() throws IOException {
-        OperatoreSanitarioAPP.setRoot("cittadinoMainMenu");
+        AppCittadino.setRoot("cittadinoMainMenu.fxml");
     }
     public void registrati() throws IOException {
         if(controlloCampi()){
@@ -42,7 +39,7 @@ public class CittadinoRegistrazione implements Initializable {
             Cittadino cittadino = new Cittadino(nomeUtente, cognomeUtente, codicefiscaleUtente, emailUtente, useridUtente, passwordUtente);
             System.out.println(cittadino);
         }
-        CittadinoLogin.setRoot("cittadinoLogin.fxml");
+        AppCittadino.setRoot("cittadinoRegEvento.fxml");
     }
 
     private boolean controlloCampi() {
