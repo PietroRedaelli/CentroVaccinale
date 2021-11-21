@@ -1,5 +1,6 @@
 package ClientOperatoreSanitario;
 
+import ClientCittadino.Cittadino;
 import ServerPackage.CentroVaccinale;
 import ServerPackage.ServerInterface;
 import javafx.application.Application;
@@ -83,6 +84,15 @@ public class OperatoreSanitarioAPP extends Application {
             e.printStackTrace();
         }
         System.out.println("Registrato "+vaccinato);
+    }
+    public void registraCittadino(Cittadino cittadino) {
+        System.out.println("registrazione Vaccinato");
+        try {
+            si.registraCittadino(cittadino,os);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Registrato "+cittadino);
     }
 
     //funzione che chiede al server di cercare il centro richiesto

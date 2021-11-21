@@ -117,7 +117,6 @@ public class OperatoreRegVacc implements Initializable {
     public void conferma() {
 
         if (controlloCampi()) {
-
             String nome = TFNome.getText().trim();
             String cognome = TFCognome.getText().trim();
             String codFisc = TFFisc.getText().trim();
@@ -126,7 +125,7 @@ public class OperatoreRegVacc implements Initializable {
             int dose = Integer.parseInt(CBDose.getValue());
             long id = Long.parseLong(TFID.getText());
 
-            Vaccinato vaccinato = new Vaccinato(nome, cognome, centroRV.getID(), id, codFisc, data, vaccino, dose);
+            Vaccinato vaccinato = new Vaccinato(0, nome, cognome, centroRV.getID(), id, codFisc, data, vaccino, dose);
 
             boolean conferma = ConfirmBoxVacc.start(vaccinato, centroRV.toString());
 
