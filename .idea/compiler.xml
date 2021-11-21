@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="CentroVaccinale" options="--add-exports javafx.controls/com.sun.javafx.scene.control.skin=org.example" />
+      <module name="CentroVaccinale" options="" />
     </option>
   </component>
 </project>

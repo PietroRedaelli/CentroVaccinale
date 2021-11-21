@@ -6,6 +6,7 @@ public class Vaccinato implements Serializable {
 
     private static final long seriaVersionUID = 1L;
 
+    int ID;
     String nome;
     String cognome;
     int centroVacc;
@@ -15,7 +16,8 @@ public class Vaccinato implements Serializable {
     String vaccino;
     int dose;
 
-    public Vaccinato(String nome, String cognome, int centroVacc, long idVacc, String codiceFisc, String data, String vaccino, int dose) {
+    public Vaccinato(int ID, String nome, String cognome, int centroVacc, long idVacc, String codiceFisc, String data, String vaccino, int dose) {
+        this.ID = ID;
         this.nome = nome;
         this.cognome = cognome;
         this.centroVacc = centroVacc;

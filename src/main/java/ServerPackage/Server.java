@@ -90,6 +90,37 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     }
 
     @Override
+    public ArrayList<Vaccinato> cercaVaccinato(String codiceFiscale) throws RemoteException{
+        //Usando una query ricerchiamo dentro la tabella Vaccinato il codicefiscale del vaccinato
+
+        ArrayList<Vaccinato> arrayListVaccinati = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = DB.prepareStatement("select * from \"Vaccinati\" where lower(codiceFisc) = ?");
+            statement.setString(1, "%" + codiceFiscale.toLowerCase() + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int ID = resultSet.getInt("id");
+                String nome = resultSet.getString("nome");
+                String cognome = resultSet.getString("cognome");
+                int centroVacc = resultSet.getInt("centroVacc");
+                long idVacc = resultSet.getInt("idVacc");
+                String codiceFisc = resultSet.getString("codiceFisc");
+                String data = resultSet.getString("data");
+                String vaccino = resultSet.getString("vaccino");
+                int dose = resultSet.getInt("dose");
+                Vaccinato vacc = new Vaccinato(ID, nome, cognome, centroVacc, idVacc, codiceFisc, data, vaccino, dose);
+                arrayListVaccinati.add(vacc);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arrayListVaccinati;
+    }
+
+    @Override
     public boolean controllaCentro(CentroVaccinale cv){
 
         //se il valore è 'true' allora il centro è già stato registrato
@@ -155,7 +186,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return new CentroVaccinale();
     }
     @Override
-    public String registraCittadino(Cittadino cittadino) throws RemoteException {
+    public String registraCittadino(Cittadino cittadino, OperatoreSanitario operatoreSanitario) throws RemoteException {
         //ritorna vero se è andato a buon fine, falso se esiste un cittadino registrato
         return "null";
     }
@@ -212,6 +243,29 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
 
         System.out.println("metodo registra Vaccinato");
     }
+    @Override
+    public void registraCittadino(Cittadino cittadino) throws RemoteException{
+        String SQL = "INSERT INTO \"Cittadino\"(id, nome, cognome, codiceFiscale, email, userid, passowrd, idVacc) VALUES(?,?,?,?,?,?,?,?)";
+        try {
+            System.out.println(" registrazione Cittadino: " + cittadino);
+            PreparedStatement pstmt = DB.prepareStatement(SQL);    //, Statement.RETURN_GENERATED_KEYS
+            pstmt.setString(1,cittadino.getIdVacc());
+            pstmt.setString(2, cittadino.getNome());
+            pstmt.setString(3, cittadino.getCognome());
+            pstmt.setString(4, cittadino.getCodiceFiscale());
+            pstmt.setString(5, cittadino.getEmail());
+            pstmt.setString(6, cittadino.getUserid());
+            pstmt.setString(7, cittadino.getPassowrd());
+            pstmt.setString(8, cittadino.getIdVacc());
+            pstmt.executeUpdate();
+            System.out.println("registrazione Cittadino avvenuta con successo");
+        } catch (SQLException e) {
+            System.out.println(cittadino + ":\n" + e.getMessage());
+        }
+
+        System.out.println("metodo registra Cittadino");
+    }
+
 
 
     @Override
