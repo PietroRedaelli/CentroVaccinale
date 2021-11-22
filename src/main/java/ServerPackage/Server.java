@@ -350,7 +350,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         }
         server.connessione_server();
         server.connessione_DB();
-        server.query();
+        //server.query();
         //server.queryEliminareTupla("Azzate");
         //server.query();
 

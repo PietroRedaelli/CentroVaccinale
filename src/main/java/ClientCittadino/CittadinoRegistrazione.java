@@ -39,9 +39,13 @@ public class CittadinoRegistrazione implements Initializable {
             String useridUtente = userid.getText();
             String passwordUtente = password.getText();
             Cittadino cittadino = new Cittadino(nomeUtente, cognomeUtente, codicefiscaleUtente, emailUtente, useridUtente, passwordUtente);
-            System.out.println(cittadino);
+            //controllo se esiste gia un registrato con questi dati...
+
+            //aggiunta del registrato nella tabella Vaccinati
+
+
+            AppCittadino.setRoot("cittadinoRegEvento.fxml");
         }
-        AppCittadino.setRoot("cittadinoRegEvento.fxml");
     }
 
     private boolean controlloCampi() {

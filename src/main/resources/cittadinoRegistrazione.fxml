@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoRegistrazione">
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoRegistrazione">
    <children>
       <TextField fx:id="nome" layoutX="731.0" layoutY="154.0" prefHeight="31.0" prefWidth="399.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="cognome" layoutX="629.0" layoutY="231.0" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="230.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -16,12 +24,8 @@
             <Font size="15.0" />
          </font>
       </TextField>
+      <TextField fx:id="email" layoutX="731.0" layoutY="367.0" prefHeight="30.0" prefWidth="399.0" />
       <TextField fx:id="userid" layoutX="731.0" layoutY="442.0" AnchorPane.bottomAnchor="247.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="442.0">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="cognome" layoutX="629.0" layoutY="231.0" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="230.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -61,12 +65,12 @@
             <Font size="15.0" />
          </font>
       </PasswordField>
-      <Button fx:id="registratiid" layoutX="875.0" layoutY="637.0" mnemonicParsing="false" onAction="#registrati" text="Registrati" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="875.0" AnchorPane.rightAnchor="293.0" AnchorPane.topAnchor="637.0">
+      <Button fx:id="annullaid" layoutX="312.0" layoutY="637.0" mnemonicParsing="false" onAction="#annulla" prefHeight="44.0" prefWidth="115.0" text="Annulla">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="annullaid" layoutX="312.0" layoutY="637.0" mnemonicParsing="false" onAction="#annulla" prefHeight="44.0" prefWidth="115.0" text="Annulla">
+      <Button fx:id="registratiid" layoutX="875.0" layoutY="637.0" mnemonicParsing="false" onAction="#registrati" text="Registrati" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="875.0" AnchorPane.rightAnchor="293.0" AnchorPane.topAnchor="637.0">
          <font>
             <Font size="20.0" />
          </font>
@@ -76,6 +80,5 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="email" layoutX="731.0" layoutY="367.0" prefHeight="30.0" prefWidth="399.0" />
    </children>
 </AnchorPane>
