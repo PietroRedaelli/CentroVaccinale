@@ -25,7 +25,6 @@ public class CittadinoRegEvento implements Initializable {
     //elementi del primo pannello
     @FXML private TextField TFUser;
     @FXML private PasswordField PFPassword;
-    @FXML private Label LBErrPass;
     @FXML private Label LBErrUser;
 
     //elementi del secondo pannello
@@ -56,13 +55,11 @@ public class CittadinoRegEvento implements Initializable {
             pane1.setVisible(false);
             TFUser.clear();
             PFPassword.clear();
-            LBErrPass.setVisible(false);
             LBErrUser.setVisible(false);
             pane2.setVisible(true);
         }
         else {
             //a seconda dell'errore si mostra il label associato
-            LBErrPass.setVisible(true);
             LBErrUser.setVisible(true);
         }
 

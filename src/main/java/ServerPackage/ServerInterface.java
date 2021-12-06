@@ -25,6 +25,9 @@ public interface ServerInterface extends Remote {
     void registraVaccinato(Vaccinato vaccinato, OperatoreSanitario os) throws RemoteException;
     void registraCittadino(Cittadino cittadino) throws RemoteException;
 
+    //PIETRO: controlla che esista la persona nella tabella dei vaccinati: cod fisc e idvacc devono corrispondere
+    boolean controlloVaccCitt(Cittadino cittadino);
+
     int getCountC() throws RemoteException;
 
     OperatoreSanitario getCountOS(OperatoreSanitario os) throws RemoteException;

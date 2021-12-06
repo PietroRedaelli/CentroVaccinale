@@ -11,17 +11,17 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="codicefiscale" layoutX="629.0" layoutY="316.0" AnchorPane.bottomAnchor="379.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="310.0">
+      <TextField fx:id="codicefiscale" layoutX="731.0" layoutY="273.0" AnchorPane.bottomAnchor="416.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="273.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="userid" layoutX="731.0" layoutY="442.0" AnchorPane.bottomAnchor="247.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="442.0">
+      <TextField fx:id="userid" layoutX="732.0" layoutY="387.0" AnchorPane.bottomAnchor="302.0" AnchorPane.leftAnchor="732.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="387.0">
          <font>
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="cognome" layoutX="629.0" layoutY="231.0" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="230.0">
+      <TextField fx:id="cognome" layoutX="731.0" layoutY="214.0" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="214.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -36,27 +36,27 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="115.0" layoutY="333.0" text="Codice Fiscale" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1006.0" AnchorPane.topAnchor="310.0">
+      <Label layoutX="151.0" layoutY="274.0" text="Codice Fiscale" AnchorPane.bottomAnchor="416.0" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="1005.0" AnchorPane.topAnchor="274.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="148.0" layoutY="443.0" text="UserID" AnchorPane.bottomAnchor="247.0" AnchorPane.leftAnchor="148.0" AnchorPane.rightAnchor="1017.0" AnchorPane.topAnchor="443.0">
+      <Label layoutX="149.0" layoutY="387.0" text="UserID" AnchorPane.bottomAnchor="303.0" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="1016.0" AnchorPane.topAnchor="387.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="152.0" layoutY="511.0" text="Password" AnchorPane.bottomAnchor="179.0" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="1044.0" AnchorPane.topAnchor="511.0">
+      <Label layoutX="149.0" layoutY="445.0" text="Password" AnchorPane.bottomAnchor="245.0" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="1047.0" AnchorPane.topAnchor="445.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="114.0" layoutY="240.0" text="Cognome" AnchorPane.bottomAnchor="460.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1043.0" AnchorPane.topAnchor="230.0">
+      <Label layoutX="151.0" layoutY="214.0" text="Cognome" AnchorPane.bottomAnchor="476.0" AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="1042.0" AnchorPane.topAnchor="214.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <PasswordField fx:id="password" layoutX="732.0" layoutY="510.0" AnchorPane.bottomAnchor="179.0" AnchorPane.leftAnchor="732.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="510.0">
+      <PasswordField fx:id="password" layoutX="732.0" layoutY="445.0" AnchorPane.bottomAnchor="244.0" AnchorPane.leftAnchor="732.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="445.0">
          <font>
             <Font size="15.0" />
          </font>
@@ -71,11 +71,17 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Label fx:id="emailid" layoutX="152.0" layoutY="369.0" prefHeight="30.0" prefWidth="112.0" text="Email">
+      <Label fx:id="emailid" layoutX="150.0" layoutY="330.0" prefHeight="30.0" prefWidth="112.0" text="Email">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="email" layoutX="731.0" layoutY="367.0" prefHeight="30.0" prefWidth="399.0" />
+      <TextField fx:id="email" layoutX="731.0" layoutY="330.0" prefHeight="30.0" prefWidth="399.0" />
+      <Label fx:id="IDVaccLabel" layoutX="149.0" layoutY="506.0" prefHeight="44.0" prefWidth="157.0" text="ID Vaccinazione">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="idVacc" layoutX="729.0" layoutY="513.0" prefHeight="31.0" prefWidth="405.0" />
    </children>
 </AnchorPane>

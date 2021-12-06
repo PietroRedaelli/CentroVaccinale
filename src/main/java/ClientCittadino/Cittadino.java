@@ -1,11 +1,6 @@
 package ClientCittadino;
 
-import ServerPackage.ServerInterface;
-
 import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 public class Cittadino implements Serializable {
 
@@ -16,17 +11,18 @@ public class Cittadino implements Serializable {
     String codiceFiscale;
     String email;
     String userid;
-    String passowrd;
+    String password;
     String idVacc=null;
 
     public Cittadino(){}
-    public Cittadino(String nome, String cognome, String codiceFiscale, String email, String userid, String passowrd) {
+    public Cittadino(String nome, String cognome, String codiceFiscale, String email, String userid, String password, String idVacc) {
         this.nome = nome;
         this.cognome = cognome;
         this.codiceFiscale = codiceFiscale;
         this.email = email;
         this.userid = userid;
-        this.passowrd = passowrd;
+        this.password = password;
+        this.idVacc = null;
     }
 
     public String getNome() {
@@ -69,12 +65,12 @@ public class Cittadino implements Serializable {
         this.userid = userid;
     }
 
-    public String getPassowrd() {
-        return passowrd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassowrd(String passowrd) {
-        this.passowrd = passowrd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getIdVacc() {

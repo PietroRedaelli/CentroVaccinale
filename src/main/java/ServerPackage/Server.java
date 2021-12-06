@@ -11,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.sql.*;
 
-//PIETRO E LUCA: ANDATE A RIGA 220
+//PIETRO HAI DA FARE ANCORA
 
 public class Server extends UnicastRemoteObject implements ServerInterface{
 
@@ -19,7 +19,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
 
     protected String url_DB = "jdbc:postgresql://localhost:5432/LabB" ;
     protected String user_DB = "postgres";
-    protected String password_DB = "Password" ;
+    protected String password_DB = "Xbox360Live" ;
 
     protected static Connection DB = null;
 
@@ -138,23 +138,19 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
             statement.setInt(6, cv.getCap());
             statement.setString(7, cv.getTipo());
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                int numeroTuple = resultSet.getInt(1);
-                if (numeroTuple >= 1) {
-                    esitoControllo = true;
-                }
-            }
+
             resultSet.close();
             statement.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return esitoControllo;
     }
 
     @Override
     public boolean controllaVaccinato(Vaccinato vacc) {
-
         //se il valore è 'true' allora il vaccinato è già stato registrato
         boolean esitoControllo = false;
         try {
@@ -182,11 +178,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
+    //PIETRO: CONTROLLA CHE NON CI SIA UN CITTADINO UGUALE GIA' REGISTRATO
+
     @Override
     public boolean controllaCittadino(Cittadino cittadino) {
-
         //se il valore è 'true' allora il cittadino è già stato registrato
-        boolean esitoControllo = false;
+        boolean controlloEsistenza = false;
+        boolean esisteUnDoppione = false;
         try {
             PreparedStatement statement = DB.prepareStatement("select count(*) from \"Cittadini\" where lower(nome) = ? " +
                     "and lower(cognome) = ? and codiceFiscale = ? and email = ? and userid = ?");
@@ -199,7 +197,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
             if (resultSet.next()) {
                 int numeroTuple = resultSet.getInt(1);
                 if (numeroTuple >= 1) {
-                    esitoControllo = true;
+                    controlloEsistenza = true;
                 }
             }
             resultSet.close();
@@ -207,7 +205,23 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return esitoControllo;
+        try{
+            PreparedStatement statement = DB.prepareStatement("select count(*) from \"Cittadini\" where codiceFiscale = ?");
+            statement.setString(3, cittadino.getCodiceFiscale());
+            ResultSet resultSet = statement.executeQuery();
+            while(!resultSet.toString().equals(cittadino.getIdVacc())){
+                if(resultSet.toString().equals(cittadino.getIdVacc())) {
+                    esisteUnDoppione = true;
+                    break;
+                }
+                resultSet.next();
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return controlloEsistenza && !esisteUnDoppione;
     }
 
     //PIETRO E' TUO
@@ -314,7 +328,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
             pstmt.setString(4, cittadino.getCodiceFiscale());
             pstmt.setString(5, cittadino.getEmail());
             pstmt.setString(6, cittadino.getUserid());
-            pstmt.setString(7, cittadino.getPassowrd());
+            pstmt.setString(7, cittadino.getPassword());
             pstmt.setString(8, cittadino.getIdVacc());
             pstmt.executeUpdate();
             System.out.println("registrazione Cittadino avvenuta con successo");
@@ -323,6 +337,27 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         }
 
         System.out.println("metodo registra Cittadino");
+    }
+
+    //PIETRO: controlla che esista la persona nella tabella dei vaccinati: cod fisc e idvacc devono corrispondere
+    @Override
+    public boolean controlloVaccCitt(Cittadino cittadino){
+        boolean esitoControllo = false;
+        try {
+            PreparedStatement statement = DB.prepareStatement("select count(*) from \"Vaccinati\" JOIN \"Cittadino\" where lower(ID) = lower(idVacc)");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int numeroTuple = resultSet.getInt(1);
+                if (numeroTuple >= 1) {
+                    esitoControllo = true;
+                }
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return esitoControllo;
     }
 
 
