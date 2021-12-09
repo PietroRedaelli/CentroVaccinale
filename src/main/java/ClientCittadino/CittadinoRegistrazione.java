@@ -1,5 +1,7 @@
 package ClientCittadino;
 
+import Grafics.ConfirmBoxCentro;
+import Grafics.ConfirmBoxCittadino;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -8,7 +10,6 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 //PIETRO: registrazione nel DB
@@ -21,10 +22,10 @@ public class CittadinoRegistrazione implements Initializable {
     @FXML private TextField email;
     @FXML private TextField userid;
     @FXML private PasswordField password;
+    @FXML private TextField idVacc;
     @FXML private Button annullaid;
     @FXML private Button registratiid;
-
-    public static ArrayList<Cittadino> registrati = new ArrayList<>();// da eliminare
+    @FXML private TextField IDVaccField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,17 +42,14 @@ public class CittadinoRegistrazione implements Initializable {
             String emailUtente = email.getText();
             String useridUtente = userid.getText();
             String passwordUtente = password.getText();
-            Cittadino cittadino = new Cittadino(nomeUtente, cognomeUtente, codicefiscaleUtente, emailUtente, useridUtente, passwordUtente);
-            //controllo se esiste gia un registrato con questi dati...
-
-            //fai partire la finestra di recap dei dati per far confermare al cittadino
-
-            //aggiunta del registrato nella tabella Vaccinati
-
-            registrati.add(cittadino);//da eliminare
-
-            AppCittadino.setRoot("cittadinoRegEvento.fxml");
+            String idVaccinazione = idVacc.getText();
+            Cittadino cittadino = new Cittadino(nomeUtente, cognomeUtente, codicefiscaleUtente, emailUtente, useridUtente, passwordUtente, idVaccinazione);
+            boolean conferma = ConfirmBoxCittadino.start(cittadino);
+            if (conferma)
+                azzeraCampi();
         }
+
+        AppCittadino.setRoot("cittadinoRegEvento.fxml");
     }
 
     private boolean controlloCampi() {
@@ -94,6 +92,22 @@ public class CittadinoRegistrazione implements Initializable {
             password.setPromptText("Campo mancante!");
             controllo = false;
         }
+        if (idVacc.getText().equals("")) {
+            idVacc.setStyle("-fx-prompt-text-fill: red;");
+            idVacc.setPromptText("Campo mancante!");
+            controllo = false;
+        }
         return controllo;
+    }
+
+    //funzione che azzera i campi dopo aver registrato correttamente un cittadino
+    public void azzeraCampi() {
+        nome.clear();
+        cognome.clear();
+        codicefiscale.clear();
+        email.clear();
+        userid.clear();
+        password.clear();
+        idVacc.clear();
     }
 }

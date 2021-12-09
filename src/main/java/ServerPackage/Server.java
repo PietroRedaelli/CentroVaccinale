@@ -11,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.sql.*;
 
-//PIETRO E LUCA: ANDATE A RIGA 220
+//PIETRO HAI DA FARE ANCORA
 
 public class Server extends UnicastRemoteObject implements ServerInterface{
 
@@ -38,9 +38,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
 
         try {
-            PreparedStatement statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(nome) like ? Order by ? ");
+            PreparedStatement statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(nome) like ?");
             statement.setString(1, "%" + nomeCentro.toLowerCase() + "%");
-            statement.setString(2,"%nome%");
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
                 int ID = resultSet.getInt("id");
@@ -361,7 +360,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
             pstmt.setString(4, cittadino.getCodiceFiscale());
             pstmt.setString(5, cittadino.getEmail());
             pstmt.setString(6, cittadino.getUserid());
-            pstmt.setString(7, cittadino.getPassowrd());
+            pstmt.setString(7, cittadino.getPassword());
             pstmt.setString(8, cittadino.getIdVacc());
             pstmt.executeUpdate();
             System.out.println("registrazione Cittadino avvenuta con successo");
@@ -370,6 +369,27 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         }
 
         System.out.println("metodo registra Cittadino");
+    }
+
+    //PIETRO: controlla che esista la persona nella tabella dei vaccinati: cod fisc e idvacc devono corrispondere
+    @Override
+    public boolean controlloVaccCitt(Cittadino cittadino){
+        boolean esitoControllo = false;
+        try {
+            PreparedStatement statement = DB.prepareStatement("select count(*) from \"Vaccinati\" JOIN \"Cittadino\" where lower(ID) = lower(idVacc)");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int numeroTuple = resultSet.getInt(1);
+                if (numeroTuple >= 1) {
+                    esitoControllo = true;
+                }
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return esitoControllo;
     }
 
 
