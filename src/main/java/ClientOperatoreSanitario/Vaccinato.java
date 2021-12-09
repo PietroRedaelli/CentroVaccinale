@@ -94,6 +94,6 @@ public class Vaccinato implements Serializable {
 
     @Override
     public String toString() {
-        return nome + " " + cognome + ", " + codiceFisc + ", " + centroVacc + " " + vaccino + " " + dose + " " + idVacc + ", " + data;
+        return "Nome e Cognome: " + nome + " " + cognome + "\nCodice Fiscale: " + codiceFisc + "\nID centro vaccinale: " + centroVacc + "\nTipo: " + vaccino + "\nN° dose: " + dose + "\nID Vaccinazione: " + idVacc + "\nData: " + data;
     }
 }

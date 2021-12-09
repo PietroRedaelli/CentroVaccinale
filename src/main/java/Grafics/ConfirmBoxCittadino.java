@@ -16,12 +16,14 @@ import javafx.stage.Stage;
 public class ConfirmBoxCittadino {
 
         static boolean risposta;
-        private static Cittadino citt;
+        private static Cittadino cittadino;
+        private static final AppCittadino appCittadino = new AppCittadino();
+        public static String error = "";
 
         //funzione chiamata per generare la nuova finestra di conferma
-        public static boolean start(Cittadino cittadino) {
+        public static boolean start(Cittadino c) {
 
-            citt = cittadino;
+            cittadino = c;
 
             //creazione della pagina
             Stage stage = new Stage();
@@ -35,11 +37,11 @@ public class ConfirmBoxCittadino {
             conferma.setFont(Font.font(18));
 
             Label persona = new Label();
-            persona.setText("Cittadino:  " + citt.getNome() + " " + citt.getCognome());
+            persona.setText("Cittadino:  " + ConfirmBoxCittadino.cittadino.getNome() + " " + ConfirmBoxCittadino.cittadino.getCognome());
             persona.setFont(Font.font(18));
 
             Label codice = new Label();
-            codice.setText("Codice Fiscale:   " + citt.getCodiceFiscale());
+            codice.setText("Codice Fiscale:   " + ConfirmBoxCittadino.cittadino.getCodiceFiscale());
             codice.setFont(Font.font(18));
 
             Label email = new Label();
@@ -66,13 +68,12 @@ public class ConfirmBoxCittadino {
         alla pagina di registrazione in cui tutte le informazioni inserite vengono cancellate per poterne registrare
         comodamente un altro*/
             bConferma.setOnAction(e -> {
-                if (!controlloDB()) {
+                if (checkCittadino()) {
                     risposta = true;
-                    AppCittadino appCittadino = new AppCittadino();
-                    appCittadino.registraCittadino(citt);
+                    appCittadino.registraCittadino(cittadino);
                     stage.close();
                 } else {
-                    conferma.setText("Cittadino già registrato!");
+                    conferma.setText(error);
                     conferma.setStyle("-fx-text-fill: red;");
                 }
             });
@@ -96,9 +97,8 @@ public class ConfirmBoxCittadino {
             return risposta;
         }
 
-        //funzione che controlla se il vaccinato che si sta inserendo non sia già stato registrato nel database
-        private static boolean controlloDB() {
-            AppCittadino appCittadino = new AppCittadino();
-            return appCittadino.controllaEsistenzaCittadino(citt);
+        //funzione che controlla se il cittadino che si sta inserendo non sia già stato registrato nel database
+        private static boolean checkCittadino() {
+            return appCittadino.checkCittadino(cittadino);
         }
 }

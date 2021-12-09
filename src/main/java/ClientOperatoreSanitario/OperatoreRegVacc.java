@@ -2,8 +2,6 @@ package ClientOperatoreSanitario;
 
 import Grafics.ConfirmBoxVacc;
 import ServerPackage.CentroVaccinale;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -116,7 +114,7 @@ public class OperatoreRegVacc implements Initializable {
             String data = DPData.getValue().toString();
             String vaccino = CBVacc.getValue();
             int dose = Integer.parseInt(CBDose.getValue());
-            long id = Long.parseLong(TFID.getText());
+            int id = Integer.parseInt(TFID.getText());
 
             Vaccinato vaccinato = new Vaccinato(0, nome, cognome, centroRV.getID(), id, codFisc, data, vaccino, dose);
 

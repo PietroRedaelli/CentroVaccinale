@@ -74,13 +74,13 @@ public class OperatoreSanitarioAPP extends Application {
     }
 
     public void registraVaccinato(Vaccinato vaccinato) {
-        System.out.println("registrazione Vaccinato");
+        System.out.println("Registrazione Vaccinato: ");
         try {
             si.registraVaccinato(vaccinato,os);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        System.out.println("Registrato "+vaccinato);
+        System.out.println(vaccinato);
     }
     public void registraCittadino(Cittadino cittadino) {
         System.out.println("registrazione cittadino");
@@ -94,15 +94,17 @@ public class OperatoreSanitarioAPP extends Application {
 
     //funzione che chiede al server di cercare il centro richiesto
     public ArrayList<CentroVaccinale> cercaCentro(String nome) {
-        System.out.println("ricerca centro vaccinale");
+        System.out.println("Ricerca centro vaccinale:");
         ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
         try {
             arrayListRicevuto = si.cercaCentroVaccinale(nome);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        System.out.println(arrayListRicevuto.size());
-        System.out.println("Trovato centro: "+nome);
+        int i = 1;
+        for(CentroVaccinale cv : arrayListRicevuto){
+            System.out.println(i+++"-"+cv.toString());
+        }
         return arrayListRicevuto;
     }
 
@@ -120,7 +122,6 @@ public class OperatoreSanitarioAPP extends Application {
     }
 
     public boolean controllaEsistenzaCentro(CentroVaccinale cv) {
-        System.out.println("controllo esistenza centro");
         boolean risultato = false;
         try {
             risultato = si.controllaCentro(cv);
@@ -131,7 +132,6 @@ public class OperatoreSanitarioAPP extends Application {
     }
 
     public boolean controllaEsistenzaVaccinato(Vaccinato vacc) {
-        System.out.println("controllo esistenza vaccinato");
         boolean risultato = false;
         try {
             risultato = si.controllaVaccinato(vacc);

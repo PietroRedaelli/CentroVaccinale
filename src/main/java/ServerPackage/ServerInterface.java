@@ -14,9 +14,21 @@ public interface ServerInterface extends Remote {
     CentroVaccinale cercaCentroVaccinale_CF(String CodiceFiscale)throws RemoteException;
     ArrayList<Vaccinato> cercaVaccinato(String codiceFiscale) throws RemoteException;
 
+    //Check Centro
     boolean controllaCentro(CentroVaccinale cv) throws RemoteException;
+
+    //Check Vaccinato
     boolean controllaVaccinato(Vaccinato vacc) throws RemoteException;
-    boolean controllaCittadino(Cittadino cittadino) throws RemoteException;
+
+    //Check Cittadino
+    boolean controllaCittadinoDatiPersonali(Cittadino cittadino) throws RemoteException;
+    boolean controllaCittadinoEmail(String email) throws RemoteException;
+    boolean controllaCittadinoUserId(String UserID) throws RemoteException;
+    boolean controllaCittadinoIDvacc(long IDvacc, String CodiceFiscale) throws RemoteException;
+    boolean controllaCittadinoEsistenza(long IDvacc, String CodiceFiscale) throws RemoteException;
+    Cittadino controllaCittadinoLogin(String userid, String password) throws RemoteException;
+
+    //Check Evento Avverso
 
     CentroVaccinale visualizzaInfoCentroVaccinale(CentroVaccinale centroVaccinaleSelezionato) throws RemoteException;
     String inserisciEventiAvversi(EventoAvverso eventoAvverso) throws RemoteException;
@@ -27,7 +39,7 @@ public interface ServerInterface extends Remote {
     void registraCittadino(Cittadino cittadino) throws RemoteException;
 
     //PIETRO: controlla che esista la persona nella tabella dei vaccinati: cod fisc e idvacc devono corrispondere
-    boolean controlloVaccCitt(Cittadino cittadino);
+    boolean controlloVaccCitt(Cittadino cittadino) throws RemoteException;
 
     int getCountC() throws RemoteException;
 

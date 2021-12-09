@@ -3,6 +3,7 @@ package ClientCittadino;
 import ClientOperatoreSanitario.OperatoreSanitario;
 import ClientOperatoreSanitario.OperatoreSanitarioAPP;
 import ClientOperatoreSanitario.Vaccinato;
+import Grafics.ConfirmBoxCittadino;
 import ServerPackage.ServerInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -62,24 +63,42 @@ public class AppCittadino  extends Application {
 
     //chiede al server di registrare un cittadino
     public void registraCittadino(Cittadino cittadino) {
-        System.out.println("registrazione cittadino");
+        System.out.println("Registrazione cittadino:");
         try {
             si.registraCittadino(cittadino);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        System.out.println("Registrato "+cittadino);
+        System.out.println(cittadino);
     }
 
-    public boolean controllaEsistenzaCittadino(Cittadino citt) {
-        System.out.println("controllo esistenza cittadino");
-        boolean risultato = false;
+    public boolean checkCittadino(Cittadino citt) {
         try {
-            risultato = si.controllaCittadino(citt);
+            if(si.controllaCittadinoEsistenza(citt.idVacc,citt.codiceFiscale)){
+                ConfirmBoxCittadino.error = "Cittadino già registrato!\nEffettua il login";
+                return false;
+            }
+            if(!si.controllaCittadinoDatiPersonali(citt)){
+                ConfirmBoxCittadino.error = "Nome o Cognome o Codice Fiscale errati!";
+                return false;
+            }
+            if(si.controllaCittadinoEmail(citt.email)){
+                ConfirmBoxCittadino.error = "Email già esistente!";
+                return false;
+            }
+            if(si.controllaCittadinoUserId(citt.userid)){
+                ConfirmBoxCittadino.error = "User ID già utilizzato!";
+                return false;
+            }
+            if(!si.controllaCittadinoIDvacc(citt.idVacc, citt.codiceFiscale)){
+                ConfirmBoxCittadino.error = "ID Vaccinazione sbagliato!";
+                return false;
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
+            return false;
         }
-        return risultato;
+        return true;
     }
 }
 

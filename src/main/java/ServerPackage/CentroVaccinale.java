@@ -9,7 +9,6 @@ public class CentroVaccinale implements Serializable {
     private int ID;
     private String nomeCentro;
     private String comune;
-    //private String qualif;
     private String indirizzoCentro;
     private String civico;
     private String sigla;
@@ -41,7 +40,17 @@ public class CentroVaccinale implements Serializable {
 
     @Override
     public String toString() {
-        return nomeCentro + " " + tipo + ", " + indirizzoCentro + " " + civico + ", " + comune + " " + sigla + " " + cap;
+        if(this.indirizzoCentro == null){
+            return  "ID: " + ID + '\n' +
+                    "Nome: " + nomeCentro + '\n';
+        }else{
+            return  "ID: " + ID + '\n' +
+                    "Nome: " + nomeCentro + '\n' +
+                    "Indirizzo: " + indirizzoCentro +" "+ civico + '\n' +
+                    "Comune: " +comune +" ("+ sigla + ")\n" +
+                    "Cap: " + cap + '\n' +
+                    "Tipo: " + tipo ;
+        }
     }
 
     public String getNomeCentro() {

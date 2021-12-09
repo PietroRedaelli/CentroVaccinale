@@ -12,17 +12,17 @@ public class Cittadino implements Serializable {
     String email;
     String userid;
     String password;
-    String idVacc=null;
+    long idVacc = 0;
 
     public Cittadino(){}
-    public Cittadino(String nome, String cognome, String codiceFiscale, String email, String userid, String password, String idVacc) {
+    public Cittadino(String nome, String cognome, String codiceFiscale, String email, String userid, String password, long idVacc) {
         this.nome = nome;
         this.cognome = cognome;
         this.codiceFiscale = codiceFiscale;
         this.email = email;
         this.userid = userid;
         this.password = password;
-        this.idVacc = null;
+        this.idVacc = idVacc;
     }
 
     public String getNome() {
@@ -73,11 +73,22 @@ public class Cittadino implements Serializable {
         this.password = password;
     }
 
-    public String getIdVacc() {
+    public long getIdVacc() {
         return idVacc;
     }
 
-    public void setIdVacc(String idVacc) {
+    public void setIdVacc(long idVacc) {
         this.idVacc = idVacc;
+    }
+
+    @Override
+    public String toString() {
+        return  "Nome: " + nome + '\n' +
+                "Cognome: " + cognome + '\n' +
+                "Codice Fiscale: " + codiceFiscale + '\n' +
+                "Email: " + email + '\n' +
+                "Userid: " + userid + '\n' +
+                "Password: " + password + '\n' +
+                "ID Vaccinazione: " + idVacc ;
     }
 }

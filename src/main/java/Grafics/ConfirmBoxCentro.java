@@ -18,6 +18,7 @@ public class ConfirmBoxCentro {
 
     static boolean risposta;
     private static CentroVaccinale cv;
+    private static final OperatoreSanitarioAPP OS = new OperatoreSanitarioAPP();
 
     //funzione chiamata per generare la nuova finestra di conferma
     public static boolean start(CentroVaccinale centroVaccinale) {
@@ -65,10 +66,9 @@ public class ConfirmBoxCentro {
         bConferma.setOnAction(e -> {
             //si cerca il contrario perché se la funzione ritorna 'false' allora non esiste un centro uguale a quello inserito,
             // quindi posso registrare quello che sto inserendo
-            if (!controlloDB()) {
+            if (!controlloEsistenzaCentro()) {
                 risposta = true;
-                OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
-                operatoreSanitarioAPP.registraCV(centroVaccinale);
+                OS.registraCV(cv);
                 stage.close();
             } else {
                 conferma.setText("Centro già registrato!");
@@ -96,8 +96,7 @@ public class ConfirmBoxCentro {
     }
 
     //funzione che controlla se il centro che si sta inserendo non sia già stato registrato nel database
-    private static boolean controlloDB() {
-        OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
-        return operatoreSanitarioAPP.controllaEsistenzaCentro(cv);
+    private static boolean controlloEsistenzaCentro() {
+        return OS.controllaEsistenzaCentro(cv);
     }
 }

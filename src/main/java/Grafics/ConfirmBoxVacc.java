@@ -18,6 +18,7 @@ public class ConfirmBoxVacc {
 
     static boolean risposta;
     private static Vaccinato vacc;
+    private static final OperatoreSanitarioAPP OS = new OperatoreSanitarioAPP();
 
     //funzione chiamata per generare la nuova finestra di conferma
     public static boolean start(Vaccinato vaccinato, String centroVaccinale) {
@@ -107,7 +108,6 @@ public class ConfirmBoxVacc {
 
     //funzione che controlla se il vaccinato che si sta inserendo non sia già stato registrato nel database
     private static boolean controlloDB() {
-        OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
-        return operatoreSanitarioAPP.controllaEsistenzaVaccinato(vacc);
+        return OS.controllaEsistenzaVaccinato(vacc);
     }
 }

@@ -24,9 +24,9 @@ public class CittadinoRegEvento implements Initializable {
 
     //variabili
     protected boolean LoginCheck = false;
-    private static ServerInterface si = AppCittadino.si;
-    CentroVaccinale nome_centro = null;
-    Cittadino cittadino = null;
+    private static final ServerInterface si = AppCittadino.si;
+    private CentroVaccinale nome_centro = null;
+    public static Cittadino cittadino = null;
 
     //pannelli
     @FXML private AnchorPane pane1;
@@ -42,7 +42,6 @@ public class CittadinoRegEvento implements Initializable {
     //elementi del secondo pannello
     @FXML public Label L_nomeCentro;
     @FXML public Label L_ID_Vacc;
-    @FXML public Label L_DataVacc;
     @FXML private ComboBox<String> CBEvento;
     @FXML private Rating RTValutazione;
     @FXML private TextArea TANote;
@@ -50,23 +49,18 @@ public class CittadinoRegEvento implements Initializable {
     @FXML private Button BTConferma2;
     @FXML private Button BTAnnulla2;
 
-
-    public CittadinoRegEvento() {
-    }
-
-    //funzione che inizializza il ComboBox con le varie scelte
+    //funzione che inizializza la finestra principale
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        pane1.setVisible(true);
-        pane2.setVisible(false);
-
-
-        //setLabal
-        getNomeCentro();
-        L_nomeCentro.setText(nome_centro.getNomeCentro());
-        L_ID_Vacc.setText(cittadino.getIdVacc());
-        L_DataVacc.setText(String.valueOf(LocalDate.now()));
+        if(cittadino == null){
+            pane1.setVisible(true);
+            pane2.setVisible(false);
+        }else{
+            pane1.setVisible(false);
+            pane2.setVisible(true);
+            impostaDati();
+        }
 
         //setCheckBox del tipo di Evento
         CBEvento.getItems().addAll("Mal di testa", "Febbre", "Dolori muscolari e articolari", "Linfoadenopatia", "Tachicardia", "Crisi ipertensiva");
@@ -81,7 +75,7 @@ public class CittadinoRegEvento implements Initializable {
 
     private void getNomeCentro() {
         try {
-            si.cercaCentroVaccinale_CF(cittadino.getCodiceFiscale());
+            nome_centro = si.cercaCentroVaccinale_CF(cittadino.getCodiceFiscale());
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -91,6 +85,7 @@ public class CittadinoRegEvento implements Initializable {
     public void confermaLogin(ActionEvent actionEvent) {
 
         if (controlloDB()) {
+            impostaDati();
             pane1.setVisible(false);
             if(LBErr.isVisible())
                 LBErr.setVisible(false);
@@ -98,6 +93,7 @@ public class CittadinoRegEvento implements Initializable {
             PFPassword.clear();
             pane2.setVisible(true);
             LoginCheck = true;
+
         }
         else {
             //a seconda dell'errore si mostra il label associato
@@ -106,19 +102,32 @@ public class CittadinoRegEvento implements Initializable {
 
     }
 
+    //setLabel
+    private void impostaDati() {
+        getNomeCentro();
+        L_nomeCentro.setText(nome_centro.getNomeCentro());
+        L_ID_Vacc.setText(String.valueOf(cittadino.getIdVacc()));
+    }
+
     //funzione che controlla la correttezza dei dati di login
     private boolean controlloDB() {
         String userid = TFUser.getText().trim();
         String password = PFPassword.getText().trim();
+        try {
+            if(!si.controllaCittadinoUserId(userid)){
+                LBErr.setText("User ID inesistente!");
+                return false;
+            }
+            cittadino = si.controllaCittadinoLogin(userid,password);
+            if(cittadino == null){
+                LBErr.setText("Password sbagliata!");
+                return false;
+            }
 
-
-        //ricerca nel DB...
-        for (Cittadino i : CittadinoRegistrazione.registrati){
-            if(userid.equals(i.userid) && password.equals(i.passowrd))
-                cittadino = i;
-                return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
-        return false;
+        return true;
     }
 
     //vai avanti nella pagina di segnalazione dell'evento
@@ -167,6 +176,7 @@ public class CittadinoRegEvento implements Initializable {
         alert.setContentText("Verrà eseguito il LOGOUT dal tuo account.");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == ButtonType.OK){
+            cittadino = null;
             LoginCheck = false;
             pane2.setVisible(false);
             CBEvento.valueProperty().set(null);
