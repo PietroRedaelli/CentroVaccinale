@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 //PIETRO: registrazione nel DB
@@ -22,6 +23,8 @@ public class CittadinoRegistrazione implements Initializable {
     @FXML private PasswordField password;
     @FXML private Button annullaid;
     @FXML private Button registratiid;
+
+    public static ArrayList<Cittadino> registrati = new ArrayList<>();// da eliminare
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,8 +44,11 @@ public class CittadinoRegistrazione implements Initializable {
             Cittadino cittadino = new Cittadino(nomeUtente, cognomeUtente, codicefiscaleUtente, emailUtente, useridUtente, passwordUtente);
             //controllo se esiste gia un registrato con questi dati...
 
+            //fai partire la finestra di recap dei dati per far confermare al cittadino
+
             //aggiunta del registrato nella tabella Vaccinati
 
+            registrati.add(cittadino);//da eliminare
 
             AppCittadino.setRoot("cittadinoRegEvento.fxml");
         }

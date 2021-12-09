@@ -11,6 +11,7 @@ public interface ServerInterface extends Remote {
 
     ArrayList<CentroVaccinale> cercaCentroVaccinale(String nomeCentro) throws RemoteException;
     ArrayList<CentroVaccinale> cercaCentroVaccinale(String comune, String tipologia) throws RemoteException;
+    CentroVaccinale cercaCentroVaccinale_CF(String CodiceFiscale)throws RemoteException;
     ArrayList<Vaccinato> cercaVaccinato(String codiceFiscale) throws RemoteException;
 
     boolean controllaCentro(CentroVaccinale cv) throws RemoteException;
@@ -28,5 +29,7 @@ public interface ServerInterface extends Remote {
     int getCountC() throws RemoteException;
 
     OperatoreSanitario getCountOS(OperatoreSanitario os) throws RemoteException;
+
+
 }
 

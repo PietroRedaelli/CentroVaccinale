@@ -17,12 +17,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
 
 //Classe che gestisce la registrazione di un nuovo vaccinato
 
 public class OperatoreRegVacc implements Initializable {
+
 
     //Elementi grafici della finestra di salvataggio
     @FXML private TextField TFCentro;
@@ -33,6 +35,7 @@ public class OperatoreRegVacc implements Initializable {
     @FXML private ComboBox<String> CBVacc;
     @FXML private ComboBox<String> CBDose;
     @FXML private TextField TFID;
+    @FXML private Button BTSeleziona;
 
     protected static TextField staticLabel;
     protected static CentroVaccinale centroRV;
@@ -60,26 +63,16 @@ public class OperatoreRegVacc implements Initializable {
         DPData.setValue(LocalDate.now());
 
         //listener che fa diventare ciò che si scrive maiuscolo
-        TFFisc.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                TFFisc.setText(newValue.toUpperCase());
-            }
-        });
+        TFFisc.textProperty().addListener((observable, oldValue, newValue) -> TFFisc.setText(newValue.toUpperCase()));
 
         //Serve per limitare ad un massimo 16 caratteri il codice fiscale
         TFFisc.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 16 ? change : null));
 
         //listener che permette di inserire solamente numeri all'interno del textfield associato all'ID
-        TFID.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    TFID.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        TFID.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                TFID.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
@@ -104,7 +97,7 @@ public class OperatoreRegVacc implements Initializable {
     //funzione che apre una nuova finestra per la selezione del centro
     public void selezionaCentro(ActionEvent actionEvent) throws IOException {
         //apro una nuova finestra
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sceltaCentro.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("sceltaCentro.fxml")));
         Stage stage = new Stage();
         stage.setTitle("Selezione Centro");
         stage.setScene(new Scene(root));

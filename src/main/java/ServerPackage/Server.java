@@ -19,7 +19,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
 
     protected String url_DB = "jdbc:postgresql://localhost:5432/LabB" ;
     protected String user_DB = "postgres";
-    protected String password_DB = "Password" ;
+    protected String password_DB = "12345678" ;
 
     protected static Connection DB = null;
 
@@ -38,8 +38,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
 
         try {
-            PreparedStatement statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(nome) like ?");
+            PreparedStatement statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(nome) like ? Order by ? ");
             statement.setString(1, "%" + nomeCentro.toLowerCase() + "%");
+            statement.setString(2,"%nome%");
             ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()){
                 int ID = resultSet.getInt("id");
@@ -89,6 +90,39 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
             e.printStackTrace();
         }
         return arrayListCentri;
+    }
+
+    @Override
+    public CentroVaccinale cercaCentroVaccinale_CF(String CodiceFiscale) {
+        //Usando una query ricerchiamo dentro la tabella CentroVaccinale join con Vaccinati il nome del centro
+        //che il Cittadino con il codice fiscale inserito nel metodo ha fatto l'ultimo vaccino
+
+        ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = DB.prepareStatement("select * from \"CentriVaccinali\" cv , (select * from \"Vaccinati\" v where lower(v.codiceFiscale) like ? ) ");
+            statement.setString(1, "%" + CodiceFiscale.toLowerCase() + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                int ID = resultSet.getInt("id");
+                String centro = resultSet.getString("nome");
+                String comune= resultSet.getString("comune");
+                String nomeInd = resultSet.getString("indirizzo");
+                String civico = resultSet.getString("civico");
+                String sigla = resultSet.getString("sigla");
+                int cap = resultSet.getInt("cap");
+                String tipo = resultSet.getString("tipologia");
+                CentroVaccinale cv = new CentroVaccinale(ID, centro);
+                arrayListCentri.add(cv);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //verifica dei centri trovati
+        for(CentroVaccinale c : arrayListCentri) System.out.println(c.toString());      //da eliminare
+        return arrayListCentri.get(0);
     }
 
     @Override
@@ -217,7 +251,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         //usando una query restituiamo le informazioni su un centro vaccianle. La classe centrovaccinale sarà in remoto
 
         CentroVaccinale centroVaccinale= null;
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         try {
             if(centroVaccinaleSelezionato.getNomeCentro() != null) {
                 statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(nome) like ?");
@@ -251,7 +285,20 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     @Override
     public String inserisciEventiAvversi(EventoAvverso eventoAvverso) throws RemoteException {
         //con una query un cittadino inserisce un evento avverso
-        return "null";
+        String SQL = "INSERT INTO \"EventoAvverso\"(idCentro,codiceFiscale,evento,severita,note) VALUES(?,?,?,?,?)";
+        try {
+            System.out.println(eventoAvverso.getCodiceFiscale() + " inserimento evento avverso: "+ eventoAvverso);
+            PreparedStatement pstmt = DB.prepareStatement(SQL);
+            pstmt.setString(1, eventoAvverso.getIdCentro());
+            pstmt.setString(2, eventoAvverso.getCodiceFiscale());
+            pstmt.setString(3, eventoAvverso.getEvento());
+            pstmt.setInt(4, eventoAvverso.getSeverita());
+            pstmt.setString(5, eventoAvverso.getNoteOpz());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "Inserimento "+ eventoAvverso + " avvenuta con successo ";
     }
 
     @Override
@@ -348,8 +395,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        server.connessione_server();
-        server.connessione_DB();
+        if (server != null) {
+            server.connessione_server();
+            server.connessione_DB();
+        }
         //server.query();
         //server.queryEliminareTupla("Azzate");
         //server.query();

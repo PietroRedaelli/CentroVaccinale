@@ -34,6 +34,11 @@ public class CentroVaccinale implements Serializable {
         this.ID = ID;
     }
 
+    public CentroVaccinale(int id, String centro) {
+        this.ID = id;
+        this.nomeCentro = centro;
+    }
+
     @Override
     public String toString() {
         return nomeCentro + " " + tipo + ", " + indirizzoCentro + " " + civico + ", " + comune + " " + sigla + " " + cap;

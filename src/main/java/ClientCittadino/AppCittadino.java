@@ -17,7 +17,7 @@ import java.rmi.registry.Registry;
 
 public class AppCittadino  extends Application {
     private static int cittadino;
-    private static ServerInterface si;
+    public static ServerInterface si;
     private static Scene scene;
     private static Stage stage1;
     @Override
