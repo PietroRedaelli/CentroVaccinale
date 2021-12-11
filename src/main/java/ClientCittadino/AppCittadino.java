@@ -35,7 +35,7 @@ public class AppCittadino  extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(OperatoreSanitarioAPP.class.getClassLoader().getResource(fxml));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppCittadino.class.getClassLoader().getResource(fxml));
         return fxmlLoader.load();
     }
 

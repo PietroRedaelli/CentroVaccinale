@@ -114,7 +114,7 @@ public class OperatoreRegVacc implements Initializable {
             String data = DPData.getValue().toString();
             String vaccino = CBVacc.getValue();
             int dose = Integer.parseInt(CBDose.getValue());
-            int id = Integer.parseInt(TFID.getText());
+            long id = Long.parseLong(TFID.getText());
 
             Vaccinato vaccinato = new Vaccinato(0, nome, cognome, centroRV.getID(), id, codFisc, data, vaccino, dose);
 
