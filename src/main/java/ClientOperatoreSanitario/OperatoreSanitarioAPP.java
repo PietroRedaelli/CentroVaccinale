@@ -1,7 +1,8 @@
 package ClientOperatoreSanitario;
 
 import ClientCittadino.Cittadino;
-import ServerPackage.CentroVaccinale;
+import Grafics.ConfirmBoxCentro;
+import Grafics.ConfirmBoxVacc;
 import ServerPackage.ServerInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,12 +20,6 @@ public class OperatoreSanitarioAPP extends Application {
     private static OperatoreSanitario os = new OperatoreSanitario();
     private static ServerInterface si;
     private static Stage stage1;
-
-
-    public static void main(String[] args){
-        connessione_server();
-        launch();
-    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -46,69 +41,71 @@ public class OperatoreSanitarioAPP extends Application {
         return fxmlLoader.load();
     }
 
-    public static void connessione_server(){
+    public static void main(String[] args){
+        OperatoreSanitarioAPP app = new OperatoreSanitarioAPP();
+        app.connessione_server();
+        launch();
+        app.disconnessione_server();
+    }
+
+    private void connessione_server(){
         try {
             Registry registro = LocateRegistry.getRegistry(1099);
             si = (ServerInterface) registro.lookup("CentroVaccinale");
         } catch (Exception e) {
-            System.err.println("Client: errore di connessione al server \n" + e.getMessage());
+            System.err.println("Client Operatore Sanitario: errore di connessione al server \n" + e.getMessage());
             System.exit(0);
         }
-        System.out.println("Operatore connesso al Server");
         try {
-            os = si.getCountOS(os);
+            os.setId(si.getCountOS());
             System.out.println(os +" connesso al Server");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
+    private void disconnessione_server() {
+        try {
+            si.diminuisciCountOS(os.getId());
+            System.out.println(os +" disconnesso dal Server");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void registraCV(CentroVaccinale centro){
-        System.out.println("registrazione CV");
+    public static void registraCentroVaccinale(CentroVaccinale centro){
+        System.out.println(os+" registrazione Centro Vaccinale");
         try {
             si.registraCentroVaccinale(centro,os);
+            System.out.println(centro + "\nCompletata registrazione Centro Vaccinale");
         } catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println(os+ ": Error!!!\n" + e.getMessage());
         }
-        System.out.println("Registrato "+centro);
     }
 
+    //metodo che controlla i campi del vaccinato con i dati nel databae e se tutto va bene registra il vaccinato
     public void registraVaccinato(Vaccinato vaccinato) {
-        System.out.println("Registrazione Vaccinato: ");
+        System.out.println(os+ " registrazione Vaccinato");
         try {
             si.registraVaccinato(vaccinato,os);
+            System.out.println(vaccinato+"\nCompletata registrazione Vaccinato");
         } catch (RemoteException e) {
             e.printStackTrace();
+            ConfirmBoxCentro.error = "Errore di connessione con il Server";
         }
-        System.out.println(vaccinato);
-    }
-    public void registraCittadino(Cittadino cittadino) {
-        System.out.println("registrazione cittadino");
-        try {
-            si.registraCittadino(cittadino);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Registrato "+cittadino);
     }
 
-    //funzione che chiede al server di cercare il centro richiesto
+    //funzione che chiede al server di cercare il centro richiesto in base al nome
     public ArrayList<CentroVaccinale> cercaCentro(String nome) {
-        System.out.println("Ricerca centro vaccinale:");
         ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
         try {
             arrayListRicevuto = si.cercaCentroVaccinale(nome);
         } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        int i = 1;
-        for(CentroVaccinale cv : arrayListRicevuto){
-            System.out.println(i+++"-"+cv.toString());
+            System.out.println(os+" : "+e.getMessage());
         }
         return arrayListRicevuto;
     }
 
-    //funzione che chiede al server di cercare il centro richiesto
+    //funzione che chiede al server di cercare il centro richiesto in base al comune e alla tipologia
     public ArrayList<CentroVaccinale> cercaCentro(String comune, String tipologia) {
         System.out.println("ricerca centro vaccinale");
         ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
@@ -121,72 +118,34 @@ public class OperatoreSanitarioAPP extends Application {
         return arrayListRicevuto;
     }
 
-    public boolean controllaEsistenzaCentro(CentroVaccinale cv) {
-        boolean risultato = false;
+    public static boolean controllaCentro(CentroVaccinale centroVaccinale) {
         try {
-            risultato = si.controllaCentro(cv);
+            String errore = si.controllaCentroServer(centroVaccinale);
+            if(!errore.equals("")){
+                ConfirmBoxCentro.error = errore;
+                return false;
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
+            ConfirmBoxCentro.error = "Errore di connessione con il Server";
+            return false;
         }
-        return risultato;
+        return true;
     }
 
-    public boolean controllaEsistenzaVaccinato(Vaccinato vacc) {
-        boolean risultato = false;
+    public boolean controllaVaccinato(Vaccinato vaccinato) {
+        String errore;
         try {
-            risultato = si.controllaVaccinato(vacc);
+            errore = si.controllaVaccinatoServer(vaccinato);
         } catch (RemoteException e) {
             e.printStackTrace();
+            ConfirmBoxCentro.error = "Errore di connessione con il Server";
+            return false;
         }
-        return risultato;
-    }
-/*
-    int id;
-    Notizia notiziaPolitica;
-    Notizia notiziaAttualita;
-    Notizia notiziaScienza;
-    Notizia notiziaSport;
-
-    public OperatoreSanitario(int id) {
-        super("Produttore Notizie "+id);
-        this.id = id;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            creaNotizia();//genera notizie
-            try {
-                Thread.sleep(new Random().nextInt(3000)+1000);//attesa casuale
-            } catch (InterruptedException e) {}
+        if(!errore.equals("")){
+            ConfirmBoxVacc.error = errore;
+            return false;
         }
+        return true;
     }
-
-    private void creaNotizia(){
-        String contenuto = "Notizia generata da " + getName();
-        creaNotiziaPolitica(contenuto);
-        creaNotiziaAttualita(contenuto);
-        creaNotiziaScienza(contenuto);
-        creaNotiziaSport(contenuto);
-    }
-    private void creaNotiziaPolitica(String contenuto) {
-        if((new Random().nextInt(100))%10 == 0){//crea notizia Politica
-            notiziaPolitica = new Notizia(TipoNotizia.POLITICA, contenuto);
-        }
-    }
-    private void creaNotiziaAttualita(String contenuto) {
-        if((new Random().nextInt(100))%10 == 0){//crea notizia Attualità
-            notiziaAttualita = new Notizia(TipoNotizia.ATTUALITA, contenuto);
-        }
-    }
-    private void creaNotiziaScienza(String contenuto) {
-        if((new Random().nextInt(100))%10 == 0){//crea notizia Scienza
-            notiziaScienza = new Notizia(TipoNotizia.SCIENZA, contenuto);
-        }
-    }
-    private void creaNotiziaSport(String contenuto) {
-        if((new Random().nextInt(100))%10 == 0){//crea notizia Sport
-            notiziaSport = new Notizia(TipoNotizia.SPORT, contenuto);
-        }
-    }*/
 }

@@ -83,12 +83,6 @@ public class Cittadino implements Serializable {
 
     @Override
     public String toString() {
-        return  "Nome: " + nome + '\n' +
-                "Cognome: " + cognome + '\n' +
-                "Codice Fiscale: " + codiceFiscale + '\n' +
-                "Email: " + email + '\n' +
-                "Userid: " + userid + '\n' +
-                "Password: " + password + '\n' +
-                "ID Vaccinazione: " + idVacc ;
+        return  "Nome e Cognome: " + nome + " " + cognome + ", Codice Fiscale: " + codiceFiscale + ", Email: " + email + ", Userid: " + userid + ", Password: " + password + ", ID Vaccinazione: " + idVacc ;
     }
 }

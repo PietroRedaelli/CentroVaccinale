@@ -1,5 +1,6 @@
 package ClientCittadino;
 
+import ClientOperatoreSanitario.SceltaCentro;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ public class CittadinoMainMenu {
         AppCittadino.setRoot("cittadinoRegistrazione.fxml");
     }
     public void informazioniShow(ActionEvent actionEvent) throws IOException {
+        SceltaCentro.OS_Citt_check = true;
         AppCittadino.setRoot("sceltaCentro.fxml");
     }
 }

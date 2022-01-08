@@ -33,20 +33,22 @@ public class CittadinoRegistrazione implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        //listener per la lunghezza dei dati inseriti
+        nome.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 20 ? change : null));
+        cognome.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 30 ? change : null));
+        codicefiscale.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 16 ? change : null));
+        email.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 40 ? change : null));
+        userid.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 30 ? change : null));
+        password.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 18 ? change : null));
+        idVacc.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 16 ? change : null));
         //listener che fa diventare ciò che si scrive maiuscolo per Codice Fiscale
         codicefiscale.textProperty().addListener((observable, oldValue, newValue) -> codicefiscale.setText(newValue.toUpperCase()));
-        //Serve per limitare a un massimo 16 caratteri per il Codice Fiscale
-        codicefiscale.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 16 ? change : null));
         //listener che permette di scrivere solo numeri per l'ID Vaccinazione
         idVacc.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 idVacc.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        //Serve per limitare a un massimo di 16 caratteri per l'ID Vaccinazione
-        idVacc.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 16 ? change : null));
-
-
     }
     public void annulla() throws IOException {
         AppCittadino.setRoot("cittadinoMainMenu.fxml");
@@ -101,20 +103,23 @@ public class CittadinoRegistrazione implements Initializable {
             controllo = false;
         }
 
-        if (userid.getText().equals("")) {
+        if (userid.getText().length() <4) {
+            userid.clear();
             userid.setStyle("-fx-prompt-text-fill: red;");
-            userid.setPromptText("Campo mancante!");
+            userid.setPromptText("Lunghezza min 4 caratteri e max 30 caratteri!");
             controllo = false;
         }
 
-        if (password.getText().equals("")) {
+        if (password.getText().length() < 4) {
+            password.clear();
             password.setStyle("-fx-prompt-text-fill: red;");
-            password.setPromptText("Campo mancante!");
+            password.setPromptText("Lunghezza min 4 caratteri e max 18 caratteri!");
             controllo = false;
         }
+
         if (idVacc.getText().equals("")) {
             idVacc.setStyle("-fx-prompt-text-fill: red;");
-            idVacc.setPromptText("Campo mancante!");
+            idVacc.setPromptText("Inserisci un ID valido di 16 caratteri!");
             controllo = false;
         }
         return controllo;
@@ -129,5 +134,12 @@ public class CittadinoRegistrazione implements Initializable {
         userid.clear();
         password.clear();
         idVacc.clear();
+        nome.setPromptText("");
+        cognome.setPromptText("");
+        codicefiscale.setPromptText("");
+        email.setPromptText("");
+        userid.setPromptText("");
+        password.setPromptText("");
+        idVacc.setPromptText("");
     }
 }

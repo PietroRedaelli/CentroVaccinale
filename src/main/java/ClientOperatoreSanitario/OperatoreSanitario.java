@@ -6,15 +6,18 @@ public class OperatoreSanitario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    int id;
+    //Dati
+    private int id;//numero dell'operatore sanitario datogli dal Server
 
+    //Costruttori
     public OperatoreSanitario(int num) {
         id = num;
     }
-
     public OperatoreSanitario() {
+
     }
 
+    //Metodi
     public int getId() {
         return id;
     }
@@ -23,9 +26,6 @@ public class OperatoreSanitario implements Serializable {
     }
     @Override
     public String toString() {
-        return "OperatoreSanitario{" +
-                "id=" + id +
-                '}';
+        return "Operatore Sanitario (" +id +")";
     }
-
 }

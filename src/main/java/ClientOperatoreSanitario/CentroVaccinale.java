@@ -1,9 +1,8 @@
-package ServerPackage;
+package ClientOperatoreSanitario;
 
 import java.io.Serializable;
 
 public class CentroVaccinale implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     private int ID;
@@ -41,14 +40,13 @@ public class CentroVaccinale implements Serializable {
     @Override
     public String toString() {
         if(this.indirizzoCentro == null){
-            return  "ID: " + ID + '\n' +
-                    "Nome: " + nomeCentro + '\n';
+            return  "ID: " + ID + ", " +
+                    "Nome: " + nomeCentro ;
         }else{
-            return  "ID: " + ID + '\n' +
-                    "Nome: " + nomeCentro + '\n' +
-                    "Indirizzo: " + indirizzoCentro +" "+ civico + '\n' +
-                    "Comune: " +comune +" ("+ sigla + ")\n" +
-                    "Cap: " + cap + '\n' +
+            return  "Nome: " + nomeCentro + ", " +
+                    "Indirizzo: " + indirizzoCentro +" "+ civico + ", " +
+                    "Comune: " +comune +" ("+ sigla + "), " +
+                    "Cap: " + cap + ", " +
                     "Tipo: " + tipo ;
         }
     }

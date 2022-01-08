@@ -1,6 +1,7 @@
 package ClientCittadino;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -8,7 +9,9 @@ public class EventoAvverso implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String idCentro;
+    int idCentro;
+    String nomeCentro;
+    long idVacc;
     String CodiceFiscale;
     String evento;
     int severita;
@@ -16,30 +19,39 @@ public class EventoAvverso implements Serializable {
     String noteOpz;
 
 
-    public EventoAvverso(String idCentro, String CodiceFiscale, String evento, int severita, String noteOpz) {
+    public EventoAvverso(int idCentro, String nomeCentro, long idVacc, String CodiceFiscale, String evento, int severita, String noteOpz) {
         this.idCentro = idCentro;
+        this.nomeCentro = nomeCentro;
+        this.idVacc = idVacc;
         this.CodiceFiscale = CodiceFiscale;
         this.evento = evento;
         this.severita = severita;
+        this.data = LocalDate.now().toString();
         this.noteOpz = noteOpz;
     }
 
-    public EventoAvverso(String idCentro, String CodiceFiscale,String evento, int severita, String data, String noteOpz) {
-        this.idCentro = idCentro;
-        this.CodiceFiscale = CodiceFiscale;
-        this.evento = evento;
-        this.severita = severita;
-        this.data = data;
-        this.noteOpz = noteOpz;
-
-    }
-
-    public String getIdCentro() {
+    public int getIdCentro() {
         return idCentro;
     }
 
-    public void setIdCentro(String idCentro) {
+    public void setIdCentro(int idCentro) {
         this.idCentro = idCentro;
+    }
+
+    public String getNomeCentro() {
+        return nomeCentro;
+    }
+
+    public void setNomeCentro(String nomeCentro) {
+        this.nomeCentro = nomeCentro;
+    }
+
+    public long getIdVacc() {
+        return idVacc;
+    }
+
+    public void setIdCentro(long idVacc) {
+        this.idVacc = idVacc;
     }
 
     public String getCodiceFiscale() {
@@ -84,25 +96,9 @@ public class EventoAvverso implements Serializable {
 
     @Override
     public String toString() {
-        if(data == null){
-            return "EventoAvverso{" +
-                    "idCentro='" + idCentro + '\'' +
-                    ", CodiceFiscale='" + CodiceFiscale + '\'' +
-                    ", evento='" + evento + '\'' +
-                    ", severita=" + severita +
-                    ", noteOpz='" + noteOpz + '\'' +
-                    '}';
-        }else{
-            return "EventoAvverso{" +
-                    "idCentro='" + idCentro + '\'' +
-                    ", CodiceFiscale='" + CodiceFiscale + '\'' +
-                    ", evento='" + evento + '\'' +
-                    ", severita=" + severita +
-                    ", data='" + data + '\'' +
-                    ", noteOpz='" + noteOpz + '\'' +
-                    '}';
-
-        }
-
+            return "Evento Avverso:" +
+                    " Tipo: " + evento +
+                    ", Severita: " + severita +
+                    ", Note: " + noteOpz;
     }
 }
