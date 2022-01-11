@@ -1,7 +1,8 @@
 package Grafics;
 
-import ClientOperatoreSanitario.OperatoreSanitarioAPP;
-import ClientOperatoreSanitario.Vaccinato;
+import ClientCittadino.AppCittadino;
+import ClientCittadino.CittadinoRegEvento;
+import ClientCittadino.EventoAvverso;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,18 +14,18 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-//Classe che genera una finestra dove vengono riassunti i dati inseriti prima di salvarli definitivamente nel database
-public class ConfirmBoxVacc {
+import java.rmi.RemoteException;
 
-    static boolean risposta;
-    private static Vaccinato vacc;
-    private static final OperatoreSanitarioAPP OS = new OperatoreSanitarioAPP();
+public class ConfirmBoxEventoAvverso {
+
+    private static EventoAvverso eventoAvverso;
     public static String error = "";
+    private static boolean risposta = false;
 
     //funzione chiamata per generare la nuova finestra di conferma
-    public static boolean start(Vaccinato vaccinato, String centroVaccinale) {
+    public static boolean start(EventoAvverso evento) {
 
-        vacc = vaccinato;
+        eventoAvverso = evento;
 
         //creazione della pagina
         Stage stage = new Stage();
@@ -38,27 +39,28 @@ public class ConfirmBoxVacc {
         conferma.setFont(Font.font(18));
 
         Label centro = new Label();
-        centro.setText("Dati Centro:  "+ centroVaccinale);
+        centro.setText("Nome Centro:   "+ eventoAvverso.getNomeCentro());
         centro.setFont(Font.font(18));
 
         Label persona = new Label();
-        persona.setText("Vaccinato:  " + vaccinato.getNome() + " " + vaccinato.getCognome());
+        persona.setText("ID Vaccinato:   " + eventoAvverso.getIdVacc());
         persona.setFont(Font.font(18));
 
         Label codice = new Label();
-        codice.setText("Codice Fiscale:   " + vaccinato.getCodiceFisc());
+        codice.setText("Codice Fiscale:   " + eventoAvverso.getCodiceFiscale());
         codice.setFont(Font.font(18));
 
         Label giorno = new Label();
-        giorno.setText("Data:   " + vaccinato.getData());
+        giorno.setText("Data:   " + eventoAvverso.getData());
         giorno.setFont(Font.font(18));
 
         Label dose = new Label();
-        dose.setText("Vaccino:   " + vaccinato.getVaccino() + ", dose " + vaccinato.getDose());
+        dose.setText("Tipo evento riscontrato:   " + eventoAvverso.getEvento());
         dose.setFont(Font.font(18));
 
+
         Label codiceID = new Label();
-        codiceID.setText("Codice ID:   " + vaccinato.getIdVacc());
+        codiceID.setText("Note:\n " + eventoAvverso.getNoteOpz());
         codiceID.setFont(Font.font(18));
 
         Button bAnnulla = new Button("Annulla");
@@ -69,7 +71,6 @@ public class ConfirmBoxVacc {
         /*premendo il bottone 'annulla' la pagina corrente si chiude e si ritorna alla pagina di registrazione del vaccinato
         per modificare eventuali dati errati*/
         bAnnulla.setOnAction(e -> {
-            risposta = false;
             stage.close();
         });
 
@@ -77,10 +78,9 @@ public class ConfirmBoxVacc {
         alla pagina di registrazione in cui tutte le informazioni inserite vengono cancellate per poterne registrare
         comodamente un altro*/
         bConferma.setOnAction(e -> {
-            if (controlloDB()) {
+            if (controlloEventoAvversoDB()) {
+                System.out.println(CittadinoRegEvento.cittadino.getCodiceFiscale()+ " inserisce: "+ eventoAvverso);
                 risposta = true;
-                OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
-                operatoreSanitarioAPP.registraVaccinato(vaccinato);
                 stage.close();
             } else {
                 conferma.setText(error);
@@ -103,12 +103,20 @@ public class ConfirmBoxVacc {
         Scene scena = new Scene(vBox);
         stage.setScene(scena);
         stage.showAndWait();
-
         return risposta;
     }
 
     //funzione che controlla se il vaccinato che si sta inserendo non sia già stato registrato nel database
-    private static boolean controlloDB() {
-        return OS.controllaVaccinato(vacc);
+    private static boolean controlloEventoAvversoDB() {
+        try {
+            error = AppCittadino.si.inserisciEventoAvverso(eventoAvverso);
+            if(error.equals("Evento già registrato !") || error.equals("Errore di connessione con il DB !")){
+                return false;
+            }
+        } catch (RemoteException e) {
+            error = e.getMessage();
+            return false;
+        }
+        return true;
     }
 }

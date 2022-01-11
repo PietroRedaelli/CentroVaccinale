@@ -15,7 +15,7 @@ public class Vaccinato implements Serializable {
     String vaccino;
     int dose;
 
-    public Vaccinato(String nome, String cognome, int centroVacc, long idVacc, String codiceFisc, String data, String vaccino, int dose) {
+    public Vaccinato( String nome, String cognome, int centroVacc, long idVacc, String codiceFisc, String data, String vaccino, int dose) {
         this.nome = nome;
         this.cognome = cognome;
         this.centroVacc = centroVacc;
@@ -92,6 +92,6 @@ public class Vaccinato implements Serializable {
 
     @Override
     public String toString() {
-        return nome + " " + cognome + ", " + codiceFisc + ", " + centroVacc + " " + vaccino + " " + dose + " " + idVacc + ", " + data;
+        return "Nome e Cognome: " + nome + " " + cognome + ", Codice Fiscale: " + codiceFisc + ", ID Centro: " + centroVacc + ", Tipo: " + vaccino + ", N° dose: " + dose + ", ID Vaccinazione: " + idVacc + ", Data: " + data;
     }
 }

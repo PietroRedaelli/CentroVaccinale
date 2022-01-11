@@ -1,10 +1,6 @@
 package ClientCittadino;
 
-import ServerPackage.ServerInterface;
 import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 public class Cittadino implements Serializable {
 
@@ -15,16 +11,18 @@ public class Cittadino implements Serializable {
     String codiceFiscale;
     String email;
     String userid;
-    String passowrd;
-    String idVacc=null;
+    String password;
+    long idVacc = 0;
 
-    public Cittadino(String nome, String cognome, String codiceFiscale, String email, String userid, String passowrd) {
+    public Cittadino(){}
+    public Cittadino(String nome, String cognome, String codiceFiscale, String email, String userid, String password, long idVacc) {
         this.nome = nome;
         this.cognome = cognome;
         this.codiceFiscale = codiceFiscale;
         this.email = email;
         this.userid = userid;
-        this.passowrd = passowrd;
+        this.password = password;
+        this.idVacc = idVacc;
     }
 
     public String getNome() {
@@ -67,20 +65,24 @@ public class Cittadino implements Serializable {
         this.userid = userid;
     }
 
-    public String getPassowrd() {
-        return passowrd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassowrd(String passowrd) {
-        this.passowrd = passowrd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getIdVacc() {
+    public long getIdVacc() {
         return idVacc;
     }
 
-    public void setIdVacc(String idVacc) {
+    public void setIdVacc(long idVacc) {
         this.idVacc = idVacc;
     }
 
+    @Override
+    public String toString() {
+        return  "Nome e Cognome: " + nome + " " + cognome + ", Codice Fiscale: " + codiceFiscale + ", Email: " + email + ", Userid: " + userid + ", Password: " + password + ", ID Vaccinazione: " + idVacc ;
+    }
 }

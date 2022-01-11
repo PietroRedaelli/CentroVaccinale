@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER" spacing="50.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoMainMenu">
+   <children>
+      <Label fx:id="title" contentDisplay="CENTER" text="Cittadino">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="registrazione" mnemonicParsing="false" onAction="#apriScenaRegistrazione" text="Registrazione">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="log" mnemonicParsing="false" onAction="#apriScenaLogin" text="Login">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="informazioni" mnemonicParsing="false" onAction="#informazioniShow" prefHeight="54.0" prefWidth="205.0" text="Informazioni">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+   </children>
+   <padding>
+      <Insets bottom="50.0" left="50.0" right="50.0" top="10.0" />
+   </padding>
+</VBox>

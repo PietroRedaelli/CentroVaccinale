@@ -8,66 +8,69 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientOperatoreSanitario.OperatoreRegVacc">
-   <children>
-      <Label alignment="CENTER" layoutX="330.0" layoutY="50.0" prefHeight="40.0" prefWidth="340.0" text="Registrazione Vaccinato">
-         <font>
-            <Font size="33.0" />
-         </font>
-      </Label>
-      <Label layoutX="50.0" layoutY="180.0" prefWidth="130.0" text="Centro">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="50.0" layoutY="250.0" prefWidth="130.0" text="Nome">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="50.0" layoutY="320.0" prefWidth="130.0" text="Cognome">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="50.0" layoutY="390.0" prefWidth="130.0" text="Codice Fiscale">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="50.0" layoutY="460.0" prefWidth="130.0" text="Data">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="50.0" layoutY="530.0" prefWidth="130.0" text="Vaccino / Dose">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="50.0" layoutY="600.0" prefWidth="130.0" text="ID">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Button fx:id="annulla" layoutX="288.0" layoutY="700.0" mnemonicParsing="false" onAction="#annulla" prefWidth="85.0" text="Annulla">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Button fx:id="conferma" layoutX="628.0" layoutY="700.0" mnemonicParsing="false" onAction="#conferma" prefWidth="85.0" text="Conferma">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <TextField fx:id="TFNome" alignment="CENTER_RIGHT" layoutX="375.0" layoutY="250.0" prefWidth="250.0" />
-      <TextField fx:id="TFCognome" alignment="CENTER_RIGHT" layoutX="375.0" layoutY="321.0" prefWidth="250.0" />
-      <TextField fx:id="TFFisc" alignment="CENTER_RIGHT" layoutX="375.0" layoutY="391.0" prefWidth="250.0" />
-      <ComboBox fx:id="CBVacc" layoutX="375.0" layoutY="530.0" prefWidth="190.0" />
-      <ComboBox fx:id="CBDose" layoutX="565.0" layoutY="530.0" prefWidth="60.0" />
-      <TextField fx:id="TFID" alignment="CENTER_RIGHT" editable="false" layoutX="375.0" layoutY="601.0" prefWidth="250.0" />
-      <DatePicker fx:id="DPData" editable="false" layoutX="375.0" layoutY="460.0" prefWidth="250.0" />
-      <TextField fx:id="TFCentro" editable="false" layoutX="275.0" layoutY="180.0" prefWidth="450.0" />
-      <Button fx:id="BTSeleziona" layoutX="725.0" layoutY="180.0" mnemonicParsing="false" onAction="#selezionaCentro" text="Seleziona" />
-   </children>
+   <Label alignment="CENTER" layoutX="330.0" layoutY="50.0" prefHeight="40.0" prefWidth="340.0"
+          text="Registrazione Vaccinato">
+      <font>
+         <Font size="33.0"/>
+      </font>
+   </Label>
+   <Label layoutX="50.0" layoutY="180.0" prefWidth="130.0" text="Centro">
+      <font>
+         <Font size="20.0"/>
+      </font>
+   </Label>
+   <Label layoutX="50.0" layoutY="250.0" prefWidth="130.0" text="Nome">
+      <font>
+         <Font size="20.0"/>
+      </font>
+   </Label>
+   <Label layoutX="50.0" layoutY="320.0" prefWidth="130.0" text="Cognome">
+      <font>
+         <Font size="20.0"/>
+      </font>
+   </Label>
+   <Label layoutX="50.0" layoutY="390.0" prefWidth="130.0" text="Codice Fiscale">
+      <font>
+         <Font size="20.0"/>
+      </font>
+   </Label>
+   <Label layoutX="50.0" layoutY="460.0" prefWidth="130.0" text="Data">
+      <font>
+         <Font size="20.0"/>
+      </font>
+   </Label>
+   <Label layoutX="50.0" layoutY="530.0" prefWidth="130.0" text="Vaccino / Dose">
+      <font>
+         <Font size="20.0"/>
+      </font>
+   </Label>
+   <Label layoutX="50.0" layoutY="600.0" prefWidth="130.0" text="ID">
+      <font>
+         <Font size="20.0"/>
+      </font>
+   </Label>
+   <Button fx:id="annulla" layoutX="288.0" layoutY="700.0" mnemonicParsing="false" onAction="#annulla" prefWidth="85.0"
+           text="Annulla">
+      <font>
+         <Font size="15.0"/>
+      </font>
+   </Button>
+   <Button fx:id="conferma" layoutX="628.0" layoutY="700.0" mnemonicParsing="false" onAction="#conferma"
+           prefWidth="85.0" text="Conferma">
+      <font>
+         <Font size="15.0"/>
+      </font>
+   </Button>
+   <TextField fx:id="TFNome" alignment="CENTER_RIGHT" layoutX="375.0" layoutY="250.0" prefWidth="250.0"/>
+   <TextField fx:id="TFCognome" alignment="CENTER_RIGHT" layoutX="375.0" layoutY="321.0" prefWidth="250.0"/>
+   <TextField fx:id="TFFisc" alignment="CENTER_RIGHT" layoutX="375.0" layoutY="391.0" prefWidth="250.0"/>
+   <ComboBox fx:id="CBVacc" layoutX="375.0" layoutY="530.0" prefWidth="190.0"/>
+   <ComboBox fx:id="CBDose" layoutX="565.0" layoutY="530.0" prefWidth="60.0"/>
+   <TextField fx:id="TFID" alignment="CENTER_RIGHT" editable="false" layoutX="375.0" layoutY="601.0" prefWidth="250.0"/>
+   <DatePicker fx:id="DPData" editable="false" layoutX="375.0" layoutY="460.0" prefWidth="250.0"/>
+   <TextField fx:id="TFCentro" editable="false" layoutX="275.0" layoutY="180.0" prefWidth="450.0"/>
+   <Button fx:id="BTSeleziona" layoutX="725.0" layoutY="180.0" mnemonicParsing="false" onAction="#selezionaCentro"
+           text="Seleziona"/>
 </AnchorPane>
