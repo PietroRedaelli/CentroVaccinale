@@ -96,7 +96,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="BTConferma2" layoutX="640.0" layoutY="500.0" mnemonicParsing="false" onAction="#confermaCentro" text="Conferma" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="BTConferma2" layoutX="640.0" layoutY="500.0" mnemonicParsing="false" onAction="#confermaEvento" text="Conferma" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="18.0" />
                </font>

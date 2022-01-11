@@ -74,7 +74,7 @@ public class ClienteRegEvento implements Initializable {
     }
 
     //vai avanti nella pagina di segnalazione dell'evento
-    public void confermaCentro(ActionEvent actionEvent) {
+    public void confermaEvento(ActionEvent actionEvent) {
 
         //RTValutazione.getRating()             comando per prendere il numero di stelle selezionate
     }
