@@ -1,5 +1,6 @@
 package ClientCittadino;
 
+import ClientOperatoreSanitario.CentroVaccinale;
 import ClientOperatoreSanitario.OperatoreSanitario;
 import ClientOperatoreSanitario.OperatoreSanitarioAPP;
 import ClientOperatoreSanitario.Vaccinato;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 public class AppCittadino  extends Application {
     public static Cittadino c = new Cittadino();
@@ -121,6 +123,26 @@ public class AppCittadino  extends Application {
             return false;
         }
         return true;
+    }
+
+    public ArrayList<CentroVaccinale> cercaCentro(String nome) {
+        ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
+        try {
+            arrayListRicevuto = si.cercaCentroVaccinale(nome);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return arrayListRicevuto;
+    }
+
+    public ArrayList<CentroVaccinale> cercaCentro(String comune, String tipologia) {
+        ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
+        try {
+            arrayListRicevuto = si.cercaCentroVaccinale(comune, tipologia);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return arrayListRicevuto;
     }
 }
 

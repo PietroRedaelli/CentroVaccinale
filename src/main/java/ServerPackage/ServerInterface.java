@@ -17,7 +17,7 @@ public interface ServerInterface extends Remote {
     //Ricerca
     ArrayList<CentroVaccinale> cercaCentroVaccinale(String nomeCentro) throws RemoteException;
     ArrayList<CentroVaccinale> cercaCentroVaccinale(String comune, String tipologia) throws RemoteException;
-    CentroVaccinale visualizzaInfoCentroVaccinale(CentroVaccinale centroVaccinaleSelezionato) throws RemoteException;
+    ArrayList<EventoAvverso> visualizzaInfoCentroVaccinale(int chiavePrimariaCentri) throws RemoteException;
     //Controllo
     String controllaCentroServer(CentroVaccinale cv) throws RemoteException;
     //Contatori Operatori Sanitari

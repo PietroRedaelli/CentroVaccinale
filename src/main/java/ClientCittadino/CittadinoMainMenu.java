@@ -1,13 +1,9 @@
 package ClientCittadino;
 
-import ClientOperatoreSanitario.SceltaCentro;
+import ClientOperatoreSanitario.OperatoreSceltaCentro;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -24,7 +20,6 @@ public class CittadinoMainMenu {
         AppCittadino.setRoot("cittadinoRegistrazione.fxml");
     }
     public void informazioniShow(ActionEvent actionEvent) throws IOException {
-        SceltaCentro.OS_Citt_check = true;
-        AppCittadino.setRoot("sceltaCentro.fxml");
+        AppCittadino.setRoot("cittadinoSceltaCentro.fxml");
     }
 }

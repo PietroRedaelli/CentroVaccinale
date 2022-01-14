@@ -1,25 +1,30 @@
-package ClientOperatoreSanitario;
+package ClientCittadino;
 
-import ClientCittadino.AppCittadino;
+import ClientOperatoreSanitario.CentroVaccinale;
 import ServerPackage.ServerInterface;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SceltaCentro extends OperatoreRegVacc implements Initializable {
+public class CittadinoSceltaCentro implements Initializable {
 
     //elementi grafici della scena e variabili private
     @FXML private TextField TFNome;
@@ -38,12 +43,10 @@ public class SceltaCentro extends OperatoreRegVacc implements Initializable {
     //variabili finestra
     private boolean checkNome = true;
     private ArrayList<CentroVaccinale> arrayListRisultati = new ArrayList<>();
-    private OperatoreSanitarioAPP OS = new OperatoreSanitarioAPP();
+    private final AppCittadino cittadino = new AppCittadino();
     private static final ServerInterface si = AppCittadino.si;
-    private String comune = "";
-    private String tipologia = "";
     private String nomeCentro = "";
-    public static boolean OS_Citt_check;
+    protected static CentroVaccinale centroVaccinaleInfo;
 
     //funzione che inizializza gli elementi grafici
     @Override
@@ -64,53 +67,46 @@ public class SceltaCentro extends OperatoreRegVacc implements Initializable {
         TCTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
 
         //prima ricerca generale con tutti i centri
-
-        if(si == null){
-            arrayListRisultati = OS.cercaCentro(nomeCentro);
-        }else{
-            try {
-                arrayListRisultati = si.cercaCentroVaccinale(nomeCentro);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+        try {
+            arrayListRisultati = si.cercaCentroVaccinale(nomeCentro);
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
 
         TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
     }
 
-    //permette di tornare indietro alla pagina di registrazione del vaccinato
-    public void annulla(ActionEvent actionEvent) {
-        //prendo lo stage della finestra per poterla chiudere quando si sceglie il centro
-        Stage stage = (Stage) APPane.getScene().getWindow();
-        stage.close();
+    //permette di tornare indietro alla pagina di introduzione dei cittadini
+    public void annulla(ActionEvent actionEvent) throws IOException {
+        AppCittadino.setRoot("cittadinoMainMenu.fxml");
     }
 
-    //conferma il centro scelto, chiude la pagina e torna indietro
-    public void conferma(ActionEvent actionEvent) {
-        if(OS_Citt_check){
+    //mostra le informazioni del centro selezionato
+    public void conferma(ActionEvent actionEvent) throws IOException {
 
-        }else{
-            //prendo lo stage della finestra per poterla chiudere quando si sceglie il centro
-            CentroVaccinale cv = TableVRisultati.getSelectionModel().getSelectedItem();
-            staticLabel.setText(cv.getNomeCentro() + " (" + cv.getTipo() + "), " + cv.getIndirizzoCentro() + " " + cv.getCivico() + ", " + cv.getComune() + " " + cv.getSigla() + " " + cv.getCap());
-            centroRV = cv;
-            Stage stage = (Stage) APPane.getScene().getWindow();
-            stage.close();
-        }
+        centroVaccinaleInfo = TableVRisultati.getSelectionModel().getSelectedItem();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("cittadinoInfo.fxml")));
+        Stage stage = new Stage();
+        stage.setTitle("Info");
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+
     }
 
     //Bottone: cerca il centro in base ai dati forniti (o per nome oppure per comune e tipologia)
     public void cercaCentro(ActionEvent actionEvent) {
         if (TFNome.isDisabled()) {
-            comune = TFComune.getText().trim();
-            tipologia = CBTipologia.getValue();
+            String comune = TFComune.getText().trim();
+            String tipologia = CBTipologia.getValue();
 
-            arrayListRisultati = OS.cercaCentro(comune, tipologia);
+            arrayListRisultati = cittadino.cercaCentro(comune, tipologia);
             TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
         } else {
             nomeCentro = TFNome.getText().trim();
 
-            arrayListRisultati = OS.cercaCentro(nomeCentro);
+            arrayListRisultati = cittadino.cercaCentro(nomeCentro);
             TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
         }
 
@@ -123,12 +119,12 @@ public class SceltaCentro extends OperatoreRegVacc implements Initializable {
             TFComune.setDisable(false);
             CBTipologia.setDisable(false);
             checkNome = false;
-        }
-        else {
+        } else {
             TFNome.setDisable(false);
             TFComune.setDisable(true);
             CBTipologia.setDisable(true);
             checkNome = true;
         }
     }
+
 }

@@ -95,8 +95,7 @@ public class OperatoreRegVacc implements Initializable {
     //funzione che apre una nuova finestra per la selezione del centro
     public void selezionaCentro(ActionEvent actionEvent) throws IOException {
         //apro una nuova finestra
-        SceltaCentro.OS_Citt_check = false;
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("sceltaCentro.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("operatoreSceltaCentro.fxml")));
         Stage stage = new Stage();
         stage.setTitle("Selezione Centro");
         stage.setScene(new Scene(root));

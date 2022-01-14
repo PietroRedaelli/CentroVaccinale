@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.sql.*;
 
@@ -21,7 +22,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
 
     protected String url_DB = "jdbc:postgresql://localhost:5432/LabB" ;
     protected String user_DB = "postgres";
-    protected String password_DB = "12345678" ;
+    protected String password_DB = "F4/=rb91d&w3" ;
 
     protected Connection DB = null;
 
@@ -550,14 +551,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return false;
     }
 
-
-
-
-
-
-
-
-
     @Override
     public CentroVaccinale cercaCentroVaccinale_CF(String CodiceFiscale) throws RemoteException {
         //Usando una query ricerchiamo dentro la tabella CentroVaccinale join con Vaccinati il nome del centro
@@ -613,42 +606,55 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return arrayListVaccinati;
     }
 
-
-    //PIETRO E' TUO
     @Override
-    public CentroVaccinale visualizzaInfoCentroVaccinale(CentroVaccinale centroVaccinaleSelezionato) throws RemoteException {
+    public ArrayList<EventoAvverso> visualizzaInfoCentroVaccinale(int chiavePrimariaCentri) throws RemoteException {
 
-        //usando una query restituiamo le informazioni su un centro vaccianle. La classe centrovaccinale sarà in remoto
+        ArrayList<EventoAvverso> eventoAvversoArrayList = new ArrayList<>();
 
-        CentroVaccinale centroVaccinale= null;
-        PreparedStatement statement;
         try {
-            if(centroVaccinaleSelezionato.getNomeCentro() != null) {
-                statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(nome) like ?");
-                statement.setString(1, "%" + centroVaccinaleSelezionato.getNomeCentro().toLowerCase() + "%");
-            } else{
-                statement = DB.prepareStatement("select * from \"CentriVaccinali\" where lower(comune) = ? or tipologia = ?");
-                statement.setString(1, centroVaccinaleSelezionato.getComune().toLowerCase());
-                statement.setString(2, centroVaccinaleSelezionato.getTipo());
-            }
+            PreparedStatement statement = DB.prepareStatement("SELECT LOWER(evento) AS tipologia, COUNT(severita) AS totale, AVG(severita) AS media FROM \"EventoAvverso\" WHERE idcentro = ? GROUP BY tipologia");
+            statement.setInt(1, chiavePrimariaCentri);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
+            while(resultSet.next()){
+                String evento = resultSet.getString("tipologia");
+                int segnalazioni = resultSet.getInt("totale");
+                double media = resultSet.getDouble("media");
+
+                EventoAvverso eventoAvverso = new EventoAvverso(evento, segnalazioni, media);
+                eventoAvversoArrayList.add(eventoAvverso);
+            }
+            resultSet.close();
+            statement.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return eventoAvversoArrayList;
+
+        /*ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = DB.prepareStatement("SELECT * FROM \"CentriVaccinali\" WHERE lower(nome) LIKE ? ORDER BY lower(nome)");
+            statement.setString(1, "%" + nomeCentro.toLowerCase() + "%");
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
                 int ID = resultSet.getInt("id");
                 String centro = resultSet.getString("nome");
-                String comune = resultSet.getString("comune");
+                String comune= resultSet.getString("comune");
                 String nomeInd = resultSet.getString("indirizzo");
                 String civico = resultSet.getString("civico");
                 String sigla = resultSet.getString("sigla");
                 int cap = resultSet.getInt("cap");
                 String tipo = resultSet.getString("tipologia");
-                centroVaccinale = new CentroVaccinale(ID, centro, comune, nomeInd, civico, sigla, cap, tipo);
+                CentroVaccinale cv = new CentroVaccinale(ID, centro, comune, nomeInd, civico, sigla, cap, tipo);
+                arrayListCentri.add(cv);
             }
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return centroVaccinale;
+        return arrayListCentri;*/
     }
 
     //LUCA E' TUO

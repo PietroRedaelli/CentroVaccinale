@@ -107,14 +107,12 @@ public class OperatoreSanitarioAPP extends Application {
 
     //funzione che chiede al server di cercare il centro richiesto in base al comune e alla tipologia
     public ArrayList<CentroVaccinale> cercaCentro(String comune, String tipologia) {
-        System.out.println("ricerca centro vaccinale");
         ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
         try {
             arrayListRicevuto = si.cercaCentroVaccinale(comune, tipologia);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        System.out.println("Trovato centro richiesto");
         return arrayListRicevuto;
     }
 

@@ -1,5 +1,7 @@
 package ClientCittadino;
 
+import org.controlsfx.control.Rating;
+
 import java.io.Serializable;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -9,14 +11,16 @@ public class EventoAvverso implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    int idCentro;
-    String nomeCentro;
-    long idVacc;
-    String CodiceFiscale;
-    String evento;
-    int severita;
-    String data;
-    String noteOpz;
+    private int idCentro;
+    private String nomeCentro;
+    private long idVacc;
+    private String CodiceFiscale;
+    private String evento;
+    private int severita;
+    private String data;
+    private String noteOpz;
+    private Rating media;
+    private double intMedia;
 
 
     public EventoAvverso(int idCentro, String nomeCentro, long idVacc, String CodiceFiscale, String evento, int severita, String noteOpz) {
@@ -28,6 +32,13 @@ public class EventoAvverso implements Serializable {
         this.severita = severita;
         this.data = LocalDate.now().toString();
         this.noteOpz = noteOpz;
+    }
+
+    public EventoAvverso(String evento, int severita, double intMedia) {
+        this.evento = evento;
+        this.severita = severita;
+        //this.media = new Rating(intMedia);
+        this.intMedia = intMedia;
     }
 
     public int getIdCentro() {
@@ -92,6 +103,18 @@ public class EventoAvverso implements Serializable {
 
     public void setNoteOpz(String noteOpz) {
         this.noteOpz = noteOpz;
+    }
+
+    public void setIdVacc(long idVacc) {
+        this.idVacc = idVacc;
+    }
+
+    public double getIntMedia() {
+        return intMedia;
+    }
+
+    public void setIntMedia(int intMedia) {
+        this.intMedia = intMedia;
     }
 
     @Override
