@@ -13,13 +13,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.rmi.RemoteException;
 
 public class ConfirmBoxEventoAvverso {
 
     private static EventoAvverso eventoAvverso;
-    public static String error = "";
+    private static String error = "";
     private static boolean risposta = false;
 
     //funzione chiamata per generare la nuova finestra di conferma
@@ -70,16 +69,14 @@ public class ConfirmBoxEventoAvverso {
 
         /*premendo il bottone 'annulla' la pagina corrente si chiude e si ritorna alla pagina di registrazione del vaccinato
         per modificare eventuali dati errati*/
-        bAnnulla.setOnAction(e -> {
-            stage.close();
-        });
+        bAnnulla.setOnAction(e -> stage.close());
 
         /*premendo il bottone 'conferma' la pagina corrente si chiude, il vaccinato viene salvato nel database e si ritorna
         alla pagina di registrazione in cui tutte le informazioni inserite vengono cancellate per poterne registrare
         comodamente un altro*/
         bConferma.setOnAction(e -> {
             if (controlloEventoAvversoDB()) {
-                System.out.println(CittadinoRegEvento.cittadino.getCodiceFiscale()+ " inserisce: "+ eventoAvverso);
+                System.out.println(CittadinoRegEvento.getCittadino().getCodiceFiscale()+ " inserisce: "+ eventoAvverso);
                 risposta = true;
                 stage.close();
             } else {

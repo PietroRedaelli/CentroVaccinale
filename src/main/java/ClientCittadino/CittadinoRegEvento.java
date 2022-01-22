@@ -11,7 +11,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import org.controlsfx.control.Rating;
-
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -27,7 +26,7 @@ public class CittadinoRegEvento implements Initializable {
     protected boolean LoginCheck = false;
     private static final ServerInterface si = AppCittadino.si;
     private CentroVaccinale nome_centro = null;
-    public static Cittadino cittadino = null;
+    private static Cittadino cittadino = null;
 
     //pannelli
     @FXML private AnchorPane pane1;
@@ -37,20 +36,15 @@ public class CittadinoRegEvento implements Initializable {
     @FXML private TextField TFUser;
     @FXML private PasswordField PFPassword;
     @FXML private Label LBErr;
-    @FXML private Button BTConferma1;
-    @FXML private Button BTAnnulla1;
 
     //elementi del secondo pannello
-    @FXML public Label L_nomeCentro;
-    @FXML public Label L_ID_Vacc;
+    @FXML private Label L_nomeCentro;
+    @FXML private Label L_ID_Vacc;
     @FXML private ComboBox<String> CBEvento;
     @FXML private Rating RTValutazione;
     @FXML private Label Err_sev;
     @FXML private TextArea TANote;
     @FXML private Label LBCaratteri;
-    @FXML private Button BTConferma2;
-    @FXML private Button BTAnnulla2;
-
 
     //funzione che inizializza la finestra principale
     @Override
@@ -126,7 +120,7 @@ public class CittadinoRegEvento implements Initializable {
                 LBErr.setText(" User ID inesistente ! ");
                 return false;
             }
-            cittadino = si.controllaCittadinoLogin(userid,password,AppCittadino.Countcittadino);
+            cittadino = si.controllaCittadinoLogin(userid,password);
             if(cittadino == null){
                 LBErr.setText(" Password sbagliata ! ");
                 return false;
@@ -136,7 +130,7 @@ public class CittadinoRegEvento implements Initializable {
             LBErr.setText(e.getMessage());
             return false;
         }
-        System.out.println("Cittadino("+AppCittadino.Countcittadino+") effettua login come: "+cittadino.getCodiceFiscale());
+        System.out.println("Cittadino effettua login come: "+cittadino.getCodiceFiscale());
         return true;
     }
 
@@ -178,7 +172,7 @@ public class CittadinoRegEvento implements Initializable {
     }
 
     private EventoAvverso getEvento() {
-        return new EventoAvverso(nome_centro.getID(), nome_centro.getNomeCentro(), cittadino.getIdVacc(), cittadino.codiceFiscale, CBEvento.getValue(), (int) RTValutazione.getRating(),TANote.getText());
+        return new EventoAvverso(nome_centro.getID(), nome_centro.getNomeCentro(), cittadino.getIdVacc(), cittadino.getCodiceFiscale(), CBEvento.getValue(), (int) RTValutazione.getRating(),TANote.getText());
     }
 
     //il tasto BTAnnulla1 torna indietro alla pagina di scelta delle varie operazioni che l'utente (Cittadino) può svolgere
@@ -195,8 +189,7 @@ public class CittadinoRegEvento implements Initializable {
         alert.setContentText("Verrà eseguito il LOGOUT dal tuo account.");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == ButtonType.OK){
-            si.logoutCittadino(cittadino.getCodiceFiscale(),AppCittadino.Countcittadino);
-            System.out.println(cittadino.getCodiceFiscale()+ " effettua logout e torna Cittadino("+AppCittadino.Countcittadino+")");
+            System.out.println(cittadino.getCodiceFiscale()+ " effettua logout");
             cittadino = null;
             LoginCheck = false;
             pane2.setVisible(false);
@@ -211,5 +204,13 @@ public class CittadinoRegEvento implements Initializable {
     //funzione che comunica il numero di caratteri inseriti nella TextArea TANote
     public void numeroCaratteri(KeyEvent keyEvent) {
         LBCaratteri.setText(String.valueOf(TANote.getText().length()));
+    }
+
+    public static void setCittadino(Cittadino citt){
+        cittadino = citt;
+    }
+
+    public static Cittadino getCittadino() {
+        return cittadino;
     }
 }

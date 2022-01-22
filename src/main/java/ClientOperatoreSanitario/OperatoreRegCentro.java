@@ -1,14 +1,11 @@
 package ClientOperatoreSanitario;
 
 import Grafics.ConfirmBoxCentro;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +23,6 @@ public class OperatoreRegCentro implements Initializable {
     @FXML private TextField TFComune;
     @FXML private TextField TFSigla;
     @FXML private TextField TFCap;
-
 
     //funzione che inizializza gli elementi grafici
     @Override

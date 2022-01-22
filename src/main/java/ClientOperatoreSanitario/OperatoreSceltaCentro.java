@@ -5,24 +5,18 @@ import ServerPackage.ServerInterface;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializable {
@@ -67,7 +61,6 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
         TCTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
 
         //prima ricerca generale con tutti i centri
-
         if(si == null){
             arrayListRisultati = OS.cercaCentro(nomeCentro);
         }else{
@@ -77,7 +70,6 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
                 e.printStackTrace();
             }
         }
-
         TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
     }
 
@@ -96,7 +88,6 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
         centroRV = cv;
         Stage stage = (Stage) APPane.getScene().getWindow();
         stage.close();
-
     }
 
     //Bottone: cerca il centro in base ai dati forniti (o per nome oppure per comune e tipologia)
@@ -113,7 +104,6 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
             arrayListRisultati = OS.cercaCentro(nomeCentro);
             TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
         }
-
     }
 
     //funzione che abilita e disabilita i campi in base a ciò che si vuole cercare

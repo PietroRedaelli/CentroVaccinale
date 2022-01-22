@@ -1,6 +1,5 @@
 package ClientCittadino;
 
-import ClientOperatoreSanitario.OperatoreSceltaCentro;
 import ServerPackage.ServerInterface;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -12,7 +11,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;

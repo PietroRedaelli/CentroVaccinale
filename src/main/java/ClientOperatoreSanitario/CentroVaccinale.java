@@ -3,6 +3,7 @@ package ClientOperatoreSanitario;
 import java.io.Serializable;
 
 public class CentroVaccinale implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private int ID;
@@ -14,8 +15,7 @@ public class CentroVaccinale implements Serializable {
     private int cap;
     private String tipo;
 
-    public CentroVaccinale(){
-    }
+    public CentroVaccinale(){}
 
     public CentroVaccinale(String nomeCentro, String comune, String indirizzoCentro, String civico, String sigla, int cap, String tipo) {
         this.nomeCentro = nomeCentro;
@@ -75,9 +75,7 @@ public class CentroVaccinale implements Serializable {
         this.indirizzoCentro = indirizzoCentro;
     }
 
-    public String getCivico() {
-        return civico;
-    }
+    public String getCivico() { return civico; }
 
     public void setCivico(String civico) {
         this.civico = civico;
@@ -87,13 +85,9 @@ public class CentroVaccinale implements Serializable {
         return sigla;
     }
 
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
-    }
+    public void setSigla(String sigla) { this.sigla = sigla; }
 
-    public int getCap() {
-        return cap;
-    }
+    public int getCap() { return cap; }
 
     public void setCap(int cap) {
         this.cap = cap;

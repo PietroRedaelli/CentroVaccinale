@@ -1,11 +1,7 @@
 package ClientCittadino;
 
-import org.controlsfx.control.Rating;
-
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class EventoAvverso implements Serializable {
 
@@ -19,9 +15,7 @@ public class EventoAvverso implements Serializable {
     private int severita;
     private String data;
     private String noteOpz;
-    private Rating media;
     private double intMedia;
-
 
     public EventoAvverso(int idCentro, String nomeCentro, long idVacc, String CodiceFiscale, String evento, int severita, String noteOpz) {
         this.idCentro = idCentro;

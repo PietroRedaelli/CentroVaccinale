@@ -1,16 +1,12 @@
 package ClientCittadino;
 
-import Grafics.ConfirmBoxCentro;
 import Grafics.ConfirmBoxCittadino;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,9 +22,6 @@ public class CittadinoRegistrazione implements Initializable {
     @FXML private TextField userid;
     @FXML private PasswordField password;
     @FXML private TextField idVacc;
-    @FXML private Button annullaid;
-    @FXML private Button registratiid;
-    @FXML private TextField IDVaccField;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,9 +43,11 @@ public class CittadinoRegistrazione implements Initializable {
             }
         });
     }
+
     public void annulla() throws IOException {
         AppCittadino.setRoot("cittadinoMainMenu.fxml");
     }
+
     public void registrati() throws IOException {
         //controllo dei campi della finestra
         if(controlloCampi()){
@@ -67,12 +62,10 @@ public class CittadinoRegistrazione implements Initializable {
             boolean conferma = ConfirmBoxCittadino.start(cittadino);
             if (conferma){
                 azzeraCampi();
-                CittadinoRegEvento.cittadino = cittadino;
+                CittadinoRegEvento.setCittadino(cittadino);
                 AppCittadino.setRoot("cittadinoRegEvento.fxml");
             }
         }
-
-
     }
 
     private boolean controlloCampi() {

@@ -1,6 +1,5 @@
 package ClientOperatoreSanitario;
 
-import ClientCittadino.Cittadino;
 import Grafics.ConfirmBoxCentro;
 import Grafics.ConfirmBoxVacc;
 import ServerPackage.ServerInterface;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 
 public class OperatoreSanitarioAPP extends Application {
 
-    private static OperatoreSanitario os = new OperatoreSanitario();
     private static ServerInterface si;
     private static Stage stage1;
 
@@ -45,7 +43,6 @@ public class OperatoreSanitarioAPP extends Application {
         OperatoreSanitarioAPP app = new OperatoreSanitarioAPP();
         app.connessione_server();
         launch();
-        app.disconnessione_server();
     }
 
     private void connessione_server(){
@@ -56,41 +53,27 @@ public class OperatoreSanitarioAPP extends Application {
             System.err.println("Client Operatore Sanitario: errore di connessione al server \n" + e.getMessage());
             System.exit(0);
         }
-        try {
-            os.setId(si.getCountOS());
-            System.out.println(os +" connesso al Server");
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-    private void disconnessione_server() {
-        try {
-            si.diminuisciCountOS(os.getId());
-            System.out.println(os +" disconnesso dal Server");
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void registraCentroVaccinale(CentroVaccinale centro){
-        System.out.println(os+" registrazione Centro Vaccinale");
+        System.out.println("Registrazione Centro Vaccinale");
         try {
-            si.registraCentroVaccinale(centro,os);
+            si.registraCentroVaccinale(centro);
             System.out.println(centro + "\nCompletata registrazione Centro Vaccinale");
         } catch (RemoteException e) {
-            System.out.println(os+ ": Error!!!\n" + e.getMessage());
+            System.out.println("Error!!!\n" + e.getMessage());
         }
     }
 
     //metodo che controlla i campi del vaccinato con i dati nel databae e se tutto va bene registra il vaccinato
     public void registraVaccinato(Vaccinato vaccinato) {
-        System.out.println(os+ " registrazione Vaccinato");
+        System.out.println("Registrazione Vaccinato");
         try {
-            si.registraVaccinato(vaccinato,os);
+            si.registraVaccinato(vaccinato);
             System.out.println(vaccinato+"\nCompletata registrazione Vaccinato");
         } catch (RemoteException e) {
             e.printStackTrace();
-            ConfirmBoxCentro.error = "Errore di connessione con il Server";
+            ConfirmBoxCentro.setError("Errore di connessione con il Server");
         }
     }
 
@@ -100,7 +83,7 @@ public class OperatoreSanitarioAPP extends Application {
         try {
             arrayListRicevuto = si.cercaCentroVaccinale(nome);
         } catch (RemoteException e) {
-            System.out.println(os+" : "+e.getMessage());
+            System.out.println(e.getMessage());
         }
         return arrayListRicevuto;
     }
@@ -120,12 +103,12 @@ public class OperatoreSanitarioAPP extends Application {
         try {
             String errore = si.controllaCentroServer(centroVaccinale);
             if(!errore.equals("")){
-                ConfirmBoxCentro.error = errore;
+                ConfirmBoxCentro.setError(errore);
                 return false;
             }
         } catch (RemoteException e) {
             e.printStackTrace();
-            ConfirmBoxCentro.error = "Errore di connessione con il Server";
+            ConfirmBoxCentro.setError("Errore di connessione con il Server");
             return false;
         }
         return true;
@@ -137,11 +120,11 @@ public class OperatoreSanitarioAPP extends Application {
             errore = si.controllaVaccinatoServer(vaccinato);
         } catch (RemoteException e) {
             e.printStackTrace();
-            ConfirmBoxCentro.error = "Errore di connessione con il Server";
+            ConfirmBoxCentro.setError("Errore di connessione con il Server");
             return false;
         }
         if(!errore.equals("")){
-            ConfirmBoxVacc.error = errore;
+            ConfirmBoxVacc.setError(errore);
             return false;
         }
         return true;

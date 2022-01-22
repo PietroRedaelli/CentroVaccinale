@@ -16,9 +16,9 @@ import javafx.stage.Stage;
 //Classe che genera una finestra dove vengono riassunti i dati inseriti prima di salvarli definitivamente nel database
 public class ConfirmBoxCentro {
 
-    static boolean risposta = false;
+    private static boolean risposta = false;
     private static CentroVaccinale cv;
-    public static String error = "";
+    private static String error = "";
 
     //funzione chiamata per generare la nuova finestra di conferma
     public static boolean start(CentroVaccinale centroVaccinale) {
@@ -107,5 +107,9 @@ public class ConfirmBoxCentro {
     //funzione che controlla se il centro che si sta inserendo non sia già stato registrato nel database
     private static boolean controlloEsistenzaCentro() {
         return OperatoreSanitarioAPP.controllaCentro(cv);
+    }
+
+    public static void setError(String errore) {
+        error = errore;
     }
 }

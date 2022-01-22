@@ -19,9 +19,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
 
 //Classe che gestisce la registrazione di un nuovo vaccinato
-
 public class OperatoreRegVacc implements Initializable {
-
 
     //Elementi grafici della finestra di salvataggio
     @FXML private TextField TFCentro;
@@ -32,7 +30,6 @@ public class OperatoreRegVacc implements Initializable {
     @FXML private ComboBox<String> CBVacc;
     @FXML private ComboBox<String> CBDose;
     @FXML private TextField TFID;
-    @FXML private Button BTSeleziona;
 
     protected static TextField staticLabel;
     protected static CentroVaccinale centroRV;
@@ -114,7 +111,7 @@ public class OperatoreRegVacc implements Initializable {
             String data = DPData.getValue().toString();
             String vaccino = CBVacc.getValue();
             int dose = Integer.parseInt(CBDose.getValue());
-            Long id = Long.parseLong(TFID.getText());
+            long id = Long.parseLong(TFID.getText());
 
             Vaccinato vaccinato = new Vaccinato( nome, cognome, centroRV.getID(), id, codFisc, data, vaccino, dose);
 

@@ -14,7 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -38,7 +37,6 @@ public class CittadinoSceltaCentro implements Initializable {
     @FXML private TableColumn<CentroVaccinale, String> TCSigla;
     @FXML private TableColumn<CentroVaccinale, Integer> TCCap;
     @FXML private TableColumn<CentroVaccinale, String> TCTipo;
-    @FXML private AnchorPane APPane;
 
     //variabili finestra
     private boolean checkNome = true;
@@ -72,7 +70,6 @@ public class CittadinoSceltaCentro implements Initializable {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-
         TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
     }
 
@@ -109,7 +106,6 @@ public class CittadinoSceltaCentro implements Initializable {
             arrayListRisultati = cittadino.cercaCentro(nomeCentro);
             TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
         }
-
     }
 
     //funzione che abilita e disabilita i campi in base a ciò che si vuole cercare
@@ -126,5 +122,4 @@ public class CittadinoSceltaCentro implements Initializable {
             checkNome = true;
         }
     }
-
 }

@@ -3,7 +3,6 @@ package ServerPackage;
 import ClientCittadino.Cittadino;
 import ClientCittadino.EventoAvverso;
 import ClientOperatoreSanitario.CentroVaccinale;
-import ClientOperatoreSanitario.OperatoreSanitario;
 import ClientOperatoreSanitario.Vaccinato;
 import java.rmi.*;
 import java.util.ArrayList;
@@ -11,45 +10,42 @@ import java.util.ArrayList;
 public interface ServerInterface extends Remote {
 
     //Centro Vaccinale
-
-    //Registrazione
-    void registraCentroVaccinale(CentroVaccinale centroVaccinale,OperatoreSanitario os) throws RemoteException;
-    //Ricerca
+    //Registrazione centro
+    void registraCentroVaccinale(CentroVaccinale centroVaccinale) throws RemoteException;
+    //Ricerca dei centri
     ArrayList<CentroVaccinale> cercaCentroVaccinale(String nomeCentro) throws RemoteException;
     ArrayList<CentroVaccinale> cercaCentroVaccinale(String comune, String tipologia) throws RemoteException;
-    ArrayList<EventoAvverso> visualizzaInfoCentroVaccinale(int chiavePrimariaCentri) throws RemoteException;
-    //Controllo
+    //Evita che un centro già registrato no venga registrato di nuovo
     String controllaCentroServer(CentroVaccinale cv) throws RemoteException;
-    //Contatori Operatori Sanitari
-    int getCountOS() throws RemoteException;
-    void diminuisciCountOS(int id) throws RemoteException;
+
 
     //Vaccinato
-
     //Registrazione
-    void registraVaccinato(Vaccinato vaccinato, OperatoreSanitario os) throws RemoteException;
-    //Check Vaccinato
+    void registraVaccinato(Vaccinato vaccinato) throws RemoteException;
+    //Controlli nella registrazione di un vaccinato
     String controllaVaccinatoServer(Vaccinato vacc) throws RemoteException;
 
-    //Cittadino
-    void registraCittadino(Cittadino cittadino) throws RemoteException;
-    //Ricerca
 
-    //Controllo
+
+    //Cittadino
+    //Registrazione cittadino
+    void registraCittadino(Cittadino cittadino) throws RemoteException;
+
+    //Controlli nella registrazione del cittadino
     boolean controllaCittadinoDatiPersonali(Cittadino cittadino) throws RemoteException;
     boolean controllaCittadinoEmail(String email) throws RemoteException;
     boolean controllaCittadinoUserId(String UserID) throws RemoteException;
     boolean controllaCittadinoIDvacc(long IDvacc, String CodiceFiscale) throws RemoteException;
     boolean controllaCittadinoEsistenza(String CodiceFiscale) throws RemoteException;
-    Cittadino controllaCittadinoLogin(String userid, String password, int countcittadino) throws RemoteException;
+    Cittadino controllaCittadinoLogin(String userid, String password) throws RemoteException;
     Cittadino controllaCittadinoDose(Cittadino cittadino) throws RemoteException;
-    //Contatori Cittadino
-    int getCountC() throws RemoteException;
-    void diminuisciCountC(int id) throws RemoteException;
-    void logoutCittadino(String codiceFiscale, int countcittadino) throws RemoteException;
+
 
     //Evento Avverso
+    //Registrazione evento avverso
     String inserisciEventoAvverso(EventoAvverso eventoAvverso) throws RemoteException;
+    //Ricerca eventi avversi
+    ArrayList<EventoAvverso> visualizzaInfoCentroVaccinale(int chiavePrimariaCentri) throws RemoteException;
     //Controllo
     boolean controllaEventoAvverso(EventoAvverso eventoAvverso) throws RemoteException;
 
@@ -61,7 +57,4 @@ public interface ServerInterface extends Remote {
     ArrayList<Vaccinato> cercaVaccinato(String codiceFiscale) throws RemoteException;
 
     boolean controllaConnessione() throws RemoteException;
-
-
 }
-

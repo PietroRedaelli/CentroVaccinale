@@ -6,13 +6,13 @@ public class Cittadino implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String nome;
-    String cognome;
-    String codiceFiscale;
-    String email;
-    String userid;
-    String password;
-    long idVacc = 0;
+    private String nome;
+    private String cognome;
+    private String codiceFiscale;
+    private String email;
+    private  String userid;
+    private String password;
+    private long idVacc = 0;
 
     public Cittadino(){}
     public Cittadino(String nome, String cognome, String codiceFiscale, String email, String userid, String password, long idVacc) {

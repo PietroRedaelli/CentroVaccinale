@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class Vaccinato implements Serializable {
 
-    private static final long seriaVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    String nome;
-    String cognome;
-    int centroVacc;
-    long idVacc;
-    String codiceFisc;
-    String data;
-    String vaccino;
-    int dose;
+    private String nome;
+    private String cognome;
+    private int centroVacc;
+    private long idVacc;
+    private String codiceFisc;
+    private String data;
+    private String vaccino;
+    private int dose;
 
     public Vaccinato( String nome, String cognome, int centroVacc, long idVacc, String codiceFisc, String data, String vaccino, int dose) {
         this.nome = nome;
