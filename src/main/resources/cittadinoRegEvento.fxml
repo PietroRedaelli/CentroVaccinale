@@ -22,7 +22,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="TFUser" alignment="CENTER_RIGHT" layoutX="500.0" layoutY="120.0">
+      <TextField fx:id="TFUser" layoutX="500.0" layoutY="120.0" prefHeight="35.0" prefWidth="347.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -32,7 +32,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <PasswordField fx:id="PFPassword" layoutX="500.0" layoutY="270.0">
+      <PasswordField fx:id="PFPassword" layoutX="500.0" layoutY="270.0" prefHeight="35.0" prefWidth="347.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -54,23 +54,41 @@
       </Button>
    </AnchorPane>
    <AnchorPane fx:id="pane2" layoutY="140.0" prefHeight="660.0" prefWidth="1000.0">
-      <Label layoutX="110.0" layoutY="70.0" maxWidth="175.0" prefHeight="30.0" text="Centro Vaccinale" textAlignment="CENTER" wrapText="true">
+      <Label layoutX="110.0" layoutY="70.0" text="Centro Vaccinale" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="110.0" layoutY="220.0" prefHeight="30.0" prefWidth="172.0" text="Nome Centro" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="L_nomeCentro" alignment="CENTER" layoutX="320.0" layoutY="70.0" prefHeight="30.0" prefWidth="530.0">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label layoutX="110.0" layoutY="140.0" text="ID Vaccinazione" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="L_ID_Vacc" alignment="CENTER" layoutX="320.0" layoutY="140.0" prefHeight="30.0" prefWidth="530.0" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label layoutX="110.0" layoutY="220.0" text="Tipo evento" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <ComboBox fx:id="CBEvento" layoutX="320.0" layoutY="220.0" prefHeight="30.0" prefWidth="530.0" />
-      <Label layoutX="110.0" layoutY="300.0" prefHeight="30.0" text="Severità" textAlignment="CENTER" wrapText="true">
+      <Label layoutX="110.0" layoutY="300.0" text="Severità" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <Rating fx:id="RTValutazione" layoutX="500.0" layoutY="300.0" rating="0.0" />
+      <Label fx:id="Err_sev" layoutX="329.0" layoutY="308.0" text="Inerisci una valutazione" textAlignment="CENTER" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
       <Label layoutX="110.0" layoutY="400.0" prefHeight="30.0" text="Note Opzionali" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
@@ -86,28 +104,15 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="BTAnnulla2" layoutX="635.0" layoutY="545.0" mnemonicParsing="false" onAction="#annulla2" text="Annulla" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="BTAnnulla2" layoutX="272.0" layoutY="545.0" mnemonicParsing="false" onAction="#annulla2" text="Annulla" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTConferma2" layoutX="753.0" layoutY="545.0" mnemonicParsing="false" onAction="#confermaCentro" text="Conferma" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="BTConferma2" layoutX="576.0" layoutY="545.0" mnemonicParsing="false" onAction="#confermaCentro" text="Conferma" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="L_nomeCentro" alignment="CENTER" layoutX="320.0" layoutY="70.0" prefHeight="30.0" prefWidth="530.0">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <Label layoutX="110.0" layoutY="140.0" maxWidth="175.0" prefHeight="30.0" text="ID Vaccinazione" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="L_ID_Vacc" alignment="CENTER" layoutX="320.0" layoutY="140.0" prefHeight="30.0" prefWidth="530.0">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
    </AnchorPane>
 </AnchorPane>

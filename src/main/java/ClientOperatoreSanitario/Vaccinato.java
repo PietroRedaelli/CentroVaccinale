@@ -4,20 +4,18 @@ import java.io.Serializable;
 
 public class Vaccinato implements Serializable {
 
-    private static final long seriaVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    int ID;
-    String nome;
-    String cognome;
-    int centroVacc;
-    long idVacc;
-    String codiceFisc;
-    String data;
-    String vaccino;
-    int dose;
+    private String nome;
+    private String cognome;
+    private int centroVacc;
+    private long idVacc;
+    private String codiceFisc;
+    private String data;
+    private String vaccino;
+    private int dose;
 
-    public Vaccinato(int ID, String nome, String cognome, int centroVacc, long idVacc, String codiceFisc, String data, String vaccino, int dose) {
-        this.ID = ID;
+    public Vaccinato( String nome, String cognome, int centroVacc, long idVacc, String codiceFisc, String data, String vaccino, int dose) {
         this.nome = nome;
         this.cognome = cognome;
         this.centroVacc = centroVacc;
@@ -94,6 +92,6 @@ public class Vaccinato implements Serializable {
 
     @Override
     public String toString() {
-        return "Nome e Cognome: " + nome + " " + cognome + "\nCodice Fiscale: " + codiceFisc + "\nID centro vaccinale: " + centroVacc + "\nTipo: " + vaccino + "\nN° dose: " + dose + "\nID Vaccinazione: " + idVacc + "\nData: " + data;
+        return "Nome e Cognome: " + nome + " " + cognome + ", Codice Fiscale: " + codiceFisc + ", ID Centro: " + centroVacc + ", Tipo: " + vaccino + ", N° dose: " + dose + ", ID Vaccinazione: " + idVacc + ", Data: " + data;
     }
 }

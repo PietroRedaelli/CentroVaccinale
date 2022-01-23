@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientOperatoreSanitario.OperatoreRegCentro">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientOperatoreSanitario.OperatoreRegCentro">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1000.0">
          <children>
@@ -161,7 +161,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
                <children>
-                  <Button fx:id="BTAnnulla" mnemonicParsing="false" onAction="#annulla" prefWidth="85.0" text="Annulla">
+                  <Button fx:id="BTIndietro" mnemonicParsing="false" onAction="#indietro" prefWidth="85.0" text="Indietro">
                      <font>
                         <Font size="15.0" />
                      </font>

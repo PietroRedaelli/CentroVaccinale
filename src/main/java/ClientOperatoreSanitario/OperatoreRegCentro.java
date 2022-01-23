@@ -1,15 +1,11 @@
 package ClientOperatoreSanitario;
 
 import Grafics.ConfirmBoxCentro;
-import ServerPackage.CentroVaccinale;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,7 +24,6 @@ public class OperatoreRegCentro implements Initializable {
     @FXML private TextField TFSigla;
     @FXML private TextField TFCap;
 
-
     //funzione che inizializza gli elementi grafici
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -44,14 +39,11 @@ public class OperatoreRegCentro implements Initializable {
         CBTipo.setEditable(false);
         CBTipo.setPromptText("--seleziona--");
 
+
         //listener che permette di inserire solamente numeri all'interno del textfield associato al CAP
-        TFCap.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    TFCap.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        TFCap.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                TFCap.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
@@ -60,17 +52,19 @@ public class OperatoreRegCentro implements Initializable {
                 change.getControlNewText().length() <= 5 ? change : null));
 
         //listener che fa diventare ciò che si scrive maiuscolo
-        TFSigla.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
+        TFSigla.textProperty().addListener((observable, oldValue, newValue) ->{
+            if(newValue.matches("[A-Za-z]*"))
                 TFSigla.setText(newValue.toUpperCase());
-            }
         });
-
         //Serve per limitare ad un massimo 2 caratteri la sigla
         TFSigla.setTextFormatter(new TextFormatter<String>(change ->
                 change.getControlNewText().length() <= 2 ? change : null));
+        //Serve per non inserire numeri nella sigla della città
+        TFSigla.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[A-Za-z]*")) {
+                TFSigla.setText(oldValue);
+            }
+        });
 
         //Serve per limitare ad un massimo 4 caratteri il numero civico
         TFNCivico.setTextFormatter(new TextFormatter<String>(change ->
@@ -78,7 +72,7 @@ public class OperatoreRegCentro implements Initializable {
     }
 
     //funzione che permette di tornare indietro alla pagina di scelta
-    public void annulla() throws IOException {
+    public void indietro() throws IOException {
         OperatoreSanitarioAPP.setRoot("operatoreSceltaReg.fxml");
     }
 
@@ -116,6 +110,14 @@ public class OperatoreRegCentro implements Initializable {
         TFCap.clear();
         CBQualific.valueProperty().set(null);
         CBTipo.valueProperty().set(null);
+        TFNomeCentro.setPromptText("");
+        TFNomeInd.setPromptText("");
+        TFNCivico.setPromptText("");
+        TFComune.setPromptText("");
+        TFSigla.setPromptText("");
+        TFCap.setPromptText("");
+        CBQualific.setPromptText("");
+        CBTipo.setPromptText("");
     }
 
     //funzione che controlla i campi per poter salvare correttamente i dati del centro

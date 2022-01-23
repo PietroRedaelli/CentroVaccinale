@@ -7,98 +7,88 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ClientCittadino.CittadinoRegistrazione">
-   <TextField fx:id="nome" layoutX="731.0" layoutY="154.0" prefHeight="31.0" prefWidth="399.0">
+<AnchorPane prefHeight="624.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoRegistrazione">
+   <TextField fx:id="nome" layoutX="700.0" layoutY="150.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="150.0">
       <font>
-         <Font size="15.0"/>
+         <Font size="15.0" />
       </font>
    </TextField>
-   <TextField fx:id="cognome" layoutX="731.0" layoutY="214.0" AnchorPane.bottomAnchor="475.0"
-              AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="214.0">
+   <TextField fx:id="cognome" layoutX="700.0" layoutY="200.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="200.0">
       <font>
-         <Font size="15.0"/>
+         <Font size="15.0" />
       </font>
    </TextField>
-   <TextField fx:id="codicefiscale" layoutX="731.0" layoutY="273.0" AnchorPane.bottomAnchor="416.0"
-              AnchorPane.leftAnchor="731.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="273.0">
+   <TextField fx:id="codicefiscale" layoutX="700.0" layoutY="250.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="250.0">
       <font>
-         <Font size="15.0"/>
+         <Font size="15.0" />
       </font>
    </TextField>
-   <TextField fx:id="email" layoutX="731.0" layoutY="330.0" prefHeight="30.0" prefWidth="399.0"/>
-   <TextField fx:id="userid" layoutX="732.0" layoutY="387.0" AnchorPane.bottomAnchor="302.0"
-              AnchorPane.leftAnchor="732.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="387.0">
+   <TextField fx:id="email" layoutX="700.0" layoutY="300.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="300.0">
       <font>
-         <Font size="15.0"/>
+         <Font size="15.0" />
+      </font></TextField>
+   <TextField fx:id="userid" layoutX="700.0" layoutY="350.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="350.0">
+      <font>
+         <Font size="15.0" />
       </font>
    </TextField>
-   <PasswordField fx:id="password" layoutX="732.0" layoutY="445.0" AnchorPane.bottomAnchor="244.0"
-                  AnchorPane.leftAnchor="732.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="445.0">
+   <PasswordField fx:id="password" layoutX="700.0" layoutY="400.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="400.0">
       <font>
-         <Font size="15.0"/>
+         <Font size="15.0" />
       </font>
    </PasswordField>
-   <TextField fx:id="idVacc" layoutX="729.0" layoutY="513.0" prefHeight="31.0" prefWidth="405.0"/>
-   <Label layoutX="488.0" layoutY="47.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-          minWidth="-Infinity" text="Registrazione cittadino" AnchorPane.bottomAnchor="644.0"
-          AnchorPane.leftAnchor="488.0" AnchorPane.rightAnchor="539.0" AnchorPane.topAnchor="40.0">
+   <TextField fx:id="idVacc" layoutX="700.0" layoutY="450.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="450.0">
       <font>
-         <Font size="25.0"/>
+         <Font size="15.0" />
+      </font></TextField>
+   <Label layoutX="491.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Registrazione cittadino" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="50.0">
+      <font>
+         <Font size="25.0" />
       </font>
    </Label>
-   <Label layoutX="122.0" layoutY="166.0" text="Nome" AnchorPane.bottomAnchor="540.0" AnchorPane.leftAnchor="150.0"
-          AnchorPane.rightAnchor="1075.0" AnchorPane.topAnchor="150.0">
+   <Label layoutX="150.0" layoutY="154.0" prefHeight="30.0" text="Nome" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="150.0">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
-   <Label layoutX="151.0" layoutY="274.0" text="Codice Fiscale" AnchorPane.bottomAnchor="416.0"
-          AnchorPane.leftAnchor="151.0" AnchorPane.rightAnchor="1005.0" AnchorPane.topAnchor="274.0">
+   <Label layoutX="156.0" layoutY="279.0" prefHeight="30.0" text="Codice Fiscale" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="250.0">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
-   <Label layoutX="149.0" layoutY="387.0" text="UserID" AnchorPane.bottomAnchor="303.0" AnchorPane.leftAnchor="149.0"
-          AnchorPane.rightAnchor="1016.0" AnchorPane.topAnchor="387.0">
+   <Label layoutX="149.0" layoutY="387.0" prefHeight="30.0" text="UserID" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="350.0">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
-   <Label layoutX="149.0" layoutY="445.0" text="Password" AnchorPane.bottomAnchor="245.0" AnchorPane.leftAnchor="149.0"
-          AnchorPane.rightAnchor="1047.0" AnchorPane.topAnchor="445.0">
+   <Label layoutX="149.0" layoutY="445.0" prefHeight="30.0" text="Password" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="400.0">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
-   <Label layoutX="151.0" layoutY="214.0" text="Cognome" AnchorPane.bottomAnchor="476.0" AnchorPane.leftAnchor="151.0"
-          AnchorPane.rightAnchor="1042.0" AnchorPane.topAnchor="214.0">
+   <Label layoutX="151.0" layoutY="214.0" prefHeight="30.0" text="Cognome" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="200.0">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
-   <Button fx:id="annullaid" layoutX="312.0" layoutY="637.0" mnemonicParsing="false" onAction="#annulla"
-           prefHeight="44.0" prefWidth="115.0" text="Annulla">
+   <Button fx:id="annullaid" layoutX="218.0" layoutY="523.0" mnemonicParsing="false" onAction="#annulla" text="Annulla" AnchorPane.bottomAnchor="50.0">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Button>
-   <Button fx:id="registratiid" layoutX="875.0" layoutY="637.0" mnemonicParsing="false" onAction="#registrati"
-           text="Registrati" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="875.0" AnchorPane.rightAnchor="293.0"
-           AnchorPane.topAnchor="637.0">
+   <Button fx:id="registratiid" layoutX="474.0" layoutY="534.0" mnemonicParsing="false" onAction="#registrati" text="Registrati" AnchorPane.bottomAnchor="50.0">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Button>
-   <Label fx:id="emailid" layoutX="150.0" layoutY="330.0" prefHeight="30.0" prefWidth="112.0" text="Email">
+   <Label fx:id="emailid" layoutX="150.0" layoutY="330.0" prefHeight="30.0" text="Email" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="300.0">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
-   <Label fx:id="IDVaccLabel" layoutX="149.0" layoutY="506.0" prefHeight="44.0" prefWidth="157.0"
-          text="ID Vaccinazione">
+   <Label fx:id="IDVaccLabel" layoutX="100.0" layoutY="453.0" prefHeight="30.0" text="ID Vaccinazione" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="453.0">
       <font>
-         <Font size="20.0"/>
+         <Font size="20.0" />
       </font>
    </Label>
 </AnchorPane>

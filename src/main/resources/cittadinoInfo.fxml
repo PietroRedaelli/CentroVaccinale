@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="APPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoInfo">
+   <children>
+      <Label alignment="CENTER" layoutX="362.5" layoutY="50.0" prefHeight="40.0" prefWidth="275.0" text="Informazioni Centro" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+      <Label fx:id="LBNome" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="150.0" prefHeight="26.0" prefWidth="700.0" text="Nome" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="LBIndirizzo" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="220.0" prefHeight="26.0" prefWidth="700.0" text="Indirizzo" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="LBTipo" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="290.0" prefHeight="26.0" prefWidth="700.0" text="Tipologia" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="TableVRecap" layoutX="150.0" layoutY="400.0" prefHeight="300.0" prefWidth="700.0">
+        <columns>
+          <TableColumn fx:id="TCEvento" maxWidth="499.0" minWidth="100.0" prefWidth="299.0" text="Evento" />
+          <TableColumn fx:id="TCNum" maxWidth="200.0" minWidth="50.0" prefWidth="150.0" text="Segnalazioni" />
+            <TableColumn fx:id="TCAvg" maxWidth="300.0" minWidth="200.0" prefWidth="250.0" text="Severità media" />
+        </columns>
+      </TableView>
+      <Button fx:id="BTAnnulla" layoutX="460.0" layoutY="730.0" mnemonicParsing="false" onAction="#indietro" text="Annulla">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

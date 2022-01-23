@@ -2,44 +2,61 @@ package ClientCittadino;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class EventoAvverso implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    String idCentro;
-    String CodiceFiscale;
-    String evento;
-    int severita;
-    String data;
-    String noteOpz;
+    private int idCentro;
+    private String nomeCentro;
+    private long idVacc;
+    private String CodiceFiscale;
+    private String evento;
+    private int severita;
+    private String data;
+    private String noteOpz;
+    private double intMedia;
 
-
-    public EventoAvverso(String idCentro, String CodiceFiscale, String evento, int severita, String noteOpz) {
+    public EventoAvverso(int idCentro, String nomeCentro, long idVacc, String CodiceFiscale, String evento, int severita, String noteOpz) {
         this.idCentro = idCentro;
+        this.nomeCentro = nomeCentro;
+        this.idVacc = idVacc;
         this.CodiceFiscale = CodiceFiscale;
         this.evento = evento;
         this.severita = severita;
+        this.data = LocalDate.now().toString();
         this.noteOpz = noteOpz;
     }
 
-    public EventoAvverso(String idCentro, String CodiceFiscale,String evento, int severita, String data, String noteOpz) {
-        this.idCentro = idCentro;
-        this.CodiceFiscale = CodiceFiscale;
+    public EventoAvverso(String evento, int severita, double intMedia) {
         this.evento = evento;
         this.severita = severita;
-        this.data = data;
-        this.noteOpz = noteOpz;
-
+        //this.media = new Rating(intMedia);
+        this.intMedia = intMedia;
     }
 
-    public String getIdCentro() {
+    public int getIdCentro() {
         return idCentro;
     }
 
-    public void setIdCentro(String idCentro) {
+    public void setIdCentro(int idCentro) {
         this.idCentro = idCentro;
+    }
+
+    public String getNomeCentro() {
+        return nomeCentro;
+    }
+
+    public void setNomeCentro(String nomeCentro) {
+        this.nomeCentro = nomeCentro;
+    }
+
+    public long getIdVacc() {
+        return idVacc;
+    }
+
+    public void setIdCentro(long idVacc) {
+        this.idVacc = idVacc;
     }
 
     public String getCodiceFiscale() {
@@ -82,27 +99,23 @@ public class EventoAvverso implements Serializable {
         this.noteOpz = noteOpz;
     }
 
+    public void setIdVacc(long idVacc) {
+        this.idVacc = idVacc;
+    }
+
+    public double getIntMedia() {
+        return intMedia;
+    }
+
+    public void setIntMedia(int intMedia) {
+        this.intMedia = intMedia;
+    }
+
     @Override
     public String toString() {
-        if(data == null){
-            return "EventoAvverso{" +
-                    "idCentro='" + idCentro + '\'' +
-                    ", CodiceFiscale='" + CodiceFiscale + '\'' +
-                    ", evento='" + evento + '\'' +
-                    ", severita=" + severita +
-                    ", noteOpz='" + noteOpz + '\'' +
-                    '}';
-        }else{
-            return "EventoAvverso{" +
-                    "idCentro='" + idCentro + '\'' +
-                    ", CodiceFiscale='" + CodiceFiscale + '\'' +
-                    ", evento='" + evento + '\'' +
-                    ", severita=" + severita +
-                    ", data='" + data + '\'' +
-                    ", noteOpz='" + noteOpz + '\'' +
-                    '}';
-
-        }
-
+            return "Evento Avverso:" +
+                    " Tipo: " + evento +
+                    ", Severita: " + severita +
+                    ", Note: " + noteOpz;
     }
 }

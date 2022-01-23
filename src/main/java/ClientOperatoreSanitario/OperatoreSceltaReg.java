@@ -12,5 +12,4 @@ public class OperatoreSceltaReg {
     public void apriScenaRegVacc(ActionEvent actionEvent) throws IOException{
         OperatoreSanitarioAPP.setRoot("operatoreRegVacc.fxml");
     }
-
 }

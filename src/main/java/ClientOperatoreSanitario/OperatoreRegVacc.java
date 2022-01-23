@@ -1,7 +1,6 @@
 package ClientOperatoreSanitario;
 
 import Grafics.ConfirmBoxVacc;
-import ServerPackage.CentroVaccinale;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,9 +19,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
 
 //Classe che gestisce la registrazione di un nuovo vaccinato
-
 public class OperatoreRegVacc implements Initializable {
-
 
     //Elementi grafici della finestra di salvataggio
     @FXML private TextField TFCentro;
@@ -33,7 +30,6 @@ public class OperatoreRegVacc implements Initializable {
     @FXML private ComboBox<String> CBVacc;
     @FXML private ComboBox<String> CBDose;
     @FXML private TextField TFID;
-    @FXML private Button BTSeleziona;
 
     protected static TextField staticLabel;
     protected static CentroVaccinale centroRV;
@@ -63,9 +59,10 @@ public class OperatoreRegVacc implements Initializable {
         //listener che fa diventare ciò che si scrive maiuscolo
         TFFisc.textProperty().addListener((observable, oldValue, newValue) -> TFFisc.setText(newValue.toUpperCase()));
 
-        //Serve per limitare ad un massimo 16 caratteri il codice fiscale
-        TFFisc.setTextFormatter(new TextFormatter<String>(change ->
-                change.getControlNewText().length() <= 16 ? change : null));
+        //listener per la lunghezza dei dati inseriti
+        TFNome.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 20 ? change : null));
+        TFCognome.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 30 ? change : null));
+        TFFisc.setTextFormatter(new TextFormatter<String>(change -> change.getControlNewText().length() <= 16 ? change : null));
 
         //listener che permette di inserire solamente numeri all'interno del textfield associato all'ID
         TFID.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -95,7 +92,7 @@ public class OperatoreRegVacc implements Initializable {
     //funzione che apre una nuova finestra per la selezione del centro
     public void selezionaCentro(ActionEvent actionEvent) throws IOException {
         //apro una nuova finestra
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("sceltaCentro.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("operatoreSceltaCentro.fxml")));
         Stage stage = new Stage();
         stage.setTitle("Selezione Centro");
         stage.setScene(new Scene(root));
@@ -116,9 +113,9 @@ public class OperatoreRegVacc implements Initializable {
             int dose = Integer.parseInt(CBDose.getValue());
             long id = Long.parseLong(TFID.getText());
 
-            Vaccinato vaccinato = new Vaccinato(0, nome, cognome, centroRV.getID(), id, codFisc, data, vaccino, dose);
+            Vaccinato vaccinato = new Vaccinato( nome, cognome, centroRV.getID(), id, codFisc, data, vaccino, dose);
 
-            boolean conferma = ConfirmBoxVacc.start(vaccinato, centroRV.toString());
+            boolean conferma = ConfirmBoxVacc.start(vaccinato, staticLabel.getText());
 
             if (conferma) {
                 azzeraCampi();
@@ -134,6 +131,11 @@ public class OperatoreRegVacc implements Initializable {
         CBVacc.valueProperty().set(null);
         CBDose.valueProperty().set(null);
         TFID.setText(String.valueOf(generaIDVaccinazione()));
+        TFNome.setPromptText("");
+        TFCognome.setPromptText("");
+        TFFisc.setPromptText("");
+        CBVacc.setPromptText("");
+        CBDose.setPromptText("");
     }
 
     //funzione che permette di controllare tutti i campi per poter salvare correttamente i dati del vaccinato che si vuole inserire
