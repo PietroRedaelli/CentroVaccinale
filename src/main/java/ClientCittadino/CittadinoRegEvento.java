@@ -127,7 +127,7 @@ public class CittadinoRegEvento implements Initializable {
             }
 
         } catch (RemoteException e) {
-            LBErr.setText(e.getMessage());
+            LBErr.setText("Errore di connessione col server. Riavviare l'applicazione.");
             return false;
         }
         System.out.println("Cittadino effettua login come: "+cittadino.getCodiceFiscale());

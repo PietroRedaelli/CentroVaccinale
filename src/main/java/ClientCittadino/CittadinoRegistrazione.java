@@ -84,9 +84,10 @@ public class CittadinoRegistrazione implements Initializable {
             controllo = false;
         }
 
-        if (codicefiscale.getText().equals("")) {
+        if (codicefiscale.getText().length() < 16) {
+            codicefiscale.clear();
             codicefiscale.setStyle("-fx-prompt-text-fill: red;");
-            codicefiscale.setPromptText("Campo mancante!");
+            codicefiscale.setPromptText("Lunghezza minima 16 caratteri!");
             controllo = false;
         }
 
@@ -110,7 +111,8 @@ public class CittadinoRegistrazione implements Initializable {
             controllo = false;
         }
 
-        if (idVacc.getText().equals("")) {
+        if (idVacc.getText().length() < 16) {
+            idVacc.clear();
             idVacc.setStyle("-fx-prompt-text-fill: red;");
             idVacc.setPromptText("Inserisci un ID valido di 16 caratteri!");
             controllo = false;
