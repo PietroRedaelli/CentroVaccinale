@@ -1,15 +1,10 @@
 package ClientOperatoreSanitario;
 
-import ClientCittadino.AppCittadino;
-import ServerPackage.ServerInterface;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -25,6 +20,7 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
     @FXML private TextField TFNome;
     @FXML private TextField TFComune;
     @FXML private ComboBox<String> CBTipologia;
+    @FXML private Label LBConnessione;
     @FXML private TableView<CentroVaccinale> TableVRisultati;
     @FXML private TableColumn<CentroVaccinale, String> TCNome;
     @FXML private TableColumn<CentroVaccinale, String> TCInd;
@@ -39,7 +35,6 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
     private boolean checkNome = true;
     private ArrayList<CentroVaccinale> arrayListRisultati = new ArrayList<>();
     private final OperatoreSanitarioAPP OS = new OperatoreSanitarioAPP();
-    private static final ServerInterface si = AppCittadino.si;
     private String nomeCentro = "";
 
     //funzione che inizializza gli elementi grafici
@@ -61,16 +56,13 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
         TCTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
 
         //prima ricerca generale con tutti i centri
-        if(si == null){
+        try {
             arrayListRisultati = OS.cercaCentro(nomeCentro);
-        }else{
-            try {
-                arrayListRisultati = si.cercaCentroVaccinale(nomeCentro);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+            TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
+        } catch (RemoteException e) {
+            //e.printStackTrace();
+            System.err.println("Nessuna connessione!");
         }
-        TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
     }
 
     //permette di tornare indietro alla pagina di registrazione del vaccinato
@@ -92,17 +84,22 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
 
     //Bottone: cerca il centro in base ai dati forniti (o per nome oppure per comune e tipologia)
     public void cercaCentro(ActionEvent actionEvent) {
-        if (TFNome.isDisabled()) {
-            String comune = TFComune.getText().trim();
-            String tipologia = CBTipologia.getValue();
+        try {
+            if (TFNome.isDisabled()) {
+                String comune = TFComune.getText().trim();
+                String tipologia = CBTipologia.getValue();
 
-            arrayListRisultati = OS.cercaCentro(comune, tipologia);                 //RICORDATI DI AGGIUNGERE IL CASO IN CUI SI APRE LA FINESTRA PER LE INFO
-            TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
-        } else {
-            nomeCentro = TFNome.getText().trim();
+                arrayListRisultati = OS.cercaCentro(comune, tipologia);                 //RICORDATI DI AGGIUNGERE IL CASO IN CUI SI APRE LA FINESTRA PER LE INFO
+                TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
+            } else {
+                nomeCentro = TFNome.getText().trim();
 
-            arrayListRisultati = OS.cercaCentro(nomeCentro);
-            TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
+                arrayListRisultati = OS.cercaCentro(nomeCentro);
+                TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
+            }
+        } catch (RemoteException e) {
+            //qunado il server si disconnette compare il label dell'errore
+            LBConnessione.setVisible(true);
         }
     }
 

@@ -66,10 +66,10 @@ public class CittadinoSceltaCentro implements Initializable {
         //prima ricerca generale con tutti i centri
         try {
             arrayListRisultati = si.cercaCentroVaccinale(nomeCentro);
-           TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
+            TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
         } catch (RemoteException e) {
             //e.printStackTrace();
-            System.out.println("Nessuna connessione!");
+            System.err.println("Nessuna connessione!");
         }
     }
 

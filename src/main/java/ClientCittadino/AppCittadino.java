@@ -29,7 +29,7 @@ public class AppCittadino  extends Application {
         stage1 = stage;
         scene = new Scene(loadFXML("cittadinoLoading.fxml"));
         stage1.setScene(scene);
-        stage1.setTitle("Menu");
+        stage1.setTitle("Cittadini");
         stage1.setResizable(false);
         stage1.show();
     }
