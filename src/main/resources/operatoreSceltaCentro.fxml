@@ -80,5 +80,10 @@
          </font>
       </Button>
       <Button fx:id="BTOppure" layoutX="64.0" layoutY="225.0" mnemonicParsing="false" onAction="#oppure" text="oppure" />
+      <Label fx:id="LBConnessione" alignment="CENTER" layoutX="173.0" layoutY="80.0" prefHeight="17.0" prefWidth="654.0" text="Errore di connessione col server! Riavviare l'applicazione" textFill="RED" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

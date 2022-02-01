@@ -9,15 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -29,6 +27,7 @@ public class CittadinoSceltaCentro implements Initializable {
     @FXML private TextField TFNome;
     @FXML private TextField TFComune;
     @FXML private ComboBox<String> CBTipologia;
+    @FXML private Label LBConnessione;
     @FXML private TableView<CentroVaccinale> TableVRisultati;
     @FXML private TableColumn<CentroVaccinale, String> TCNome;
     @FXML private TableColumn<CentroVaccinale, String> TCInd;
@@ -67,10 +66,11 @@ public class CittadinoSceltaCentro implements Initializable {
         //prima ricerca generale con tutti i centri
         try {
             arrayListRisultati = si.cercaCentroVaccinale(nomeCentro);
+            TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
         } catch (RemoteException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.err.println("Nessuna connessione!");
         }
-        TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
     }
 
     //permette di tornare indietro alla pagina di introduzione dei cittadini
@@ -94,17 +94,22 @@ public class CittadinoSceltaCentro implements Initializable {
 
     //Bottone: cerca il centro in base ai dati forniti (o per nome oppure per comune e tipologia)
     public void cercaCentro(ActionEvent actionEvent) {
-        if (TFNome.isDisabled()) {
-            String comune = TFComune.getText().trim();
-            String tipologia = CBTipologia.getValue();
+        try {
+            if (TFNome.isDisabled()) {
+                String comune = TFComune.getText().trim();
+                String tipologia = CBTipologia.getValue();
 
-            arrayListRisultati = cittadino.cercaCentro(comune, tipologia);
-            TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
-        } else {
-            nomeCentro = TFNome.getText().trim();
+                arrayListRisultati = cittadino.cercaCentro(comune, tipologia);
+                TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
+            } else {
+                nomeCentro = TFNome.getText().trim();
 
-            arrayListRisultati = cittadino.cercaCentro(nomeCentro);
-            TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
+                arrayListRisultati = cittadino.cercaCentro(nomeCentro);
+                TableVRisultati.setItems(FXCollections.observableArrayList(arrayListRisultati));
+            }
+        } catch(RemoteException e) {
+            //qunado il server si disconnette compare il label dell'errore
+            LBConnessione.setVisible(true);
         }
     }
 

@@ -22,7 +22,7 @@ public class OperatoreSanitarioAPP extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage1 = stage;
-        Scene scene = new Scene(loadFXML("operatoreSceltaReg.fxml"));
+        Scene scene = new Scene(loadFXML("operatoreLoading.fxml"));
         stage1.setScene(scene);
         stage1.setTitle("CentroVaccinale");
         stage1.show();
@@ -45,14 +45,16 @@ public class OperatoreSanitarioAPP extends Application {
         launch();
     }
 
-    private void connessione_server(){
+    public static boolean connessione_server(){
         try {
             Registry registro = LocateRegistry.getRegistry(1099);
             si = (ServerInterface) registro.lookup("CentroVaccinale");
         } catch (Exception e) {
-            System.err.println("Client Operatore Sanitario: errore di connessione al server \n" + e.getMessage());
-            System.exit(0);
+            //System.err.println("Client Operatore Sanitario: errore di connessione al server \n" + e.getMessage());
+            //System.exit(0);
+            return false;
         }
+        return true;
     }
 
     public static void registraCentroVaccinale(CentroVaccinale centro){
@@ -78,25 +80,13 @@ public class OperatoreSanitarioAPP extends Application {
     }
 
     //funzione che chiede al server di cercare il centro richiesto in base al nome
-    public ArrayList<CentroVaccinale> cercaCentro(String nome) {
-        ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
-        try {
-            arrayListRicevuto = si.cercaCentroVaccinale(nome);
-        } catch (RemoteException e) {
-            System.out.println(e.getMessage());
-        }
-        return arrayListRicevuto;
+    public ArrayList<CentroVaccinale> cercaCentro(String nome) throws RemoteException{
+        return si.cercaCentroVaccinale(nome);
     }
 
     //funzione che chiede al server di cercare il centro richiesto in base al comune e alla tipologia
-    public ArrayList<CentroVaccinale> cercaCentro(String comune, String tipologia) {
-        ArrayList<CentroVaccinale> arrayListRicevuto = new ArrayList<>();
-        try {
-            arrayListRicevuto = si.cercaCentroVaccinale(comune, tipologia);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return arrayListRicevuto;
+    public ArrayList<CentroVaccinale> cercaCentro(String comune, String tipologia) throws RemoteException{
+        return si.cercaCentroVaccinale(comune, tipologia);
     }
 
     public static boolean controllaCentro(CentroVaccinale centroVaccinale) {
@@ -107,8 +97,8 @@ public class OperatoreSanitarioAPP extends Application {
                 return false;
             }
         } catch (RemoteException e) {
-            e.printStackTrace();
-            ConfirmBoxCentro.setError("Errore di connessione con il Server");
+            //e.printStackTrace();
+            ConfirmBoxCentro.setError("Errore di connessione col Server");
             return false;
         }
         return true;
