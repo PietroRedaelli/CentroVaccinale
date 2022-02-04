@@ -4,25 +4,195 @@ import ClientCittadino.Cittadino;
 import ClientCittadino.EventoAvverso;
 import ClientOperatoreSanitario.CentroVaccinale;
 import ClientOperatoreSanitario.Vaccinato;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import java.rmi.NoSuchObjectException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Server extends UnicastRemoteObject implements ServerInterface{
 
     private static final long serialVersionUID = 1L;
 
-    protected String url_DB = "jdbc:postgresql://localhost:5432/LabB" ;
+    @FXML private TextField TFUser;
+    @FXML private TextField TFPassword;
+    @FXML private TextField TFHost;
+    @FXML private Label LBConnessione;
+    @FXML private AnchorPane pane1;
+    @FXML private AnchorPane pane2;
+    @FXML private TextField TFCentri;
+    @FXML private TextField TFPrima;
+    @FXML private TextField TFSeconda;
+    @FXML private TextField TFTerza;
+    @FXML private TextField TFEventi;
+
+    private static String user;
+    private static String password;
+    protected String url_DB = "jdbc:postgresql://localhost:5432/LabB";
     protected String user_DB = "postgres";
-    protected String password_DB = "F4/=rb91d&w3" ;
-    protected Connection DB = null;
+    protected String password_DB = "F4/=rb91d&w3";
+
+    private int numeroCentriVaccinali;
+    private int numeroVaccinati1;
+    private int numeroVaccinati2;
+    private int numeroVaccinati3;
+    private int numeroEventi;
+
+    protected static Connection DB = null;
+    protected static Registry registro = null;
 
     public Server() throws RemoteException {
         super();
+    }
+
+    /**Instaurazione delle connessioni. Oggetto remoto e connessione col Database
+
+    tasto che acquisisce le credenziali del Database e instaura le connessioni necessarie al funzionamento dei client.*/
+    public void lancioServerEDatabase() {
+        user = TFUser.getText().trim();
+        password = TFPassword.getText().trim();
+        String host = TFHost.getText().trim();
+
+        if (!user.equals(user_DB) || !password.equals(password_DB) || !host.equals("localhost")) {
+            LBConnessione.setVisible(true);
+            return;
+        } else {
+            LBConnessione.setVisible(false);
+        }
+
+        Server server = null;
+        try {
+            server = new Server();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        if (server != null) {
+            server.connessione_server();
+            server.connessione_DB();
+        }
+        pane1.setVisible(false);
+        pane2.setVisible(true);
+
+        Runnable helloRunnable = new Runnable() {
+            public void run() {
+                acquisisciInfo();
+                mostraInfo();
+            }
+        };
+
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(helloRunnable, 0, 5, TimeUnit.SECONDS);
+    }
+
+    private void connessione_server(){
+        try {
+            registro = LocateRegistry.createRegistry(1099);
+            registro.rebind("CentroVaccinale", this);
+            System.out.println("Server pronto!");
+        } catch (RemoteException e) {
+            System.err.println("Errore nella creazione del registro del Centro Vaccinale:\n"+e.getMessage());
+            try {
+                if(!UnicastRemoteObject.unexportObject(registro, false)){
+                    System.out.println("IL REGISTRO E' GIA' IN USO!");
+                }
+            } catch (NoSuchObjectException ex) {
+                ex.printStackTrace();
+            }
+            System.exit(0);
+        }
+    }
+
+    private void connessione_DB(){
+        try {
+            DB = DriverManager.getConnection(url_DB,user,password);
+            if(DB != null){
+                System.out.println("Connessione al DB completata!");
+            }else{
+                System.out.println("Connessione al DB fallita!");
+                System.out.println("Chiusura Applicazione!");
+                System.exit(-1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Chiusura Applicazione!");
+            System.exit(-1);
+        }
+    }
+
+    //funzione che disconnette correttamente il server e il Database quando si chiude la finestra del Server
+    public static void disconnetti() {
+        try {
+            DB.close();
+            System.out.println("Chiusura Database!");
+        } catch (SQLException | NullPointerException e) {
+            //e.printStackTrace();
+            System.out.println("Il DB non era stato inizializzato");
+        }
+        try {
+            registro.unbind("CentroVaccinale");
+            UnicastRemoteObject.unexportObject(registro, true);
+            System.out.println("Chiusura Server!");
+        } catch (RemoteException | NotBoundException | NullPointerException e) {
+            //e.printStackTrace();
+            System.out.println("Il Server non era stato inizializzato");
+        }
+    }
+
+    //Informazioni generali mostrate dal server
+
+    private void acquisisciInfo() {
+        String centri = "SELECT COUNT(*) FROM \"CentriVaccinali\"";
+        String vaccinati1 = "SELECT COUNT(*) FROM \"Vaccinati\" WHERE dose = 1";
+        String vaccinati2 = "SELECT COUNT(*) FROM \"Vaccinati\" WHERE dose = 2";
+        String vaccinati3 = "SELECT COUNT(*) FROM \"Vaccinati\" WHERE dose = 3";
+        String eventiAvversi = "SELECT COUNT(*) FROM \"EventoAvverso\"";
+        try {
+            PreparedStatement stm = DB.prepareStatement(centri);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next())
+                numeroCentriVaccinali = rs.getInt(1);
+
+            PreparedStatement stm1 = DB.prepareStatement(vaccinati1);
+            ResultSet rs1 = stm1.executeQuery();
+            if (rs1.next())
+                numeroVaccinati1 = rs1.getInt(1);
+
+            PreparedStatement stm2 = DB.prepareStatement(vaccinati2);
+            ResultSet rs2 = stm2.executeQuery();
+            if (rs2.next())
+                numeroVaccinati2 = rs2.getInt(1);
+
+            PreparedStatement stm3 = DB.prepareStatement(vaccinati3);
+            ResultSet rs3 = stm3.executeQuery();
+            if (rs3.next())
+                numeroVaccinati3 = rs3.getInt(1);
+
+            PreparedStatement stm4 = DB.prepareStatement(eventiAvversi);
+            ResultSet rs4 = stm4.executeQuery();
+            if (rs4.next())
+                numeroEventi = rs4.getInt(1);
+        } catch (SQLException e) {
+            System.out.println("Errore Connessione metodo \"acquisisciInfo\"");
+        }
+    }
+
+    private void mostraInfo(){
+        TFCentri.setText(String.valueOf(numeroCentriVaccinali));
+        TFPrima.setText(String.valueOf(numeroVaccinati1));
+        TFSeconda.setText(String.valueOf(numeroVaccinati2));
+        TFTerza.setText(String.valueOf(numeroVaccinati3));
+        TFEventi.setText(String.valueOf(numeroEventi));
     }
 
     //Centri Vaccinali
@@ -614,60 +784,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     public boolean controllaConnessione() {
         try {
             PreparedStatement statement = DB.prepareStatement("select MAX(dose) from \"Vaccinati\"");
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
             return true;
         }
         return false;
-    }
-
-    private void connessione_server(){
-        Registry registro = null;
-        try {
-            registro = LocateRegistry.createRegistry(1099);
-            registro.rebind("CentroVaccinale", this);
-            System.out.println("Server pronto!!!");
-        } catch (RemoteException e) {
-            System.err.println("Errore nella creazione del registro del Centro Vaccinale:\n"+e.getMessage());
-            try {
-                if(!UnicastRemoteObject.unexportObject(registro, false)){
-                    System.out.println("IL REGISTRO E' GIA' IN USO!!!");
-                }
-            } catch (NoSuchObjectException ex) {
-                ex.printStackTrace();
-            }
-            System.exit(0);
-        }
-    }
-
-    private void connessione_DB(){
-        try {
-            DB = DriverManager.getConnection(url_DB,user_DB,password_DB);
-            if(DB != null){
-                System.out.println("Connessione al DB completata!!!");
-            }else{
-                System.out.println("Connessione al DB fallita!!!");
-                System.out.println("Chiusura Applicazione!!!");
-                System.exit(-1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Chiusura Applicazione!");
-            System.exit(-1);
-        }
-    }
-
-    public static void main(String[] args) {
-        Server server = null;
-        try {
-            server = new Server();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        if (server != null) {
-            server.connessione_server();
-            server.connessione_DB();
-        }
     }
 }

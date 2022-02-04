@@ -6,6 +6,7 @@ module org.example {
     requires org.controlsfx.controls;
 
     exports ServerPackage;
+    opens ServerPackage to javafx.fxml;
     exports ClientOperatoreSanitario;
     opens ClientOperatoreSanitario to javafx.fxml;
     exports ClientCittadino;
