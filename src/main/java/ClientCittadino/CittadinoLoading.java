@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import java.io.IOException;
 
+/**
+ * La classe ha lo scopo di connettere il cittadino al server.
+ */
 public class CittadinoLoading {
 
     @FXML private Label LBConnessione;

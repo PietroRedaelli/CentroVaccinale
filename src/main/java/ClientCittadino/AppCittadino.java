@@ -14,6 +14,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
+/**
+ * La classe permette di caricare l'interfaccia grafica di un clientCittadino.
+ * @author Pietro
+ * @version 1.0
+ */
 public class AppCittadino extends Application {
 
     private static Cittadino c = new Cittadino();
@@ -45,6 +50,10 @@ public class AppCittadino extends Application {
         launch();
     }
 
+    /**
+     * Il metodo stabilisce la connessione col server.
+     * @return ritorna true se la connessione è andata a buon fine, false altrimenti.
+     */
     public static boolean connessione_server() {
         try {
             Registry registro = LocateRegistry.getRegistry(1099);
@@ -57,7 +66,10 @@ public class AppCittadino extends Application {
         return true;
     }
 
-    //chiede al server di registrare un cittadino
+    /**
+     * Il metodo invia una richiesta al server di registrazione di un cittadino.
+     */
+
     public void registraCittadino(Cittadino cittadino) {
         System.out.println("Registrazione cittadino: "+cittadino);
         try {

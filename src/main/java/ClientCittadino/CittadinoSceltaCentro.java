@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * La classe permette di selezionare un centro vaccinale tra quelli disponibili.
+ * @author Pietro
+ * @version 1.0
+ */
 public class CittadinoSceltaCentro implements Initializable {
 
     //elementi grafici della scena e variabili private
@@ -45,7 +50,10 @@ public class CittadinoSceltaCentro implements Initializable {
     private String nomeCentro = "";
     protected static CentroVaccinale centroVaccinaleInfo;
 
-    //funzione che inizializza gli elementi grafici
+    /**
+     * Il metodo inizializza i parametri necessari alla visualizzazione grafica
+     * della scelta di un centro vaccinale.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -73,12 +81,16 @@ public class CittadinoSceltaCentro implements Initializable {
         }
     }
 
-    //permette di tornare indietro alla pagina di introduzione dei cittadini
+    /**
+     * Il metodo permette di tornare indietro alla pagina di introduzione dei cittadini.
+     */
     public void annulla(ActionEvent actionEvent) throws IOException {
         AppCittadino.setRoot("cittadinoMainMenu.fxml");
     }
 
-    //mostra le informazioni del centro selezionato
+    /**
+     * Il metodo permette di confermare le informazioni del centro vaccinale selezionato.
+     */
     public void conferma(ActionEvent actionEvent) throws IOException {
 
         centroVaccinaleInfo = TableVRisultati.getSelectionModel().getSelectedItem();
@@ -92,7 +104,9 @@ public class CittadinoSceltaCentro implements Initializable {
 
     }
 
-    //Bottone: cerca il centro in base ai dati forniti (o per nome oppure per comune e tipologia)
+    /**
+     * Il metodo, tramite bottone, permette di cercare il centro vaccinale  in base ai dati immessi.
+     */
     public void cercaCentro(ActionEvent actionEvent) {
         try {
             if (TFNome.isDisabled()) {
@@ -113,7 +127,9 @@ public class CittadinoSceltaCentro implements Initializable {
         }
     }
 
-    //funzione che abilita e disabilita i campi in base a ciò che si vuole cercare
+    /**
+     * Il metodo abilita e disabilita i campi in base a ciò che si vuole cercare.
+     */
     public void oppure(ActionEvent actionEvent) {
         if (checkNome) {
             TFNome.setDisable(true);

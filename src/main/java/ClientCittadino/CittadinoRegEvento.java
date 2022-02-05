@@ -16,9 +16,14 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
 
-//LUCA: salvataggio dell'evento avverso e implementa qui il metodo visualizzaInfoCentroVaccinale nella classe server
-//al massimo qui lo richiamo e nella parte server la implemento
-//a riga 215
+//DOCMENTAZIONE ERRATA? CLASSE RELATIVA AL LOGIN?
+/**
+ * La classe ha lo scopo di caricare le informazioni del file fxml
+ * necessarie alla visualizzazione della schermata per la registrazione
+ * di un evento avverso da parte di un cittadino.
+ * @author Pietro
+ * @version 1.0
+ */
 
 public class CittadinoRegEvento implements Initializable {
 
@@ -70,6 +75,9 @@ public class CittadinoRegEvento implements Initializable {
                 change.getControlNewText().length() <= 256 ? change : null));
     }
 
+    /**
+     * Il metodo permette di conoscere il nome del centro vaccinale.
+     */
     private void getNomeCentro() {
         try {
             nome_centro = si.cercaCentroVaccinale_CF(cittadino.getCodiceFiscale());
@@ -78,7 +86,10 @@ public class CittadinoRegEvento implements Initializable {
         }
     }
 
-    //funzione che controlla i dati di login e nel caso di risposta affermativa procede nella pagina di scelta del centro
+    /**
+     * Il metodo controlla i dati di login e nel caso di risposta affermativa procede
+     * nella pagina di scelta del centro.
+     */
     public void confermaLogin(ActionEvent actionEvent) {
         LBErr.setText("");
         if (controlloLoginDB()) {
@@ -107,7 +118,9 @@ public class CittadinoRegEvento implements Initializable {
         L_ID_Vacc.setText(String.valueOf(cittadino.getIdVacc()));
     }
 
-    //funzione che controlla la correttezza dei dati di login
+    /**
+     * Il metodo controlla la correttezza dei dati inseriti in fase di login.
+     */
     private boolean controlloLoginDB() {
         String userid = TFUser.getText().trim();
         String password = PFPassword.getText().trim();
@@ -134,7 +147,10 @@ public class CittadinoRegEvento implements Initializable {
         return true;
     }
 
-    //vai avanti nella pagina di segnalazione dell'evento
+    /**
+     * Il metodo, qualora i dati inseriti siano corretti, permette di
+     * procedere alla pagina di segnalazione dell'evento.
+     */
     public void confermaCentro(ActionEvent actionEvent) {
         if(controlloCampi()){//verifica dei campi
             EventoAvverso evento = getEvento();
@@ -148,6 +164,10 @@ public class CittadinoRegEvento implements Initializable {
         }
     }
 
+    /**
+     * Il metodo controlla che i campi inseriti siano corretti.
+     * @return true se i campi inseiti sono corretti, false altrimenti.
+     */
     private boolean controlloCampi() {
         if(CBEvento.getValue() == null){
             CBEvento.setPromptText("Campo mancante!");
@@ -171,16 +191,25 @@ public class CittadinoRegEvento implements Initializable {
         return true;
     }
 
+    /**
+     * Il metodo ritorna le informazioni relative ad un evento.
+     * @return le informazioni relative ad un evento.
+     */
     private EventoAvverso getEvento() {
         return new EventoAvverso(nome_centro.getID(), nome_centro.getNomeCentro(), cittadino.getIdVacc(), cittadino.getCodiceFiscale(), CBEvento.getValue(), (int) RTValutazione.getRating(),TANote.getText());
     }
 
-    //il tasto BTAnnulla1 torna indietro alla pagina di scelta delle varie operazioni che l'utente (Cittadino) può svolgere
+    /**
+     * Il metodo relativo al tasto BTAnnulla1 torna indietro alla pagina di scelta
+     * delle varie operazioni che l'utente (Cittadino) può svolgere.
+     */
     public void annulla1(ActionEvent actionEvent) throws IOException {
         AppCittadino.setRoot("cittadinoMainMenu.fxml");
     }
 
-    //il tasto BTAnnulla2 torna indietro al pannello 1
+    /**
+     * Il metodo relativo al bottone annulla permette di tornare indietro.
+     */
     public void annulla2(ActionEvent actionEvent) throws IOException {
         //aprire un Alert per uscire e fare anche il logout
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -201,15 +230,23 @@ public class CittadinoRegEvento implements Initializable {
         }
     }
 
-    //funzione che comunica il numero di caratteri inseriti nella TextArea TANote
+    //unzione che comunica il numero di caratteri inseriti nella TextArea TANote
     public void numeroCaratteri(KeyEvent keyEvent) {
         LBCaratteri.setText(String.valueOf(TANote.getText().length()));
     }
 
+    /**
+     * Il metodo permette di impostare un cittadino.
+     * @param citt indica un nuovo cittadino.
+     */
     public static void setCittadino(Cittadino citt){
         cittadino = citt;
     }
 
+    /**
+     * Il metodo ritorna un cittadino.
+     * @return cittadino.
+     */
     public static Cittadino getCittadino() {
         return cittadino;
     }

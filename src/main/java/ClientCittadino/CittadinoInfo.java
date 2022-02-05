@@ -16,6 +16,13 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * La classe permette di visualizzare le informazioni necessarie quando un cittadino
+ * senza registrazione apre l'interfaccia grafica relativa alle informazioni sui
+ * centri vaccinali
+ * @author Pietro
+ * @version 1.0
+ */
 public class CittadinoInfo extends CittadinoSceltaCentro implements Initializable {
 
     //elementi grafici
@@ -55,7 +62,10 @@ public class CittadinoInfo extends CittadinoSceltaCentro implements Initializabl
         TableVRecap.setItems(FXCollections.observableArrayList(arrayListRisultati));
     }
 
-    //chiude la pagina aperta e torna alla scelta del centro
+    /**
+     * Il metodo chiude la pagina relativa alle informazioni sui centri
+     * vaccinali e ritorna alla scelta del centro
+     */
     public void indietro(ActionEvent actionEvent) {
         Stage stage = (Stage) APPane.getScene().getWindow();
         stage.close();

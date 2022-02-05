@@ -11,7 +11,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//PIETRO: registrazione nel DB
+/**
+ * La classe ha lo scopo di creare l'interfaccia grafica relativa alla
+ * registrazione di un cittadino.
+ * @author Pietro
+ * @version 1.0
+ */
 
 public class CittadinoRegistrazione implements Initializable {
 
@@ -44,10 +49,18 @@ public class CittadinoRegistrazione implements Initializable {
         });
     }
 
+    /**
+     * Il metodo annulla la registrazione e torna indietro.
+     * @throws IOException annulla la registrazione e torna indietro al menu iniziale.
+     */
     public void annulla() throws IOException {
         AppCittadino.setRoot("cittadinoMainMenu.fxml");
     }
 
+    /**
+     * Il metodo permette la registrazione di un cittadino inserendo tutti i campi necessari.
+     * @throws IOException registra un cittadino.
+     */
     public void registrati() throws IOException {
         //controllo dei campi della finestra
         if(controlloCampi()){
@@ -68,6 +81,10 @@ public class CittadinoRegistrazione implements Initializable {
         }
     }
 
+    /**
+     * Il metodo controlla che i campi inseriti in fase di registrazione siano corretti.
+     * @return true se tutti i campi inseriti sono corretti, false altrimenti.
+     */
     private boolean controlloCampi() {
 
         boolean controllo = true;
@@ -120,7 +137,9 @@ public class CittadinoRegistrazione implements Initializable {
         return controllo;
     }
 
-    //funzione che azzera i campi dopo aver registrato correttamente un cittadino
+    /**
+     * Il metodo azzera i campi dopo aver registrato correttamente un cittadino.
+     */
     public void azzeraCampi() {
         nome.clear();
         cognome.clear();
