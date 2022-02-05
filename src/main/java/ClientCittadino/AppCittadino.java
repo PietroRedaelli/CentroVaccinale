@@ -1,15 +1,12 @@
 package ClientCittadino;
 
 import ClientOperatoreSanitario.CentroVaccinale;
-import ClientOperatoreSanitario.OperatoreSanitarioAPP;
 import Grafics.ConfirmBoxCittadino;
 import ServerPackage.ServerInterface;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -17,24 +14,23 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
-public class AppCittadino  extends Application {
+public class AppCittadino extends Application {
 
     private static Cittadino c = new Cittadino();
     public static ServerInterface si;
-    private static Scene scene;
     private static Stage stage1;
 
     @Override
     public void start(Stage stage) throws Exception {
         stage1 = stage;
-        scene = new Scene(loadFXML("cittadinoLoading.fxml"));
+        Scene scene = new Scene(loadFXML("cittadinoLoading.fxml"));
         stage1.setScene(scene);
         stage1.setTitle("Cittadini");
         stage1.setResizable(false);
         stage1.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         stage1.setScene(new Scene(loadFXML(fxml)));
         stage1.centerOnScreen();
     }

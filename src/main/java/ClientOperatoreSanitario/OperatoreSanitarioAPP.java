@@ -40,8 +40,7 @@ public class OperatoreSanitarioAPP extends Application {
     }
 
     public static void main(String[] args){
-        OperatoreSanitarioAPP app = new OperatoreSanitarioAPP();
-        app.connessione_server();
+        connessione_server();
         launch();
     }
 
