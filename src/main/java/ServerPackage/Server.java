@@ -17,8 +17,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     private static final long serialVersionUID = 1L;
 
     protected String url_DB = "jdbc:postgresql://localhost:5432/LabB" ;
-    protected String user_DB = "postgres";
-    protected String password_DB = "F4/=rb91d&w3" ;
+    protected String user_DB = "Pietro";
+    protected String password_DB = "Xbox360Live" ;
     protected Connection DB = null;
 
     public Server() throws RemoteException {
