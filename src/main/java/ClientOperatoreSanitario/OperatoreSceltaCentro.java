@@ -14,6 +14,12 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * La classe OperatoreSceltaCentro ha lo scopo di permettere ad un operatore sanitario
+ * di scegliere e selezionare un centro vaccinale al fine di registrare una vaccinazione.
+ * @author Pietro
+ * @version 1.0
+ */
 public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializable {
 
     //elementi grafici della scena e variabili private
@@ -65,14 +71,20 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
         }
     }
 
-    //permette di tornare indietro alla pagina di registrazione del vaccinato
+    /**
+     * Il metodo permette, tramite bottone, di tornare indietro alla pagina di registrazione del vaccinato.
+     */
     public void annulla(ActionEvent actionEvent) {
         //prendo lo stage della finestra per poterla chiudere quando si sceglie il centro
         Stage stage = (Stage) APPane.getScene().getWindow();
         stage.close();
     }
 
-    //conferma il centro scelto, chiude la pagina e torna indietro
+    /**
+     * Il metodo permette, tramite bottone, di confermare il centro scelto.
+     * la pagina verrà chiusa e si torna indietro.
+     */
+
     public void conferma(ActionEvent actionEvent) throws IOException {
 
         CentroVaccinale cv = TableVRisultati.getSelectionModel().getSelectedItem();
@@ -82,7 +94,10 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
         stage.close();
     }
 
-    //Bottone: cerca il centro in base ai dati forniti (o per nome oppure per comune e tipologia)
+    /**
+     * Il metodo permette, tramite bottone, cercare il centro in base ai dati forniti
+     * (per nome, oppure per comune e tipologia)
+     */
     public void cercaCentro(ActionEvent actionEvent) {
         try {
             if (TFNome.isDisabled()) {
@@ -103,7 +118,9 @@ public class OperatoreSceltaCentro extends OperatoreRegVacc implements Initializ
         }
     }
 
-    //funzione che abilita e disabilita i campi in base a ciò che si vuole cercare
+    /**
+     * Il metodo permette, tramite bottone, di abilitare e disabilitare i campi ai fini della ricerca.
+     */
     public void oppure(ActionEvent actionEvent) {
         if (checkNome) {
             TFNome.setDisable(true);

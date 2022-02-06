@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * La classe AppServer ha come scopo quello di avviare il server.
+ */
 public class AppServer extends Application {
 
     private static Stage stage1;

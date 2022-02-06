@@ -10,7 +10,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//Classe che gestisce la registrazione di un nuovo centro vaccinale
+/**
+ * La classe OperatoreRegCentro permette la gestione della registrazione di un nuovo centro vaccinale.
+ * @author Pietro
+ * @version 1.0
+ */
 
 public class OperatoreRegCentro implements Initializable {
 
@@ -24,7 +28,9 @@ public class OperatoreRegCentro implements Initializable {
     @FXML private TextField TFSigla;
     @FXML private TextField TFCap;
 
-    //funzione che inizializza gli elementi grafici
+    /**
+     * Il metodo inizializza gli elementi grafici del relativo fxml.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -71,12 +77,17 @@ public class OperatoreRegCentro implements Initializable {
                 change.getControlNewText().length() <= 4 ? change : null));
     }
 
-    //funzione che permette di tornare indietro alla pagina di scelta
+    /**
+     * Il metodo, tramite bottone, permette di tornare indietro alla pagina di scelta.
+     */
     public void indietro() throws IOException {
         OperatoreSanitarioAPP.setRoot("operatoreSceltaReg.fxml");
     }
 
-    //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo centro che verranno poi inviati al database e salvati
+    /**
+     * Il metodo permette di acquisire i campi relativi alla registrazione di un nuovo centro
+     * vaccinale che verranno successivamente inviati al database e salvati.
+     */
     public void conferma() throws IOException {
 
         if (controlloCampi()) {
@@ -100,7 +111,9 @@ public class OperatoreRegCentro implements Initializable {
         }
     }
 
-    //funzione che azzera i campi dopo aver registrato correttamente un centro
+    /**
+     * Il metodo azzera i campi dopo aver registrato correttamente un centro vaccinale.
+     */
     public void azzeraCampi() {
         TFNomeCentro.clear();
         TFNomeInd.clear();
@@ -120,7 +133,9 @@ public class OperatoreRegCentro implements Initializable {
         CBTipo.setPromptText("");
     }
 
-    //funzione che controlla i campi per poter salvare correttamente i dati del centro
+    /**
+     * Il metodo controlla i campi prima di salvare correttamente i dati del centro vaccinale.
+     */
     private boolean controlloCampi() {
 
         boolean controllo = true;

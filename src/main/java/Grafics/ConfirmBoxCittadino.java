@@ -13,6 +13,12 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * La classe ConfirmBoxCittadino ha lo scopo di generare la finestra dove vengono riassunti
+ * i dati inseriti relativi a un cittadino prima di salvarli definitivamente nel database.
+ * @author Pietro
+ * @version 1.0
+ */
 public class ConfirmBoxCittadino {
 
     private static boolean risposta;
@@ -20,7 +26,9 @@ public class ConfirmBoxCittadino {
     private static final AppCittadino appCittadino = new AppCittadino();
     private static String error = "";
 
-    //funzione chiamata per generare la nuova finestra di conferma
+    /**
+     * Il metodo ha la funzione di generare la finestra di conferma.
+     */
     public static boolean start(Cittadino c) {
 
         cittadino = c;
@@ -97,7 +105,10 @@ public class ConfirmBoxCittadino {
         return risposta;
     }
 
-    //funzione che controlla se il cittadino che si sta inserendo non sia già stato registrato nel database
+    /**
+     * Il metodo ha lo scopo di controllare se il cittadino inserito
+     * non sia già stato registrato nel database.
+     */
     private static boolean checkCittadino() {
         return appCittadino.checkCittadino(cittadino);
     }

@@ -20,7 +20,12 @@ import java.sql.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
+/**
+ * La classe Server ha lo scopo di gestire le connessioni con i ClientCittadino e
+ * i ClientOperatoreSanitario ed effettuare le operazioni sul database.
+ * @author Pietro
+ * @version 1.0
+ */
 public class Server extends UnicastRemoteObject implements ServerInterface{
 
     private static final long serialVersionUID = 1L;
@@ -56,9 +61,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         super();
     }
 
-    /**Instaurazione delle connessioni. Oggetto remoto e connessione col Database
-
-    tasto che acquisisce le credenziali del Database e instaura le connessioni necessarie al funzionamento dei client.*/
+    /**
+     * Il metodo si occupa dell'instaurazione delle connessioni. Tramite oggetto remoto
+     * si effettua l'inizializzazione della connessione col Database.
+     * Si acquisiscono le credenziali del Database e successivamente si instaurano le connessioni
+     * necessarie al funzionamento dei client.
+     */
     public void lancioServerEDatabase() {
         user = TFUser.getText().trim();
         password = TFPassword.getText().trim();
@@ -95,6 +103,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         executor.scheduleAtFixedRate(helloRunnable, 0, 5, TimeUnit.SECONDS);
     }
 
+    /**
+     * Il metodo ha lo scopo di permettere la connessione al server.
+     */
     private void connessione_server(){
         try {
             registro = LocateRegistry.createRegistry(1099);
@@ -113,6 +124,9 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         }
     }
 
+    /**
+     * Il metodo ha lo scopo di effettuare la connessione al databse.
+     */
     private void connessione_DB(){
         try {
             DB = DriverManager.getConnection(url_DB,user,password);
@@ -130,7 +144,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         }
     }
 
-    //funzione che disconnette correttamente il server e il Database quando si chiude la finestra del Server
+    /**
+     * Il metodo ha la funzione di disconnettere correttamente il server
+     * e il Database quando si chiude la finestra del Server
+     */
     public static void disconnetti() {
         try {
             DB.close();
@@ -148,8 +165,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
             System.out.println("Il Server non era stato inizializzato");
         }
     }
-
-    //Informazioni generali mostrate dal server
 
     private void acquisisciInfo() {
         String centri = "SELECT COUNT(*) FROM \"CentriVaccinali\"";
@@ -195,12 +210,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         TFEventi.setText(String.valueOf(numeroEventi));
     }
 
-    //Centri Vaccinali
-
-    //Registrazione di un Centro Vaccinale
+    /**
+     * Il metodo si occupa della registrazione di nuovo un centro vaccinale nel database.
+     * @param centroVaccinale indica il centro vaccinale che si vuole registrare nel databse.
+     * @throws RemoteException
+     */
     @Override
     public void registraCentroVaccinale(CentroVaccinale centroVaccinale) throws RemoteException {
-        //registrazzione del centro vaccinale
         String SQL = "INSERT INTO \"CentriVaccinali\"(nome, comune, indirizzo, civico, sigla, cap, tipologia) VALUES(?,?,?,?,?,?,?)";
         try {
             System.out.println("Registrazione CentroVaccinale: \n" + centroVaccinale);
@@ -220,10 +236,14 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         }
     }
 
-    //Ricerca centro vaccinale per Nome
+    /**
+     * Il metodo ha lo scopo di ricercare un centro vaccinale tramite nome nel database.
+     * @param nomeCentro indica il nome del centro che si vuole cercare nel database.
+     * @return una lista dei centri vaccinali aventi come nome quello passato come parametro.
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<CentroVaccinale> cercaCentroVaccinale(String nomeCentro) throws RemoteException {
-        //Usando una query ricerchiamo dentro la tabella CentroVaccinale il nome del centro
 
         ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
 
@@ -251,10 +271,15 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return arrayListCentri;
     }
 
-    //Ricerca centro vaccinale per Comune e Tipologia
+    /**
+     * Il metodo ha lo scopo di ricercare un centro vaccinale per comune e tipologia nel database.
+     * @param comuneInserito indica il comune del centro vaccinale da ricercare.
+     * @param tipologia indica la tipologia del centro vaccinale da ricercare.
+     * @return una lista dei centri vaccinali che soddisfano le condizioni specificate.
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<CentroVaccinale> cercaCentroVaccinale(String comuneInserito, String tipologia) throws RemoteException {
-        //Usando una query ricerchiamo dentro la tabella CentroVaccinale il nome del centro
 
         ArrayList<CentroVaccinale> arrayListCentri = new ArrayList<>();
 
@@ -283,7 +308,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return arrayListCentri;
     }
 
-    //check del centro che si vuole registrare; implementato per Indirizzo e Città
+    /**
+     * Il metodo ha lo scopo di controllare che i paramentri dell centro vaccinale
+     * che si vuole registrare siano corretti.
+     * @param cv indica il centro vaccinale su cui si vuole effettuare il cotrollo.
+     * @return una stringa contente l'esito del controllo.
+     * @throws RemoteException
+     */
     @Override
     public String controllaCentroServer(CentroVaccinale cv) throws RemoteException{
 
@@ -316,15 +347,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
-    //Vaccinato
-
-    //Registrazione di un Vaccinato
+    /**
+     * Il metodo ha lo scopo di registrare un vaccinato nella tabella Vaccinati nel database.
+     * @param vaccinato indica il vaccinato che si vuole registrare nella tabella Vaccinati del databse.
+     * @throws RemoteException
+     */
     @Override
     public void registraVaccinato(Vaccinato vaccinato) throws RemoteException {
-        //registrazzione di una persona vaccinata e si ritorna una stringa di conferma o di errore
-        //in base al centro vaccinale in cui si registra il vaccinato bisogna verificare che la tabella esista
-        //se nn esiste la tabella la creo e poi la popolo con il vaccinato
-        //altrimenti inserisco il vaccinato nella tabella
 
         String SQL = "INSERT INTO \"Vaccinati\"(idvacc, nome, cognome, fiscale, centro, giorno, vaccino, dose) VALUES(?,?,?,?,?,?,?,?)";
         try {
@@ -346,7 +375,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         }
     }
 
-    //check del vaccinato che si vuole registrare (per tutti i campi)
+    /**
+     * Il metodo ha lo scopo di controllare che i campi inseriti del vaccinato che si vuole
+     *  registrare siano corretti.
+     * @param vacc indica il vaccinato per cui si vogliono controllare i campi inseriti
+     * @return una stringa contenente l'esito del controllo.
+     * @throws RemoteException
+     */
     @Override
     public String controllaVaccinatoServer(Vaccinato vacc) throws RemoteException{
 
@@ -418,9 +453,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
-    //Cittadino
-
-    //Registrazione di un Cittadino
+    /**
+     * Il metodo ha lo scopo di registrare un cittadino nella tabella Cittadino del databse.
+     * @param cittadino indica il cittadino che si vuole registrare nella tabella Cittadino del database.
+     * @throws RemoteException
+     */
     @Override
     public void registraCittadino(Cittadino cittadino) throws RemoteException{
         String SQL = "INSERT INTO \"Cittadino\"(idvacc, nome, cognome, codiceFiscale, email, userid, password) VALUES(?,?,?,?,?,?,?)";
@@ -442,11 +479,14 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         }
     }
 
-    //DA RIGUARDARE IL CONTROLLI
-    //controllo che esista il cittadino nella tabella vaccinati (nome,cognome,codice fiscale);
+    /**
+     * Il metodo ha lo scopo di controllare che esista il cittadino nella tabella Vaccinati.
+     * @param cittadino indica il cittadino su cui si vuole effettuare il controllo.
+     * @return true se il cittadino esiste già nella tabella Vaccinati, false altrimenti.
+     * @throws RemoteException
+     */
     @Override
     public boolean controllaCittadinoDatiPersonali(Cittadino cittadino) throws RemoteException {
-        //se il valore è 'true' allora il cittadino è già stato registrato
         boolean esitoControllo = false;
 
         try {
@@ -470,10 +510,14 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
-    //controllo che esista non esista già un cittadino con la mail inserita;
+    /**
+     * Il metodo ha lo scopo di controllare che non esista già un cittadino con la stessa email.
+     * @param email indica l'email del cittadino che si vuole controllare.
+     * @return true se esiste già un cittadino con l'email in questione, false altrimenti.
+     * @throws RemoteException
+     */
     @Override
     public boolean controllaCittadinoEmail(String email) throws RemoteException {
-        //se il valore è 'true' allora esiste un cittadino con questa mail
         boolean esitoControllo = false;
         try {
             PreparedStatement statement = DB.prepareStatement("select count(*) from \"Cittadino\" where lower(email) = ?");
@@ -494,10 +538,14 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
-    //controllo che esista non esista già un cittadino con la User ID inserito;
+    /**
+     * Il metodo ha lo scopo di controllare che non esista già un cittadino con lo stesso userID.
+     * @param UserID indica lo userID del cittadino.
+     * @return true se esiste già un cittadino con l'userID in questione, false altrimenti.
+     * @throws RemoteException
+     */
     @Override
     public boolean controllaCittadinoUserId(String UserID) throws RemoteException {
-        //se il valore è 'true' allora esiste un cittadino con questo User ID
         boolean esitoControllo = false;
         try {
             PreparedStatement statement = DB.prepareStatement("select count(*) from \"Cittadino\" where userid = ?");
@@ -517,10 +565,15 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
-    //controllo che ID Vaccinazione sia corretto;
+    /**
+     * Il metodo ha lo scopo di controllare che l'ID vaccinazione sia corretto.
+     * @param IDvacc indica l'ID della vaccinazione.
+     * @param CodiceFiscale indica il codice fiscale del cittadino.
+     * @return true se esiste già un cittadino con questi valori, false altrimenti.
+     * @throws RemoteException
+     */
     @Override
     public boolean controllaCittadinoIDvacc(long IDvacc, String CodiceFiscale) throws RemoteException {
-        //se il valore è 'true' allora esiste un cittadino con questo ID Vaccinazione
         boolean esitoControllo = false;
         try {
             PreparedStatement statement = DB.prepareStatement("select count(*) from \"Vaccinati\" where idvacc = ? and fiscale = ?");
@@ -541,10 +594,15 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
-    //controllo che il Cittadino che si vuole registrare non sia gia presente nel DB Cittadini
+    /**
+     * Il metodo ha lo scopo di controllare che il cittadino che si sta registrando non sia già
+     * presente nella tabella Cittadino del database.
+     * @param CodiceFiscale indica il codice fiscale del cittadino.
+     * @return true se il cittadino esiste già nella tabella Cittadino, false altrimenti
+     * @throws RemoteException
+     */
     @Override
     public boolean controllaCittadinoEsistenza(String CodiceFiscale) throws RemoteException {
-        //se il valore è 'true' allora esiste gia un cittadino registrato
         boolean esitoControllo = false;
         try {
             PreparedStatement statement = DB.prepareStatement("select count(*) from \"Cittadino\" where codicefiscale = ?");
@@ -565,9 +623,15 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return esitoControllo;
     }
 
+    /**
+     * Il metodo ha lo scopo di controllare che i campi inseriti dal cittadino in fase di login siano corretti.
+     * @param userid indica l'userID dell'account del cittadino.
+     * @param password indica la password dell'account del cittadino.
+     * @return il cittadino aventi come userID e password quelli passati come paramentri.
+     * @throws RemoteException
+     */
     @Override
     public Cittadino controllaCittadinoLogin(String userid, String password) throws RemoteException {
-        //se il valore è 'true' allora esiste un cittadino con questo User ID
         Cittadino cittadino = null;
         try {
             PreparedStatement statement = DB.prepareStatement("select * from \"Cittadino\" where userid = ? and password = ?");
@@ -597,6 +661,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return cittadino;
     }
 
+    /**
+     * Il meotodo viene utilizzato dopo l'accettazione del login per restituire la variabile
+     * cittadino con i dati più aggiornati risalenti all'ultima vaccinazione.
+     * @param cittadino il nome del cittadino di cui si vuole controllare la dose.
+     * @return il cittadino con i dati relativi all'ultima vaccinazione.
+     * @throws RemoteException
+     */
     @Override
     public Cittadino controllaCittadinoDose(Cittadino cittadino) throws RemoteException {
         try {
@@ -623,9 +694,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return cittadino;
     }
 
-    //Evento Avverso
-    //Registrazione Evento Avverso
-    //DA CONTROLLARE I SYSTEM.OUT E ALTRE COSE
+    /**
+     * Il metodo permette di inserire un nuovo evento avverso nella tabella EventoAvverso del database.
+     * @param eventoAvverso indica l'evento avverso che si vuole aggiungere.
+     * @return una stringa che indica il risultato dell'operazione.
+     * @throws RemoteException
+     */
     @Override
     public String inserisciEventoAvverso(EventoAvverso eventoAvverso) throws RemoteException {
         //con una query un cittadino inserisce un evento avverso
@@ -652,7 +726,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return "";
     }
 
-    //Controllo sull'evento avverso della persona che lo aggiunge
+    /**
+     * Il metodo controlla che l'evento avverso inserito non sia già stato aggiunto nel giorno corrente.
+     * @param eventoAvverso indica l'evento avverso inserito che si vuole controllare.
+     * @return true se l'evento è già presente, false altrimenti.
+     * @throws RemoteException
+     */
     @Override
     public boolean controllaEventoAvverso(EventoAvverso eventoAvverso) throws RemoteException {
         try {
@@ -676,6 +755,14 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return false;
     }
 
+    /**
+     * Il metodo ha lo scopo di cercare un centro vaccinale presso cui è stato vaccinato un cittadino
+     * avente come codice fiscale quello passato come argomento.
+     * @param CodiceFiscale indica il codice fiscale su cui si vuole effettuare la ricerca.
+     * @return il centro vaccinale presso cui è stato vaccinato un cittadino avente il codice fiscale
+     * passato come argomento
+     * @throws RemoteException
+     */
     @Override
     public CentroVaccinale cercaCentroVaccinale_CF(String CodiceFiscale) throws RemoteException {
         //Usando una query ricerchiamo dentro la tabella CentroVaccinale join con Vaccinati il nome del centro
@@ -701,6 +788,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return arrayListCentri.get(0);
     }
 
+    /**
+     * Il metodo ha lo scopo di cercare un Vaccinato tramite codice fiscale nella tabella Vaccinati del databse.
+     * @param codiceFiscale indica il codice fiscale del vaccinato che si vuole cercare.
+     * @return una lista di vaccinati aventi come codice fiscale il codice fiscale passato come argomento.
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<Vaccinato> cercaVaccinato(String codiceFiscale) throws RemoteException{
         //Usando una query ricerchiamo dentro la tabella Vaccinato il codicefiscale del vaccinato
@@ -731,6 +824,14 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return arrayListVaccinati;
     }
 
+    /**
+     * Il metodo ha lo scopo di permette la visualizzazione degli eventi avversi verificati
+     * in seguito alle vaccinazioni in un centro vaccinale.
+     * @param chiavePrimariaCentri indica la chiave primaria dei centri vacciali.
+     * @return una lista degli eventi avversi verificati in seguito alle vaccinazioni in un certo
+     * centro vaccinale.
+     * @throws RemoteException
+     */
     @Override
     public ArrayList<EventoAvverso> visualizzaInfoCentroVaccinale(int chiavePrimariaCentri) throws RemoteException {
 
@@ -757,9 +858,16 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
         return eventoAvversoArrayList;
     }
 
-    //LUCA E' TUO
-
     //PIETRO: controlla che esista la persona nella tabella dei vaccinati: cod fisc e idvacc devono corrispondere
+
+    /**
+     * Il metodo ha lo scopo di controllare che esista il cittadino passato come argomento
+     * nella tabella vaccinati del database. In questo modo si saprà se un cittadino è stato
+     * vaccinato oppure no.
+     * @param cittadino indica il cittadino su cui si vuole effettuare il controllo.
+     * @return true se esiste una corrispondenza tra un cittadino e un vaccinato, false altrimenti.
+     * @throws RemoteException
+     */
     @Override
     public boolean controlloVaccCitt(Cittadino cittadino) throws RemoteException{
         boolean esitoControllo = false;

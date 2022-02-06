@@ -13,14 +13,21 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-//Classe che genera una finestra dove vengono riassunti i dati inseriti prima di salvarli definitivamente nel database
+/**
+ * La classe ConfirmBoxCentro ha lo scopo di generare la finestra dove vengono riassunti
+ * i dati inseriti relativi a un centro vaccinale prima di salvarli definitivamente nel database.
+ * @author Pietro
+ * @version 1.0
+ */
 public class ConfirmBoxCentro {
 
     private static boolean risposta = false;
     private static CentroVaccinale cv;
     private static String error = "";
 
-    //funzione chiamata per generare la nuova finestra di conferma
+    /**
+     * Il metodo ha lo scopo di generare la nuova finestra di conferma.
+     */
     public static boolean start(CentroVaccinale centroVaccinale) {
 
         cv = centroVaccinale;
@@ -104,7 +111,10 @@ public class ConfirmBoxCentro {
         return risposta;
     }
 
-    //funzione che controlla se il centro che si sta inserendo non sia già stato registrato nel database
+    /**
+     * Il metodo ha lo scopo di controllare se il centro inserito
+     * non sia già stato registrato nel database.
+     */
     private static boolean controlloEsistenzaCentro() {
         return OperatoreSanitarioAPP.controllaCentro(cv);
     }

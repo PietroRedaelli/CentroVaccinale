@@ -5,6 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import java.io.IOException;
 
+/**
+ * La classe OperatoreLoading permette al ClientOperatoreSanitario di effettuare la connessione
+ * al server.
+ * @author Pietro
+ * @version 1.0
+ */
 public class OperatoreLoading {
 
     @FXML private Label LBConnessione;

@@ -15,13 +15,21 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.rmi.RemoteException;
 
+/**
+ * La classe ConfirmBoxEventoAvverso ha lo scopo di generare la finestra dove vengono riassunti
+ * i dati inseriti relativi a un evento avverso prima di salvarli definitivamente nel database.
+ * @author Pietro
+ * @version 1.0
+ */
 public class ConfirmBoxEventoAvverso {
 
     private static EventoAvverso eventoAvverso;
     private static String error = "";
     private static boolean risposta = false;
 
-    //funzione chiamata per generare la nuova finestra di conferma
+    /**
+     * Il metodo ha la funzione di generare la finestra di conferma
+     */
     public static boolean start(EventoAvverso evento) {
 
         eventoAvverso = evento;
@@ -103,7 +111,10 @@ public class ConfirmBoxEventoAvverso {
         return risposta;
     }
 
-    //funzione che controlla se il vaccinato che si sta inserendo non sia già stato registrato nel database
+    /**
+     * Il metodo ha lo scopo di controllare se il vaccinato inserito
+     * non sia già stato registrato nel database.
+     */
     private static boolean controlloEventoAvversoDB() {
         try {
             error = AppCittadino.si.inserisciEventoAvverso(eventoAvverso);

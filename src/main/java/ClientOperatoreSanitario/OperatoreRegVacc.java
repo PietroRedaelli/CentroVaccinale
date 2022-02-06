@@ -18,7 +18,11 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
 
-//Classe che gestisce la registrazione di un nuovo vaccinato
+/**
+ * La classe OperatoreRegVacc permette di gestire la registrazione di un nuovo vaccinato.
+ * @author Pietro
+ * @version 1.0
+ */
 public class OperatoreRegVacc implements Initializable {
 
     //Elementi grafici della finestra di salvataggio
@@ -35,7 +39,9 @@ public class OperatoreRegVacc implements Initializable {
     protected static CentroVaccinale centroRV;
 
 
-    //funzione che inizializza gli elementi grafici
+    /**
+     * Il metodo inizializza gli elementi grafici.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -79,17 +85,23 @@ public class OperatoreRegVacc implements Initializable {
         TFID.setText(String.valueOf(generaIDVaccinazione()));
     }
 
-    //funzinoe che genera id univoci
+    /**
+     * Il metodo genera ID univoci di una vaccinazione.
+     */
     private long generaIDVaccinazione() {
         return new Date().getTime() * 1000L + ThreadLocalRandom.current().nextLong(999L);
     }
 
-    //funzione che permette di tornare indietro alla pagina di scelta
+    /**
+     * Il metodo, tramite bottone, permette di tornare indietro alla pagina di scelta.
+     */
     public void annulla() throws IOException {
         OperatoreSanitarioAPP.setRoot("operatoreSceltaReg.fxml");
     }
 
-    //funzione che apre una nuova finestra per la selezione del centro
+    /**
+     * Il metodo permette di aprire una nuova finestra per la selezione del centro vaccinale.
+     */
     public void selezionaCentro(ActionEvent actionEvent) throws IOException {
         //apro una nuova finestra
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("operatoreSceltaCentro.fxml")));
@@ -101,7 +113,10 @@ public class OperatoreRegVacc implements Initializable {
         stage.show();
     }
 
-    //funzione che permette di acquisire i campi relativi alla registrazione di un nuovo vaccinato che verranno poi inviati al database e salvati
+    /**
+     * Il metodo permette di acquisire i campi inseriti relativi alla registrazione di un
+     * nuovo vaccinato e che verranno successivamente inviati al database e salvati.
+     */
     public void conferma() {
 
         if (controlloCampi()) {
@@ -123,7 +138,9 @@ public class OperatoreRegVacc implements Initializable {
         }
     }
 
-    //funzione che azzera i campi dopo aver registrato correttamente un vaccinato
+    /**
+     * Il metodo ha lo scopo di azzerare i campi dopo aver registrato correttamente un nuovo vaccinato.
+     */
     private void azzeraCampi() {
         TFNome.clear();
         TFCognome.clear();
@@ -138,7 +155,10 @@ public class OperatoreRegVacc implements Initializable {
         CBDose.setPromptText("");
     }
 
-    //funzione che permette di controllare tutti i campi per poter salvare correttamente i dati del vaccinato che si vuole inserire
+    /**
+     * Il metodo permette di controllare tutti i campi al fine di salvare correttamente
+     * i dati del vaccinato che si vuole inserire.
+     */
     private boolean controlloCampi() {
 
         boolean controllo = true;

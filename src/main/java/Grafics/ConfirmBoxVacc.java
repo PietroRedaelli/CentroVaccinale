@@ -13,7 +13,12 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-//Classe che genera una finestra dove vengono riassunti i dati inseriti prima di salvarli definitivamente nel database
+/**
+ * La classe ConfirmBoxVacc ha lo scopo di generare la finestra dove vengono riassunti
+ * i dati inseriti relativi a un vaccinato prima di salvarli definitivamente nel database.
+ * @author Pietro
+ * @version 1.0
+ */
 public class ConfirmBoxVacc {
 
     private static boolean risposta;
@@ -21,7 +26,9 @@ public class ConfirmBoxVacc {
     private static final OperatoreSanitarioAPP OS = new OperatoreSanitarioAPP();
     private static String error = "";
 
-    //funzione chiamata per generare la nuova finestra di conferma
+    /**
+     * Il metodo ha la funzione di generare la finestra di conferma.
+     */
     public static boolean start(Vaccinato vaccinato, String centroVaccinale) {
 
         vacc = vaccinato;
@@ -107,7 +114,10 @@ public class ConfirmBoxVacc {
         return risposta;
     }
 
-    //funzione che controlla se il vaccinato che si sta inserendo non sia già stato registrato nel database
+    /**
+     * Il metodo ha la funzione di controllare se il vaccinato inserito
+     * non sia già stato registrato nel database
+     */
     private static boolean controlloDB() {
         return OS.controllaVaccinato(vacc);
     }
