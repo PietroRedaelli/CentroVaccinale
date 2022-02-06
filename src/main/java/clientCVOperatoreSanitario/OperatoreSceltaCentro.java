@@ -1,4 +1,4 @@
-package ClientCVOperatoreSanitario;
+package clientCVOperatoreSanitario;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

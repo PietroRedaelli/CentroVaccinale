@@ -1,8 +1,8 @@
-package ClientCVCittadino;
+package clientCVCittadino;
 
-import ClientCVOperatoreSanitario.CentroVaccinale;
-import Grafics.ConfirmBoxEventoAvverso;
-import ServerCV.ServerInterface;
+import clientCVOperatoreSanitario.CentroVaccinale;
+import grafics.ConfirmBoxEventoAvverso;
+import serverCV.ServerInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

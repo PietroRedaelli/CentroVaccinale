@@ -5,10 +5,10 @@ module org.example {
     requires java.sql;
     requires org.controlsfx.controls;
 
-    exports ServerCV;
-    opens ServerCV to javafx.fxml;
-    exports ClientCVOperatoreSanitario;
-    opens ClientCVOperatoreSanitario to javafx.fxml;
-    exports ClientCVCittadino;
-    opens ClientCVCittadino to javafx.fxml;
+    exports serverCV;
+    opens serverCV to javafx.fxml;
+    exports clientCVOperatoreSanitario;
+    opens clientCVOperatoreSanitario to javafx.fxml;
+    exports clientCVCittadino;
+    opens clientCVCittadino to javafx.fxml;
 }

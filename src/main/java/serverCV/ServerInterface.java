@@ -1,9 +1,9 @@
-package ServerCV;
+package serverCV;
 
-import ClientCVCittadino.Cittadino;
-import ClientCVCittadino.EventoAvverso;
-import ClientCVOperatoreSanitario.CentroVaccinale;
-import ClientCVOperatoreSanitario.Vaccinato;
+import clientCVCittadino.Cittadino;
+import clientCVCittadino.EventoAvverso;
+import clientCVOperatoreSanitario.CentroVaccinale;
+import clientCVOperatoreSanitario.Vaccinato;
 import java.rmi.*;
 import java.util.ArrayList;
 

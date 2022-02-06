@@ -1,6 +1,6 @@
-package ClientCVCittadino;
+package clientCVCittadino;
 
-import ServerCV.ServerInterface;
+import serverCV.ServerInterface;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

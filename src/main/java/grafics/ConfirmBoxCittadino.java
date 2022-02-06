@@ -1,7 +1,7 @@
-package Grafics;
+package grafics;
 
-import ClientCVOperatoreSanitario.AppOperatoreSanitario;
-import ClientCVOperatoreSanitario.Vaccinato;
+import clientCVCittadino.AppCittadino;
+import clientCVCittadino.Cittadino;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,24 +14,24 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * La classe ConfirmBoxVacc ha lo scopo di generare la finestra dove vengono riassunti
- * i dati inseriti relativi a un vaccinato prima di salvarli definitivamente nel database.
+ * La classe ConfirmBoxCittadino ha lo scopo di generare la finestra dove vengono riassunti
+ * i dati inseriti relativi a un cittadino prima di salvarli definitivamente nel database.
  * @author Pietro
  * @version 1.0
  */
-public class ConfirmBoxVacc {
+public class ConfirmBoxCittadino {
 
     private static boolean risposta;
-    private static Vaccinato vacc;
-    private static final AppOperatoreSanitario OS = new AppOperatoreSanitario();
+    private static Cittadino cittadino;
+    private static final AppCittadino appCittadino = new AppCittadino();
     private static String error = "";
 
     /**
      * Il metodo ha la funzione di generare la finestra di conferma.
      */
-    public static boolean start(Vaccinato vaccinato, String centroVaccinale) {
+    public static boolean start(Cittadino c) {
 
-        vacc = vaccinato;
+        cittadino = c;
 
         //creazione della pagina
         Stage stage = new Stage();
@@ -44,50 +44,41 @@ public class ConfirmBoxVacc {
         conferma.setText("Confermi i dati inseriti?");
         conferma.setFont(Font.font(18));
 
-        Label centro = new Label();
-        centro.setText("Dati Centro:  "+ centroVaccinale);
-        centro.setFont(Font.font(18));
-
         Label persona = new Label();
-        persona.setText("Vaccinato:  " + vaccinato.getNome() + " " + vaccinato.getCognome());
+        persona.setText("Cittadino:  " + ConfirmBoxCittadino.cittadino.getNome() + " " + ConfirmBoxCittadino.cittadino.getCognome());
         persona.setFont(Font.font(18));
 
         Label codice = new Label();
-        codice.setText("Codice Fiscale:   " + vaccinato.getCodiceFisc());
+        codice.setText("Codice Fiscale:   " + ConfirmBoxCittadino.cittadino.getCodiceFiscale());
         codice.setFont(Font.font(18));
 
-        Label giorno = new Label();
-        giorno.setText("Data:   " + vaccinato.getData());
-        giorno.setFont(Font.font(18));
+        Label email = new Label();
+        email.setText("Email:   " + cittadino.getEmail());
+        email.setFont(Font.font(18));
 
-        Label dose = new Label();
-        dose.setText("Vaccino:   " + vaccinato.getVaccino() + ", dose " + vaccinato.getDose());
-        dose.setFont(Font.font(18));
-
-        Label codiceID = new Label();
-        codiceID.setText("Codice ID:   " + vaccinato.getIdVacc());
-        codiceID.setFont(Font.font(18));
+        Label userid = new Label();
+        userid.setText("Userid:   " + cittadino.getUserid());
+        userid.setFont(Font.font(18));
 
         Button bAnnulla = new Button("Annulla");
         bAnnulla.setFont(Font.font(18));
         Button bConferma = new Button("Conferma");
         bConferma.setFont(Font.font(18));
 
-        /*premendo il bottone 'annulla' la pagina corrente si chiude e si ritorna alla pagina di registrazione del vaccinato
+        /*premendo il bottone 'annulla' la pagina corrente si chiude e si ritorna alla pagina di registrazione del cittadino
         per modificare eventuali dati errati*/
         bAnnulla.setOnAction(e -> {
             risposta = false;
             stage.close();
         });
 
-        /*premendo il bottone 'conferma' la pagina corrente si chiude, il vaccinato viene salvato nel database e si ritorna
+        /*premendo il bottone 'conferma' la pagina corrente si chiude, il cittadino viene salvato nel database e si ritorna
         alla pagina di registrazione in cui tutte le informazioni inserite vengono cancellate per poterne registrare
         comodamente un altro*/
         bConferma.setOnAction(e -> {
-            if (controlloDB()) {
+            if (checkCittadino()) {
                 risposta = true;
-                AppOperatoreSanitario appOperatoreSanitario = new AppOperatoreSanitario();
-                appOperatoreSanitario.registraVaccinato(vaccinato);
+                appCittadino.registraCittadino(cittadino);
                 stage.close();
             } else {
                 conferma.setText(error);
@@ -106,7 +97,7 @@ public class ConfirmBoxVacc {
         hBox.setAlignment(Pos.CENTER);
         hBox.getChildren().addAll(bAnnulla, bConferma);
         vBox2.getChildren().add(conferma);
-        vBox.getChildren().addAll(vBox2, centro, persona, codice, giorno, dose, codiceID, hBox);
+        vBox.getChildren().addAll(vBox2, persona, codice, email, userid, hBox);
         Scene scena = new Scene(vBox);
         stage.setScene(scena);
         stage.showAndWait();
@@ -115,11 +106,11 @@ public class ConfirmBoxVacc {
     }
 
     /**
-     * Il metodo ha la funzione di controllare se il vaccinato inserito
-     * non sia già stato registrato nel database
+     * Il metodo ha lo scopo di controllare se il cittadino inserito
+     * non sia già stato registrato nel database.
      */
-    private static boolean controlloDB() {
-        return OS.controllaVaccinato(vacc);
+    private static boolean checkCittadino() {
+        return appCittadino.checkCittadino(cittadino);
     }
 
     public static void setError(String errore) {

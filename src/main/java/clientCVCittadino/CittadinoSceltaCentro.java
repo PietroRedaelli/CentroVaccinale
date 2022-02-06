@@ -1,7 +1,7 @@
-package ClientCVCittadino;
+package clientCVCittadino;
 
-import ClientCVOperatoreSanitario.CentroVaccinale;
-import ServerCV.ServerInterface;
+import clientCVOperatoreSanitario.CentroVaccinale;
+import serverCV.ServerInterface;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

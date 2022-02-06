@@ -1,4 +1,4 @@
-package ClientCVCittadino;
+package clientCVOperatoreSanitario;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,19 +6,22 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 
 /**
- * La classe ha lo scopo di connettere il cittadino al server.
+ * La classe OperatoreLoading permette al ClientOperatoreSanitario di effettuare la connessione
+ * al server.
+ * @author Pietro
+ * @version 1.0
  */
-public class CittadinoLoading {
+public class OperatoreLoading {
 
     @FXML private Label LBConnessione;
 
     public void connessioneServer(ActionEvent actionEvent) throws IOException, InterruptedException {
         LBConnessione.setVisible(true);
-        boolean connessioneAccettata = AppCittadino.connessione_server();
+        boolean connessioneAccettata = AppOperatoreSanitario.connessione_server();
         if (connessioneAccettata) {
             LBConnessione.setText("Connessione Accettata");
             //ipotetica attesa di un secondo
-            AppCittadino.setRoot("cittadinoMainMenu.fxml");
+            AppOperatoreSanitario.setRoot("operatoreSceltaReg.fxml");
         } else {
             LBConnessione.setText("Connessione al server non riuscita. Riprovare tra poco.");
         }

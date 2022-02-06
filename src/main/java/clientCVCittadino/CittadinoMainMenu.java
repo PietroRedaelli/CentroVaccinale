@@ -1,4 +1,4 @@
-package ClientCVCittadino;
+package clientCVCittadino;
 
 import javafx.event.ActionEvent;
 import java.io.IOException;

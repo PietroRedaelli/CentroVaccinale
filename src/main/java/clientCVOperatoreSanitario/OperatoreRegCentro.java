@@ -1,6 +1,6 @@
-package ClientCVOperatoreSanitario;
+package clientCVOperatoreSanitario;
 
-import Grafics.ConfirmBoxCentro;
+import grafics.ConfirmBoxCentro;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;

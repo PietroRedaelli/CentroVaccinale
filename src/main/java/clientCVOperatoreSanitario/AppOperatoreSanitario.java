@@ -1,8 +1,8 @@
-package ClientCVOperatoreSanitario;
+package clientCVOperatoreSanitario;
 
-import Grafics.ConfirmBoxCentro;
-import Grafics.ConfirmBoxVacc;
-import ServerCV.ServerInterface;
+import grafics.ConfirmBoxCentro;
+import grafics.ConfirmBoxVacc;
+import serverCV.ServerInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,6 +1,6 @@
-package ClientCVOperatoreSanitario;
+package clientCVOperatoreSanitario;
 
-import Grafics.ConfirmBoxVacc;
+import grafics.ConfirmBoxVacc;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

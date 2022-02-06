@@ -1,6 +1,6 @@
-package ClientCVCittadino;
+package clientCVCittadino;
 
-import Grafics.ConfirmBoxCittadino;
+import grafics.ConfirmBoxCittadino;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
