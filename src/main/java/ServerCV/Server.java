@@ -1,12 +1,11 @@
-package ServerPackage;
+package ServerCV;
 
-import ClientCittadino.Cittadino;
-import ClientCittadino.EventoAvverso;
-import ClientOperatoreSanitario.CentroVaccinale;
-import ClientOperatoreSanitario.Vaccinato;
+import ClientCVCittadino.Cittadino;
+import ClientCVCittadino.EventoAvverso;
+import ClientCVOperatoreSanitario.CentroVaccinale;
+import ClientCVOperatoreSanitario.Vaccinato;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import java.rmi.NoSuchObjectException;
@@ -46,7 +45,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface{
     private static String password;
     protected String url_DB = "jdbc:postgresql://localhost:5432/LabB";
     protected String user_DB = "postgres";
-    protected String password_DB = "F4/=rb91d&w3";
+    protected String password_DB = "Xbox360Live";
 
     private int numeroCentriVaccinali;
     private int numeroVaccinati1;

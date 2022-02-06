@@ -1,7 +1,7 @@
 package Grafics;
 
-import ClientCittadino.AppCittadino;
-import ClientCittadino.Cittadino;
+import ClientCVCittadino.AppCittadino;
+import ClientCVCittadino.Cittadino;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

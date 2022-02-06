@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServerPackage.Server">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServerCV.Server">
    <AnchorPane fx:id="pane1" prefHeight="400.0" prefWidth="600.0">
       <Label alignment="CENTER" layoutY="20.0" prefHeight="40.0" prefWidth="600.0" text="Server Centri Vaccinali">
          <font>

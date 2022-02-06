@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="APPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoSceltaCentro">
+<AnchorPane fx:id="APPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCVCittadino.CittadinoSceltaCentro">
     <children>
         <Label layoutX="406.0" layoutY="30.0" text="Scelta Centro" textAlignment="CENTER" wrapText="true">
             <font>

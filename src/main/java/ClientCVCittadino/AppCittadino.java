@@ -1,8 +1,8 @@
-package ClientCittadino;
+package ClientCVCittadino;
 
-import ClientOperatoreSanitario.CentroVaccinale;
+import ClientCVOperatoreSanitario.CentroVaccinale;
 import Grafics.ConfirmBoxCittadino;
-import ServerPackage.ServerInterface;
+import ServerCV.ServerInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

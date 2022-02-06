@@ -1,4 +1,4 @@
-package ClientOperatoreSanitario;
+package ClientCVOperatoreSanitario;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,11 +17,11 @@ public class OperatoreLoading {
 
     public void connessioneServer(ActionEvent actionEvent) throws IOException, InterruptedException {
         LBConnessione.setVisible(true);
-        boolean connessioneAccettata = OperatoreSanitarioAPP.connessione_server();
+        boolean connessioneAccettata = AppOperatoreSanitario.connessione_server();
         if (connessioneAccettata) {
             LBConnessione.setText("Connessione Accettata");
             //ipotetica attesa di un secondo
-            OperatoreSanitarioAPP.setRoot("operatoreSceltaReg.fxml");
+            AppOperatoreSanitario.setRoot("operatoreSceltaReg.fxml");
         } else {
             LBConnessione.setText("Connessione al server non riuscita. Riprovare tra poco.");
         }

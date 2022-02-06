@@ -1,8 +1,8 @@
-package ClientCittadino;
+package ClientCVCittadino;
 
-import ClientOperatoreSanitario.CentroVaccinale;
+import ClientCVOperatoreSanitario.CentroVaccinale;
 import Grafics.ConfirmBoxEventoAvverso;
-import ServerPackage.ServerInterface;
+import ServerCV.ServerInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,7 +16,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
 
-//DOCMENTAZIONE ERRATA? CLASSE RELATIVA AL LOGIN?
 /**
  * La classe ha lo scopo di caricare le informazioni del file fxml
  * necessarie alla visualizzazione della schermata per la registrazione

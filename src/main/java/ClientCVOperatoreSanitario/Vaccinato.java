@@ -1,4 +1,4 @@
-package ClientOperatoreSanitario;
+package ClientCVOperatoreSanitario;
 
 import java.io.Serializable;
 

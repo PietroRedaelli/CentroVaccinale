@@ -1,8 +1,8 @@
 package Grafics;
 
-import ClientCittadino.AppCittadino;
-import ClientCittadino.CittadinoRegEvento;
-import ClientCittadino.EventoAvverso;
+import ClientCVCittadino.AppCittadino;
+import ClientCVCittadino.CittadinoRegEvento;
+import ClientCVCittadino.EventoAvverso;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

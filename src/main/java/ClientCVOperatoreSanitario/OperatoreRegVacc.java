@@ -1,4 +1,4 @@
-package ClientOperatoreSanitario;
+package ClientCVOperatoreSanitario;
 
 import Grafics.ConfirmBoxVacc;
 import javafx.event.ActionEvent;
@@ -96,7 +96,7 @@ public class OperatoreRegVacc implements Initializable {
      * Il metodo, tramite bottone, permette di tornare indietro alla pagina di scelta.
      */
     public void annulla() throws IOException {
-        OperatoreSanitarioAPP.setRoot("operatoreSceltaReg.fxml");
+        AppOperatoreSanitario.setRoot("operatoreSceltaReg.fxml");
     }
 
     /**

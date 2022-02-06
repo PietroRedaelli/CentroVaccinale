@@ -1,7 +1,7 @@
 package Grafics;
 
-import ClientOperatoreSanitario.OperatoreSanitarioAPP;
-import ClientOperatoreSanitario.CentroVaccinale;
+import ClientCVOperatoreSanitario.AppOperatoreSanitario;
+import ClientCVOperatoreSanitario.CentroVaccinale;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -84,7 +84,7 @@ public class ConfirmBoxCentro {
             // quindi posso registrare quello che sto inserendo
             if (controlloEsistenzaCentro()) {
                 risposta = true;
-                OperatoreSanitarioAPP.registraCentroVaccinale(cv);
+                AppOperatoreSanitario.registraCentroVaccinale(cv);
                 stage.close();
             } else {
                 conferma.setText(error);
@@ -116,7 +116,7 @@ public class ConfirmBoxCentro {
      * non sia già stato registrato nel database.
      */
     private static boolean controlloEsistenzaCentro() {
-        return OperatoreSanitarioAPP.controllaCentro(cv);
+        return AppOperatoreSanitario.controllaCentro(cv);
     }
 
     public static void setError(String errore) {

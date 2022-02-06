@@ -1,8 +1,8 @@
-package ClientOperatoreSanitario;
+package ClientCVOperatoreSanitario;
 
 import Grafics.ConfirmBoxCentro;
 import Grafics.ConfirmBoxVacc;
-import ServerPackage.ServerInterface;
+import ServerCV.ServerInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @author Pietro
  * @version 1.0
  */
-public class OperatoreSanitarioAPP extends Application {
+public class AppOperatoreSanitario extends Application {
 
     private static ServerInterface si;
     private static Stage stage1;
@@ -45,7 +45,7 @@ public class OperatoreSanitarioAPP extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(OperatoreSanitarioAPP.class.getClassLoader().getResource(fxml));
+        FXMLLoader fxmlLoader = new FXMLLoader(AppOperatoreSanitario.class.getClassLoader().getResource(fxml));
         return fxmlLoader.load();
     }
 
@@ -72,7 +72,7 @@ public class OperatoreSanitarioAPP extends Application {
 
     /**
      * Il metodo permette di inviare la richiesta di registrare un centro vaccinale al server.
-     * @param centro
+     * @param centro indica il centro vaccinale da registrare.
      */
     public static void registraCentroVaccinale(CentroVaccinale centro){
         System.out.println("Registrazione Centro Vaccinale");
@@ -87,6 +87,7 @@ public class OperatoreSanitarioAPP extends Application {
     /**
      * Il metodo controlla i campi del vaccinato con i dati nel databae e se essi sono corretti
      * invia la richiesta di registrare un vaccinato al server.
+     * @param vaccinato indica il vaccinato da registrare.
      */
     public void registraVaccinato(Vaccinato vaccinato) {
         System.out.println("Registrazione Vaccinato");
@@ -101,6 +102,8 @@ public class OperatoreSanitarioAPP extends Application {
 
     /**
      * Il metodo effettua una richiesta al server di ricerca del centro inserito in base al nome.
+     * @param nome indica il nome del centro vaccinale su cui effettuare la ricerca.
+     * @return una lista dei centri vaccinali aventi come nome quello passato come argomento.
      */
     public ArrayList<CentroVaccinale> cercaCentro(String nome) throws RemoteException{
         return si.cercaCentroVaccinale(nome);

@@ -1,4 +1,4 @@
-package ClientOperatoreSanitario;
+package ClientCVOperatoreSanitario;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -13,10 +13,10 @@ import javafx.event.ActionEvent;
 public class OperatoreSceltaReg {
 
     public void apriScenaRegCentro(ActionEvent actionEvent) throws IOException {
-        OperatoreSanitarioAPP.setRoot("operatoreRegCentro.fxml");
+        AppOperatoreSanitario.setRoot("operatoreRegCentro.fxml");
     }
 
     public void apriScenaRegVacc(ActionEvent actionEvent) throws IOException{
-        OperatoreSanitarioAPP.setRoot("operatoreRegVacc.fxml");
+        AppOperatoreSanitario.setRoot("operatoreRegVacc.fxml");
     }
 }

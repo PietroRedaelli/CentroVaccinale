@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoLoading">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCVCittadino.CittadinoLoading">
     <children>
         <Label alignment="CENTER" layoutX="75.0" layoutY="30.0" prefHeight="30.0" prefWidth="450.0"
                text="Informazioni Centri Vaccinali" wrapText="true">

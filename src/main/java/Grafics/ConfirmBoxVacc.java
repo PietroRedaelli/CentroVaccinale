@@ -1,7 +1,7 @@
 package Grafics;
 
-import ClientOperatoreSanitario.OperatoreSanitarioAPP;
-import ClientOperatoreSanitario.Vaccinato;
+import ClientCVOperatoreSanitario.AppOperatoreSanitario;
+import ClientCVOperatoreSanitario.Vaccinato;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,7 +23,7 @@ public class ConfirmBoxVacc {
 
     private static boolean risposta;
     private static Vaccinato vacc;
-    private static final OperatoreSanitarioAPP OS = new OperatoreSanitarioAPP();
+    private static final AppOperatoreSanitario OS = new AppOperatoreSanitario();
     private static String error = "";
 
     /**
@@ -86,8 +86,8 @@ public class ConfirmBoxVacc {
         bConferma.setOnAction(e -> {
             if (controlloDB()) {
                 risposta = true;
-                OperatoreSanitarioAPP operatoreSanitarioAPP = new OperatoreSanitarioAPP();
-                operatoreSanitarioAPP.registraVaccinato(vaccinato);
+                AppOperatoreSanitario appOperatoreSanitario = new AppOperatoreSanitario();
+                appOperatoreSanitario.registraVaccinato(vaccinato);
                 stage.close();
             } else {
                 conferma.setText(error);

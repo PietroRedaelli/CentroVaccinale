@@ -1,4 +1,4 @@
-package ClientOperatoreSanitario;
+package ClientCVOperatoreSanitario;
 
 import Grafics.ConfirmBoxCentro;
 import javafx.fxml.FXML;
@@ -81,7 +81,7 @@ public class OperatoreRegCentro implements Initializable {
      * Il metodo, tramite bottone, permette di tornare indietro alla pagina di scelta.
      */
     public void indietro() throws IOException {
-        OperatoreSanitarioAPP.setRoot("operatoreSceltaReg.fxml");
+        AppOperatoreSanitario.setRoot("operatoreSceltaReg.fxml");
     }
 
     /**

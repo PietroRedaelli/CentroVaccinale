@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="APPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCittadino.CittadinoInfo">
+<AnchorPane fx:id="APPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientCVCittadino.CittadinoInfo">
    <children>
       <Label alignment="CENTER" layoutX="362.5" layoutY="50.0" prefHeight="40.0" prefWidth="275.0" text="Informazioni Centro" textAlignment="CENTER" wrapText="true">
          <font>
